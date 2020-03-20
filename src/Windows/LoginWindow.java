@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package applic_capitainerie;
+package Windows;
 
+import Classes.*;
+import java.util.Enumeration;
 import java.util.Hashtable;
 
 /**
@@ -20,6 +22,7 @@ public class LoginWindow extends javax.swing.JFrame {
     Hashtable<String, String> hmap = new Hashtable<>();
     
     public LoginWindow() {
+        // Création de 2 user
         hmap.put("Simon","1234"); 
         hmap.put("root","root");
         
@@ -27,6 +30,7 @@ public class LoginWindow extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         
+        //
         TextField_User.setText("root");
         PasswordField_Password.setText("root");
     }
@@ -134,8 +138,53 @@ public class LoginWindow extends javax.swing.JFrame {
 
     private void Button_ValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ValiderActionPerformed
         // TODO add your handling code here:
+        String user = TextField_User.getText();
+        String pass = new String(PasswordField_Password.getPassword());
+        
+        if(isNullOrEmpty(user) || isNullOrEmpty(pass))
+            return;
+        else
+        {
+            //Vérification de l'authentification
+            try
+            {
+                authentification(hmap, user, pass);
+            }
+            catch(ErreurException tmp)
+            {
+                System.out.println("Login Exception");
+                tmp.Affiche();
+            }
+        }
     }//GEN-LAST:event_Button_ValiderActionPerformed
 
+    public void authentification(Hashtable<String,String> hmap,String user,String pass) throws ErreurException
+    {    
+
+        Enumeration users;
+        String key;
+        users = hmap.keys(); //Liste des user de la HashTable
+        
+        while(users.hasMoreElements()) //On boucle tant qu'il y a des users
+        {
+            key = (String) users.nextElement();
+            if(key.equals(user) == true) //user trouvé dans la liste
+            {                       
+                if(hmap.get(key).equals(pass) == true) //Vérification si user et pass correspondent
+                {
+                    System.out.println("Connexion réussie ! Lancement de l'application");
+                    CapitainerieWindow CW;
+                    CW = new CapitainerieWindow(this);
+                    CW.setVisible(true);
+                    this.dispose();//Fermeture de la fenetre de connexion
+                    return;
+                }
+                else throw new ErreurException("Connexion échoué (Erreur mot de passe) !");
+            }
+        }
+        throw new ErreurException("Connexion échoué (Utilisateur inconnu) !");
+    }
+    
     private void Button_QuitterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_QuitterActionPerformed
         // TODO add your handling code here:
         this.dispose();
@@ -143,9 +192,15 @@ public class LoginWindow extends javax.swing.JFrame {
 
     private void Button_AnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_AnnulerActionPerformed
         // TODO add your handling code here:
-        TextField_User.setText("");
-        PasswordField_Password.setText("");
+        TextField_User.setText(null);
+        PasswordField_Password.setText(null);
     }//GEN-LAST:event_Button_AnnulerActionPerformed
+
+    public static boolean isNullOrEmpty(String str) {
+        if(str != null && !str.isEmpty())
+            return false;
+        return true;
+    }
 
     /**
      * @param args the command line arguments

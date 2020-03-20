@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <NonVisualComponents>
+    <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
+      <SubComponents>
+        <Menu class="javax.swing.JMenu" name="Menu_Utilisateurs">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Utilisateurs"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="MenuItem_Login">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Login"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuItem_LoginActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="MenuItem_Logout">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Logout"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuItem_LogoutActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="MenuItem_Nouveau">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Nouveau"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuItem_NouveauActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="Menu_Amarrages">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Amarrages"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="MenuItem_Plaisance">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Plaisance"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="MenuItem_Peche">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="P&#xea;che"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="Menu_Bateaux">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Bateaux"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="MenuItem_Liste">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Liste compl&#xe8;te"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="MenuItem_RechercheBateau">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Rechercher un bateau"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="Menu_Personnel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Personnel"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="MenuItem_Equipage">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Equipage d&apos;un bateau"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="MenuItem_RechecrheMarin">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Rechercher un marin"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="Menu_Parametres">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Param&#xe8;tres"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="MenuItem_FormatDate">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Format date"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="MenuItem_Log">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Fichier Log"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="MenuItem_AffichageDate">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Affichage date-heure courante"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuItem_AffichageDateActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="Menu_APropos">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="A Propos"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="MenuItem_Auteurs">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Auteurs"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuItem_AuteursActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="MenuItem_Aide">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Aide"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+      </SubComponents>
+    </Menu>
+  </NonVisualComponents>
+  <Properties>
+    <Property name="defaultCloseOperation" type="int" value="3"/>
+  </Properties>
+  <SyntheticProperties>
+    <SyntheticProperty name="menuBar" type="java.lang.String" value="jMenuBar1"/>
+    <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
+    <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
+  </SyntheticProperties>
+  <AuxValues>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
+    <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
+    <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
+  </AuxValues>
+
+  <Layout>
+    <DimensionLayout dim="0">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="CheckBox_RequeteAttente" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="Button_Lire" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="TextField_Requete" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="Image2" max="32767" attributes="0"/>
+                          <Component id="Image1" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="Button_BatteauAmarre" alignment="1" min="-2" pref="428" max="-2" attributes="0"/>
+                          <Component id="jScrollPane1" alignment="1" min="-2" pref="428" max="-2" attributes="0"/>
+                          <Component id="Button_ServeurOff" alignment="1" min="-2" pref="428" max="-2" attributes="0"/>
+                          <Component id="Label_BateauxEnEntree" alignment="1" min="-2" pref="428" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="Button_ServeurOn" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="Label_AmarragePossible" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="Button_Choisir" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="TextField_ChoixAmarage" min="-2" pref="120" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="Button_EnvoyerChoix" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="TextField_Confirmation" min="-2" pref="120" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="Button_EnoyerConfirmation" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+    <DimensionLayout dim="1">
+      <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="Button_ServeurOn" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="CheckBox_RequeteAttente" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="Button_Lire" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="TextField_Requete" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="Label_AmarragePossible" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="Button_Choisir" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="TextField_ChoixAmarage" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="Button_EnvoyerChoix" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="TextField_Confirmation" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="Button_EnoyerConfirmation" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Component id="Label_BateauxEnEntree" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jScrollPane1" min="-2" pref="257" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="Button_BatteauAmarre" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="Button_ServeurOff" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="Image1" min="-2" pref="203" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="Image2" min="-2" pref="170" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace max="32767" attributes="0"/>
+          </Group>
+      </Group>
+    </DimensionLayout>
+  </Layout>
+  <SubComponents>
+    <Component class="javax.swing.JButton" name="Button_ServeurOn">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="D&#xe9;marrer le serveur"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JCheckBox" name="CheckBox_RequeteAttente">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Requ&#xea;te en attente"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="Button_Lire">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Lire"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="TextField_Requete">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="??"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="Label_AmarragePossible">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Amarrage possible :"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="Button_Choisir">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Choisir"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="TextField_ChoixAmarage">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="??"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="Button_EnvoyerChoix">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Envoyer choix"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JTextField" name="TextField_Confirmation">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="??"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="Button_EnoyerConfirmation">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Envoyer confirmation"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="Label_BateauxEnEntree">
+      <Properties>
+        <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="text" type="java.lang.String" value="Bateaux en entr&#xe9;e"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="Button_BatteauAmarre">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Bateau amarr&#xe9;"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="Button_ServeurOff">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Arr&#xea;ter le serveur"/>
+      </Properties>
+    </Component>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JTextArea" name="TextArea_Liste">
+          <Properties>
+            <Property name="columns" type="int" value="20"/>
+            <Property name="rows" type="int" value="5"/>
+          </Properties>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JLabel" name="Image2">
+    </Component>
+    <Component class="javax.swing.JLabel" name="Image1">
+    </Component>
+  </SubComponents>
+</Form>
