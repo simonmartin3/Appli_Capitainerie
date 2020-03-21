@@ -12,12 +12,12 @@ import javax.swing.JOptionPane;
  *
  * @author Simon
  */
-public class ErreurException extends Exception
+public class LoginException extends Exception
 {
     private ImageIcon img = new ImageIcon("images/Erreur.jpg");
     private String message;
     
-    public ErreurException(String tmp)
+    public LoginException(String tmp)
     {
         message = tmp;
     }

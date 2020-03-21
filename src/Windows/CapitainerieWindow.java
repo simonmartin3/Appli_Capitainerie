@@ -5,6 +5,9 @@
  */
 package Windows;
 
+import Classes.LoginException;
+import java.util.Enumeration;
+import java.util.Hashtable;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -20,9 +23,11 @@ public class CapitainerieWindow extends javax.swing.JFrame {
      */
     
     LoginWindow LW;
+    Hashtable<String, String> hmap = new Hashtable<>();
     
-    public CapitainerieWindow(java.awt.Frame parent) {
+    public CapitainerieWindow(java.awt.Frame parent, Hashtable tmp) {
         LW = (LoginWindow) parent;
+        hmap = tmp;
         
         initComponents();
         this.setLocationRelativeTo(null);
@@ -91,6 +96,11 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         Button_ServeurOn.setText("Démarrer le serveur");
+        Button_ServeurOn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_ServeurOnActionPerformed(evt);
+            }
+        });
 
         CheckBox_RequeteAttente.setText("Requête en attente");
 
@@ -188,11 +198,6 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         Menu_Parametres.add(MenuItem_Log);
 
         MenuItem_AffichageDate.setText("Affichage date-heure courante");
-        MenuItem_AffichageDate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MenuItem_AffichageDateActionPerformed(evt);
-            }
-        });
         Menu_Parametres.add(MenuItem_AffichageDate);
 
         jMenuBar1.add(Menu_Parametres);
@@ -300,10 +305,6 @@ public class CapitainerieWindow extends javax.swing.JFrame {
 
     }//GEN-LAST:event_MenuItem_LogoutActionPerformed
 
-    private void MenuItem_AffichageDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItem_AffichageDateActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_MenuItem_AffichageDateActionPerformed
-
     private void MenuItem_LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItem_LoginActionPerformed
         // TODO add your handling code here:
         LW.setVisible(true);
@@ -318,9 +319,16 @@ public class CapitainerieWindow extends javax.swing.JFrame {
 
     private void MenuItem_NouveauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItem_NouveauActionPerformed
         // TODO add your handling code here:
-        NouveauWindow nw = new NouveauWindow(this, true);
+        NouveauWindow nw = new NouveauWindow(this, true, hmap);
         nw.setVisible(true);
+        System.out.println("User + pass" + hmap.toString());
+        
     }//GEN-LAST:event_MenuItem_NouveauActionPerformed
+
+    private void Button_ServeurOnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ServeurOnActionPerformed
+        // TODO add your handling code here:
+        System.out.println("User + pass" + hmap.toString());
+    }//GEN-LAST:event_Button_ServeurOnActionPerformed
 
     public void IsEnable(boolean tmp)
     {
@@ -348,6 +356,9 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         Label_AmarragePossible.setEnabled(tmp);
         Label_BateauxEnEntree.setEnabled(tmp);
     }
+    
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -378,7 +389,7 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CapitainerieWindow(null).setVisible(true);
+                new CapitainerieWindow(null, null).setVisible(true);
             }
         });
     }

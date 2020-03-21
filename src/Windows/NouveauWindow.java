@@ -5,8 +5,9 @@
  */
 package Windows;
 
-import Classes.ErreurException;
+import Classes.LoginException;
 import java.util.Enumeration;
+import java.util.Hashtable;
 import javafx.scene.Parent;
 
 /**
@@ -18,9 +19,13 @@ public class NouveauWindow extends javax.swing.JDialog {
     /**
      * Creates new form NouveauWindow
      */
-    public NouveauWindow(java.awt.Frame parent, boolean modal) {
+    
+    CapitainerieWindow CW;
+    
+    public NouveauWindow(java.awt.Frame parent, boolean modal, Hashtable hmap) {
         super(parent, modal);
         initComponents();
+        CW = (CapitainerieWindow) parent;
     }
 
     /**
@@ -138,45 +143,51 @@ public class NouveauWindow extends javax.swing.JDialog {
             return;
         else
         {
-            //Vérification de l'authentification
             try
             {
-                authentification(user, pass);
+                //vérification double user
+                DoublonUser(user);
+            
+                //Vérification de l'authentification
+                if(!(pass.equals(confirmpass)))
+                {
+                    LoginException tmp = new LoginException("Les mots de passes ne coresspondent pas");
+                    tmp.Affiche();
+                    return;
+                }
+                CW.hmap.put(user, pass);
+                this.dispose();
+                
             }
-            catch(ErreurException tmp)
+            catch(LoginException tmp)
             {
                 System.out.println("Login Exception");
                 tmp.Affiche();
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    public void authentification(Hashtable<String,String> hmap,String user,String pass) throws ErreurException
-    {    
-
-        Enumeration users;
-        String key;
-        users = hmap.keys(); //Liste des user de la HashTable
+    
+    public void DoublonUser(String user) throws LoginException
+    {
+        System.out.println("New user : "+ user);
         
-        while(users.hasMoreElements()) //On boucle tant qu'il y a des users
+        Enumeration names; 
+        String key;
+        names = CW.hmap.keys(); //Liste des user de la HashTable
+        
+        while(names.hasMoreElements()) //On boucle tant qu'il y a des users
         {
-            key = (String) users.nextElement();
-            if(key.equals(user) == true) //user trouvé dans la liste
-            {                       
-                if(hmap.get(key).equals(pass) == true) //Vérification si user et pass correspondent
-                {
-                    System.out.println("Connexion réussie ! Lancement de l'application");
-                    CapitainerieWindow CW;
-                    CW = new CapitainerieWindow(this);
-                    CW.setVisible(true);
-                    this.dispose();//Fermeture de la fenetre de connexion
-                    return;
-                }
-                else throw new ErreurException("Connexion échoué (Erreur mot de passe) !");
-            }
+            key = (String) names.nextElement();
+            if(key.equals(user))throw new LoginException(user + " existe déja");
         }
-        throw new ErreurException("Connexion échoué (Utilisateur inconnu) !");
     }
+    
+    public static boolean isNullOrEmpty(String str) {
+        if(str != null && !str.isEmpty())
+            return false;
+        return true;
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -207,7 +218,7 @@ public class NouveauWindow extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                NouveauWindow dialog = new NouveauWindow(new javax.swing.JFrame(), true);
+                NouveauWindow dialog = new NouveauWindow(new javax.swing.JFrame(), true, null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -218,13 +229,6 @@ public class NouveauWindow extends javax.swing.JDialog {
             }
         });
     }
-    
-    public static boolean isNullOrEmpty(String str) {
-        if(str != null && !str.isEmpty())
-            return false;
-        return true;
-    }
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPasswordField PasswordField_ConfirmPassword;

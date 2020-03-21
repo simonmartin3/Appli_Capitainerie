@@ -105,9 +105,6 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Affichage date-heure courante"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuItem_AffichageDateActionPerformed"/>
-              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -251,6 +248,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="D&#xe9;marrer le serveur"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Button_ServeurOnActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JCheckBox" name="CheckBox_RequeteAttente">
       <Properties>

@@ -30,7 +30,7 @@ public class LoginWindow extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         
-        //
+        // Authentification auto
         TextField_User.setText("root");
         PasswordField_Password.setText("root");
     }
@@ -150,7 +150,7 @@ public class LoginWindow extends javax.swing.JFrame {
             {
                 authentification(hmap, user, pass);
             }
-            catch(ErreurException tmp)
+            catch(LoginException tmp)
             {
                 System.out.println("Login Exception");
                 tmp.Affiche();
@@ -158,7 +158,7 @@ public class LoginWindow extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_Button_ValiderActionPerformed
 
-    public void authentification(Hashtable<String,String> hmap,String user,String pass) throws ErreurException
+    public void authentification(Hashtable<String,String> hmap,String user,String pass) throws LoginException
     {    
 
         Enumeration users;
@@ -174,15 +174,15 @@ public class LoginWindow extends javax.swing.JFrame {
                 {
                     System.out.println("Connexion réussie ! Lancement de l'application");
                     CapitainerieWindow CW;
-                    CW = new CapitainerieWindow(this);
+                    CW = new CapitainerieWindow(this, hmap);
                     CW.setVisible(true);
                     this.dispose();//Fermeture de la fenetre de connexion
                     return;
                 }
-                else throw new ErreurException("Connexion échoué (Erreur mot de passe) !");
+                else throw new LoginException("Connexion échoué (Erreur mot de passe) !");
             }
         }
-        throw new ErreurException("Connexion échoué (Utilisateur inconnu) !");
+        throw new LoginException("Connexion échoué (Utilisateur inconnu) !");
     }
     
     private void Button_QuitterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_QuitterActionPerformed
