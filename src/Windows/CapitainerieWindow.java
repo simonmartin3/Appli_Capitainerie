@@ -6,8 +6,12 @@
 package Windows;
 
 import Classes.LoginException;
+import static java.lang.Thread.sleep;
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.Locale;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -24,6 +28,15 @@ public class CapitainerieWindow extends javax.swing.JFrame {
     
     LoginWindow LW;
     Hashtable<String, String> hmap = new Hashtable<>();
+    
+    // Format current date
+    private static int formatDate;
+    private static int formatHeure;
+    private static Locale formatPays;
+    
+    public static void setFormatDate(int tmp){formatDate = tmp;}
+    public static void setFormatHeure(int tmp){formatHeure = tmp;}   
+    public static void setFormatLocale(Locale tmp){formatPays = tmp;}
     
     public CapitainerieWindow(java.awt.Frame parent, Hashtable tmp) {
         LW = (LoginWindow) parent;
@@ -42,7 +55,14 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         Image2.setText(null);
         Image2.setIcon(image2);
         
+        //Login disable
         MenuItem_Login.setEnabled(false);
+        
+        //Display current date
+        setFormatDate(DateFormat.MEDIUM);
+        setFormatHeure(DateFormat.MEDIUM);
+        setFormatLocale(Locale.FRANCE);
+        displayDate();
     }
 
     /**
@@ -71,6 +91,7 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         TextArea_Liste = new javax.swing.JTextArea();
         Image2 = new javax.swing.JLabel();
         Image1 = new javax.swing.JLabel();
+        Label_CurrentDate = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         Menu_Utilisateurs = new javax.swing.JMenu();
         MenuItem_Login = new javax.swing.JMenuItem();
@@ -88,7 +109,7 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         Menu_Parametres = new javax.swing.JMenu();
         MenuItem_FormatDate = new javax.swing.JMenuItem();
         MenuItem_Log = new javax.swing.JMenuItem();
-        MenuItem_AffichageDate = new javax.swing.JMenuItem();
+        CheckBoxMenuItem_AffichageDate = new javax.swing.JCheckBoxMenuItem();
         Menu_APropos = new javax.swing.JMenu();
         MenuItem_Auteurs = new javax.swing.JMenuItem();
         MenuItem_Aide = new javax.swing.JMenuItem();
@@ -130,6 +151,10 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         TextArea_Liste.setColumns(20);
         TextArea_Liste.setRows(5);
         jScrollPane1.setViewportView(TextArea_Liste);
+
+        Label_CurrentDate.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        Label_CurrentDate.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        Label_CurrentDate.setText("/");
 
         Menu_Utilisateurs.setText("Utilisateurs");
 
@@ -192,13 +217,24 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         Menu_Parametres.setText("Paramètres");
 
         MenuItem_FormatDate.setText("Format date");
+        MenuItem_FormatDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuItem_FormatDateActionPerformed(evt);
+            }
+        });
         Menu_Parametres.add(MenuItem_FormatDate);
 
         MenuItem_Log.setText("Fichier Log");
         Menu_Parametres.add(MenuItem_Log);
 
-        MenuItem_AffichageDate.setText("Affichage date-heure courante");
-        Menu_Parametres.add(MenuItem_AffichageDate);
+        CheckBoxMenuItem_AffichageDate.setSelected(true);
+        CheckBoxMenuItem_AffichageDate.setText("Affichage date-heure courante");
+        CheckBoxMenuItem_AffichageDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CheckBoxMenuItem_AffichageDateActionPerformed(evt);
+            }
+        });
+        Menu_Parametres.add(CheckBoxMenuItem_AffichageDate);
 
         jMenuBar1.add(Menu_Parametres);
 
@@ -243,8 +279,11 @@ public class CapitainerieWindow extends javax.swing.JFrame {
                             .addComponent(Button_ServeurOff, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Label_BateauxEnEntree, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Button_ServeurOn)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(Button_ServeurOn)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(Label_CurrentDate, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(Label_AmarragePossible)
                                 .addGap(18, 18, 18)
@@ -264,7 +303,9 @@ public class CapitainerieWindow extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(Button_ServeurOn)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Button_ServeurOn)
+                    .addComponent(Label_CurrentDate))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(CheckBox_RequeteAttente)
@@ -319,16 +360,32 @@ public class CapitainerieWindow extends javax.swing.JFrame {
 
     private void MenuItem_NouveauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItem_NouveauActionPerformed
         // TODO add your handling code here:
-        NouveauWindow nw = new NouveauWindow(this, true, hmap);
+        NewLoginWindow nw = new NewLoginWindow(this, true);
         nw.setVisible(true);
-        System.out.println("User + pass" + hmap.toString());
-        
     }//GEN-LAST:event_MenuItem_NouveauActionPerformed
 
     private void Button_ServeurOnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ServeurOnActionPerformed
         // TODO add your handling code here:
         System.out.println("User + pass" + hmap.toString());
     }//GEN-LAST:event_Button_ServeurOnActionPerformed
+
+    private void MenuItem_FormatDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItem_FormatDateActionPerformed
+        // TODO add your handling code here:
+        DateWindow dw = new DateWindow(this, true);
+        dw.setVisible(true);
+    }//GEN-LAST:event_MenuItem_FormatDateActionPerformed
+
+    private void CheckBoxMenuItem_AffichageDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBoxMenuItem_AffichageDateActionPerformed
+        // TODO add your handling code here:
+        if(CheckBoxMenuItem_AffichageDate.isSelected())
+        {
+            Label_CurrentDate.setVisible(true);
+        }
+        else
+        {
+            Label_CurrentDate.setVisible(false);
+        }
+    }//GEN-LAST:event_CheckBoxMenuItem_AffichageDateActionPerformed
 
     public void IsEnable(boolean tmp)
     {
@@ -357,7 +414,36 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         Label_BateauxEnEntree.setEnabled(tmp);
     }
     
+    public static String getCurrentDate()
+    {
+        
+        Date date = new Date();
+        String currentDate = DateFormat.getDateTimeInstance(formatDate,formatHeure,formatPays).format(date);
+        return currentDate;
+    }
     
+    private void displayDate()
+    {
+        Thread thread = new Thread()
+        {
+            public void run()
+            {
+               while(true)
+               {
+                   Label_CurrentDate.setText(getCurrentDate());
+                   try 
+                   {
+                       sleep(1000);
+                   } 
+                   catch (InterruptedException ex) 
+                   {
+                       ex.getMessage();
+                   }
+               }     
+            }
+        };
+        thread.start();
+    }
     
     /**
      * @param args the command line arguments
@@ -402,12 +488,13 @@ public class CapitainerieWindow extends javax.swing.JFrame {
     private javax.swing.JButton Button_Lire;
     private javax.swing.JButton Button_ServeurOff;
     private javax.swing.JButton Button_ServeurOn;
+    private javax.swing.JCheckBoxMenuItem CheckBoxMenuItem_AffichageDate;
     private javax.swing.JCheckBox CheckBox_RequeteAttente;
     private javax.swing.JLabel Image1;
     private javax.swing.JLabel Image2;
     private javax.swing.JLabel Label_AmarragePossible;
     private javax.swing.JLabel Label_BateauxEnEntree;
-    private javax.swing.JMenuItem MenuItem_AffichageDate;
+    private javax.swing.JLabel Label_CurrentDate;
     private javax.swing.JMenuItem MenuItem_Aide;
     private javax.swing.JMenuItem MenuItem_Auteurs;
     private javax.swing.JMenuItem MenuItem_Equipage;

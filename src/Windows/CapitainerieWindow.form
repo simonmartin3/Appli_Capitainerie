@@ -95,16 +95,23 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Format date"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuItem_FormatDateActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="MenuItem_Log">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Fichier Log"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="MenuItem_AffichageDate">
+            <MenuItem class="javax.swing.JCheckBoxMenuItem" name="CheckBoxMenuItem_AffichageDate">
               <Properties>
+                <Property name="selected" type="boolean" value="true"/>
                 <Property name="text" type="java.lang.String" value="Affichage date-heure courante"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CheckBoxMenuItem_AffichageDateActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -178,9 +185,13 @@
                       </Group>
                   </Group>
                   <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="Button_ServeurOn" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="Button_ServeurOn" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="Label_CurrentDate" min="-2" pref="220" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
                               <Component id="Label_AmarragePossible" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="Button_Choisir" min="-2" max="-2" attributes="0"/>
@@ -205,7 +216,10 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="Button_ServeurOn" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="Button_ServeurOn" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="Label_CurrentDate" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="CheckBox_RequeteAttente" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -331,6 +345,15 @@
     <Component class="javax.swing.JLabel" name="Image2">
     </Component>
     <Component class="javax.swing.JLabel" name="Image1">
+    </Component>
+    <Component class="javax.swing.JLabel" name="Label_CurrentDate">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Dialog" size="18" style="1"/>
+        </Property>
+        <Property name="horizontalAlignment" type="int" value="4"/>
+        <Property name="text" type="java.lang.String" value="/"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
