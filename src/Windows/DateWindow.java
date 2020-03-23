@@ -24,12 +24,13 @@ public class DateWindow extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
+        this.setResizable(false);
         
         CW = (CapitainerieWindow) parent;
         
         //Display current date
-        CW.setFormatDate(DateFormat.MEDIUM);
-        CW.setFormatHeure(DateFormat.MEDIUM);
+        CW.setFormatDate(DateFormat.SHORT);
+        CW.setFormatHeure(DateFormat.SHORT);
         CW.setFormatLocale(Locale.FRANCE);
         displayDate();
     }

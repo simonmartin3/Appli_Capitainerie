@@ -26,6 +26,8 @@ public class NewLoginWindow extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        
         CW = (CapitainerieWindow) parent;
     }
 

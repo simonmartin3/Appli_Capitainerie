@@ -14,6 +14,7 @@ import java.util.Hashtable;
 import java.util.Locale;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -45,6 +46,7 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
+        this.setTitle("Capitainerie d'Inpres-Harbour");
         
         //Insertion images
         ImageIcon image1 = new ImageIcon(new ImageIcon("images/image1.jpg").getImage().getScaledInstance(Image1.getWidth(), Image1.getHeight(), 20));
@@ -59,10 +61,11 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         MenuItem_Login.setEnabled(false);
         
         //Display current date
-        setFormatDate(DateFormat.MEDIUM);
-        setFormatHeure(DateFormat.MEDIUM);
+        setFormatDate(DateFormat.SHORT);
+        setFormatHeure(DateFormat.SHORT);
         setFormatLocale(Locale.FRANCE);
         displayDate();
+        
     }
 
     /**
@@ -87,11 +90,11 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         Label_BateauxEnEntree = new javax.swing.JLabel();
         Button_BatteauAmarre = new javax.swing.JButton();
         Button_ServeurOff = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        TextArea_Liste = new javax.swing.JTextArea();
         Image2 = new javax.swing.JLabel();
         Image1 = new javax.swing.JLabel();
         Label_CurrentDate = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        List_Bateau = new javax.swing.JList<>();
         jMenuBar1 = new javax.swing.JMenuBar();
         Menu_Utilisateurs = new javax.swing.JMenu();
         MenuItem_Login = new javax.swing.JMenuItem();
@@ -145,16 +148,24 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         Label_BateauxEnEntree.setText("Bateaux en entrée");
 
         Button_BatteauAmarre.setText("Bateau amarré");
+        Button_BatteauAmarre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_BatteauAmarreActionPerformed(evt);
+            }
+        });
 
         Button_ServeurOff.setText("Arrêter le serveur");
-
-        TextArea_Liste.setColumns(20);
-        TextArea_Liste.setRows(5);
-        jScrollPane1.setViewportView(TextArea_Liste);
 
         Label_CurrentDate.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         Label_CurrentDate.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         Label_CurrentDate.setText("/");
+
+        List_Bateau.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Marie Gueulante -- Peche -- FR --> Q2*4", "Aigle des mers -- Plaisance -- FR --> P11*4", "Victory -- Plaisance -- UK --> P22*1", "Schweinhund -- Plaisance -- DE --> P21*1" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane2.setViewportView(List_Bateau);
 
         Menu_Utilisateurs.setText("Utilisateurs");
 
@@ -225,6 +236,11 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         Menu_Parametres.add(MenuItem_FormatDate);
 
         MenuItem_Log.setText("Fichier Log");
+        MenuItem_Log.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuItem_LogActionPerformed(evt);
+            }
+        });
         Menu_Parametres.add(MenuItem_Log);
 
         CheckBoxMenuItem_AffichageDate.setSelected(true);
@@ -249,6 +265,11 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         Menu_APropos.add(MenuItem_Auteurs);
 
         MenuItem_Aide.setText("Aide");
+        MenuItem_Aide.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuItem_AideActionPerformed(evt);
+            }
+        });
         Menu_APropos.add(MenuItem_Aide);
 
         jMenuBar1.add(Menu_APropos);
@@ -272,12 +293,12 @@ public class CapitainerieWindow extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(Image2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(Image1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Button_BatteauAmarre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Button_ServeurOff, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Label_BateauxEnEntree, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 428, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(110, 110, 110)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(Button_BatteauAmarre, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)
+                            .addComponent(Button_ServeurOff, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)
+                            .addComponent(Label_BateauxEnEntree, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
@@ -324,8 +345,8 @@ public class CapitainerieWindow extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(Label_BateauxEnEntree)
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(Button_BatteauAmarre)
                         .addGap(18, 18, 18)
                         .addComponent(Button_ServeurOff))
@@ -387,6 +408,32 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_CheckBoxMenuItem_AffichageDateActionPerformed
 
+    private void MenuItem_AideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItem_AideActionPerformed
+        // TODO add your handling code here:
+        HelpWindow hw = new HelpWindow(this, true);
+        hw.setVisible(true);
+    }//GEN-LAST:event_MenuItem_AideActionPerformed
+
+    private void MenuItem_LogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItem_LogActionPerformed
+        // TODO add your handling code here:
+        LogWindow lw = new LogWindow(this, true);
+        lw.setVisible(true);
+    }//GEN-LAST:event_MenuItem_LogActionPerformed
+
+    private void Button_BatteauAmarreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_BatteauAmarreActionPerformed
+        // TODO add your handling code here:
+        if(List_Bateau.getSelectedValue() == null)
+        {
+            JOptionPane.showMessageDialog(new JFrame(), "Pas de bateau sélectionné !", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+        else
+        {
+            System.out.println("Traitement du bateau :" + List_Bateau.getSelectedValue());
+            InfoBateauWindow ifw = new InfoBateauWindow(this, true, List_Bateau.getSelectedValue());
+            ifw.setVisible(true);
+        }
+    }//GEN-LAST:event_Button_BatteauAmarreActionPerformed
+
     public void IsEnable(boolean tmp)
     {
         MenuItem_Logout.setEnabled(tmp);
@@ -404,7 +451,7 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         Button_ServeurOff.setEnabled(tmp);
         Button_ServeurOn.setEnabled(tmp);
         CheckBox_RequeteAttente.setEnabled(tmp);
-        TextArea_Liste.setEnabled(tmp);
+        List_Bateau.setEnabled(tmp);
         TextField_ChoixAmarage.setEnabled(tmp);
         TextField_Confirmation.setEnabled(tmp);
         TextField_Requete.setEnabled(tmp);
@@ -495,6 +542,7 @@ public class CapitainerieWindow extends javax.swing.JFrame {
     private javax.swing.JLabel Label_AmarragePossible;
     private javax.swing.JLabel Label_BateauxEnEntree;
     private javax.swing.JLabel Label_CurrentDate;
+    private javax.swing.JList<String> List_Bateau;
     private javax.swing.JMenuItem MenuItem_Aide;
     private javax.swing.JMenuItem MenuItem_Auteurs;
     private javax.swing.JMenuItem MenuItem_Equipage;
@@ -514,11 +562,10 @@ public class CapitainerieWindow extends javax.swing.JFrame {
     private javax.swing.JMenu Menu_Parametres;
     private javax.swing.JMenu Menu_Personnel;
     private javax.swing.JMenu Menu_Utilisateurs;
-    private javax.swing.JTextArea TextArea_Liste;
     private javax.swing.JTextField TextField_ChoixAmarage;
     private javax.swing.JTextField TextField_Confirmation;
     private javax.swing.JTextField TextField_Requete;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }

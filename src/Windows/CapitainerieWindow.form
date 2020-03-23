@@ -103,6 +103,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Fichier Log"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuItem_LogActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JCheckBoxMenuItem" name="CheckBoxMenuItem_AffichageDate">
               <Properties>
@@ -132,6 +135,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Aide"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuItem_AideActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -176,12 +182,12 @@
                           <Component id="Image2" max="32767" attributes="0"/>
                           <Component id="Image1" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="Button_BatteauAmarre" alignment="1" min="-2" pref="428" max="-2" attributes="0"/>
-                          <Component id="jScrollPane1" alignment="1" min="-2" pref="428" max="-2" attributes="0"/>
-                          <Component id="Button_ServeurOff" alignment="1" min="-2" pref="428" max="-2" attributes="0"/>
-                          <Component id="Label_BateauxEnEntree" alignment="1" min="-2" pref="428" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="110" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="Button_BatteauAmarre" alignment="0" pref="428" max="32767" attributes="0"/>
+                          <Component id="Button_ServeurOff" alignment="0" pref="428" max="32767" attributes="0"/>
+                          <Component id="Label_BateauxEnEntree" alignment="0" pref="428" max="32767" attributes="0"/>
+                          <Component id="jScrollPane2" alignment="1" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" attributes="0">
@@ -240,8 +246,8 @@
                   <Group type="102" attributes="0">
                       <Component id="Label_BateauxEnEntree" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" min="-2" pref="257" max="-2" attributes="0"/>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jScrollPane2" min="-2" pref="269" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="Button_BatteauAmarre" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="Button_ServeurOff" min="-2" max="-2" attributes="0"/>
@@ -321,27 +327,15 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Bateau amarr&#xe9;"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Button_BatteauAmarreActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="Button_ServeurOff">
       <Properties>
         <Property name="text" type="java.lang.String" value="Arr&#xea;ter le serveur"/>
       </Properties>
     </Component>
-    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
-      <AuxValues>
-        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
-      </AuxValues>
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-      <SubComponents>
-        <Component class="javax.swing.JTextArea" name="TextArea_Liste">
-          <Properties>
-            <Property name="columns" type="int" value="20"/>
-            <Property name="rows" type="int" value="5"/>
-          </Properties>
-        </Component>
-      </SubComponents>
-    </Container>
     <Component class="javax.swing.JLabel" name="Image2">
     </Component>
     <Component class="javax.swing.JLabel" name="Image1">
@@ -355,5 +349,29 @@
         <Property name="text" type="java.lang.String" value="/"/>
       </Properties>
     </Component>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JList" name="List_Bateau">
+          <Properties>
+            <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
+              <StringArray count="4">
+                <StringItem index="0" value="Marie Gueulante -- Peche -- FR --&gt; Q2*4"/>
+                <StringItem index="1" value="Aigle des mers -- Plaisance -- FR --&gt; P11*4"/>
+                <StringItem index="2" value="Victory -- Plaisance -- UK --&gt; P22*1"/>
+                <StringItem index="3" value="Schweinhund -- Plaisance -- DE --&gt; P21*1"/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
+        </Component>
+      </SubComponents>
+    </Container>
   </SubComponents>
 </Form>
