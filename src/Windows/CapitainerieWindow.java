@@ -5,16 +5,21 @@
  */
 package Windows;
 
-import Classes.LoginException;
+import Classes.*;
+import Exception.LoginException;
 import static java.lang.Thread.sleep;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Locale;
+import java.util.Vector;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 /**
@@ -29,6 +34,7 @@ public class CapitainerieWindow extends javax.swing.JFrame {
     
     LoginWindow LW;
     Hashtable<String, String> hmap = new Hashtable<>();
+    Vector <Bateau> vBateauAmarré ;
     
     // Format current date
     private static int formatDate;
@@ -42,6 +48,9 @@ public class CapitainerieWindow extends javax.swing.JFrame {
     public CapitainerieWindow(java.awt.Frame parent, Hashtable tmp) {
         LW = (LoginWindow) parent;
         hmap = tmp;
+        
+        //Initialisation vector
+        vBateauAmarré = new Vector<>();
         
         initComponents();
         this.setLocationRelativeTo(null);
@@ -65,6 +74,24 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         setFormatHeure(DateFormat.SHORT);
         setFormatLocale(Locale.FRANCE);
         displayDate();
+        
+        //création de 4 bateaux
+        BateauPeche b1 = new BateauPeche("Marie Gueulante", "", 0, 0, "FR", "Q2*4", "", "", 0, false);
+        BateauPlaisance b2 = new BateauPlaisance("Aigle des mers", "", 0, 0, "FR", "P11*4", "", "", 0, false);
+        BateauPlaisance b3 = new BateauPlaisance("Victory", "", 0, 0, "UK", "P22*1", "", "", 0, false);
+        BateauPlaisance b4 = new BateauPlaisance("Schweinhund", "", 0, 0, "DE", "P21*1", "", "", 0, false);
+        
+        vBateauAmarré.add(b1);
+        vBateauAmarré.add(b2);
+        vBateauAmarré.add(b3);
+        vBateauAmarré.add(b4);
+        
+        DefaultListModel model = new DefaultListModel();
+        model.addElement(b1.display());
+        model.addElement(b2.display());
+        model.addElement(b3.display());
+        model.addElement(b4.display());
+        List_Bateau.setModel(model);
         
     }
 
@@ -160,11 +187,6 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         Label_CurrentDate.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         Label_CurrentDate.setText("/");
 
-        List_Bateau.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Marie Gueulante -- Peche -- FR --> Q2*4", "Aigle des mers -- Plaisance -- FR --> P11*4", "Victory -- Plaisance -- UK --> P22*1", "Schweinhund -- Plaisance -- DE --> P21*1" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane2.setViewportView(List_Bateau);
 
         Menu_Utilisateurs.setText("Utilisateurs");
@@ -429,6 +451,7 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         else
         {
             System.out.println("Traitement du bateau :" + List_Bateau.getSelectedValue());
+            
             InfoBateauWindow ifw = new InfoBateauWindow(this, true, List_Bateau.getSelectedValue());
             ifw.setVisible(true);
         }

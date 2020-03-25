@@ -5,6 +5,8 @@
  */
 package Classes;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Simon
@@ -13,9 +15,16 @@ public class Equipage
 {
     private String capitainerie;
     private String second;
-    private Marin equipage;
+    private ArrayList<Marin> equipage;
+
+    public Equipage()
+    {
+        capitainerie = "Non défini";
+        second = "Non défini";
+        equipage = null;
+    }    
     
-    public Equipage(String c, String s, Marin m)
+    public Equipage(String c, String s, ArrayList <Marin> m)
     {
         capitainerie = c;
         second = s;
@@ -42,12 +51,12 @@ public class Equipage
         return second;
     }
     
-    public void setEquipage(Marin m)
+    public void setEquipage(ArrayList <Marin> m)
     {
         equipage = m;
     }
     
-    public Marin getEquipage()
+    public ArrayList<Marin> getEquipage()
     {
         return equipage;
     }

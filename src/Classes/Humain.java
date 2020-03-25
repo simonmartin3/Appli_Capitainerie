@@ -15,6 +15,13 @@ public class Humain
     protected String prenom;
     protected String date;
     
+    public Humain()
+    {
+        nom = "Non défini";
+        prenom = "Non défini";
+        date = "Non défini";
+    }   
+    
     public Humain(String n, String p, String d)
     {
         nom = n;

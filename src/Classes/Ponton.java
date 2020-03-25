@@ -17,6 +17,8 @@ public class Ponton extends Amarrage
     private ArrayList <MoyenDeTransportSurEau> List1; //faire une array List
     private ArrayList <MoyenDeTransportSurEau> List2; //faire une array List
     
+    public Ponton(){}
+    
     public Ponton(String i, int c) 
     {
         super(i, c);

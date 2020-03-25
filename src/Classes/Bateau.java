@@ -17,8 +17,14 @@ public class Bateau extends MoyenDeTransportSurEau implements AUnIdentifiant
     private int tonnage;
     private int longueur;
     private String pavillon;
+    private String emplacement;
     
-    public Bateau(String n, String pa, int t, int l, String p, String fe, int nh, boolean s)
+    public Bateau(String fe, int nh, boolean s)
+    {
+        super(fe, nh, s);
+    }
+    
+    public Bateau(String n, String pa, int t, int l, String p, String e, String fe, int nh, boolean s)
     {
         super(fe, nh, s);
         nom = n;
@@ -26,6 +32,7 @@ public class Bateau extends MoyenDeTransportSurEau implements AUnIdentifiant
         tonnage = t;
         longueur = l;
         pavillon = p;
+        emplacement = e;
     }
     
     public String getIdentifiant()
@@ -87,5 +94,15 @@ public class Bateau extends MoyenDeTransportSurEau implements AUnIdentifiant
     public String getPavillon()
     {
         return pavillon;
+    }
+    
+    public void setEmplacement(String e)
+    {
+        emplacement = e;
+    }
+    
+    public String getEmplacement()
+    {
+        return emplacement;
     }
 }

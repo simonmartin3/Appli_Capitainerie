@@ -16,6 +16,11 @@ public class Amarrage implements AUnIdentifiant
     private static int CAPACITE = 20;
     private String id;
     
+    public Amarrage()
+    {
+        id = "non défini";
+    }
+    
     public Amarrage(String i, int c)
     {
         id = i;

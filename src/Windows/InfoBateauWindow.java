@@ -5,8 +5,15 @@
  */
 package Windows;
 
+import Classes.Bateau;
+import static Windows.LoginWindow.isNullOrEmpty;
+import java.util.Collection;
+import java.util.Enumeration;
 import java.util.StringTokenizer;
+import java.util.Vector;
 import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,31 +25,60 @@ public class InfoBateauWindow extends javax.swing.JDialog {
      * Creates new form InfoBateauWindow
      */
     
+    CapitainerieWindow CW;
     ImageIcon img;
+    int Iterator;
+    
     public InfoBateauWindow(java.awt.Frame parent, boolean modal, String tmp) {
         super(parent, modal);
         initComponents();
+        CW = (CapitainerieWindow) parent;       
         
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setTitle("Capitainerie - Informations sur bateau entrant");
         
-        //Display info
+
+        //Display info ---------------------------------------------------------
         StringTokenizer st = new StringTokenizer(tmp);
+        
         Label_Bateau.setText(st.nextToken("--"));
         st.nextToken("--");
         String pavillon = (String) st.nextToken("-->");
+        pavillon = pavillon.trim();
         switch(pavillon)
         {
-            case " FR " : setPavillon("FR");break;
-            case " UK " : setPavillon("UK");break;
-            case " DE " : setPavillon("DE");break;
+            case "FR" : setPavillon("FR");break;
+            case "UK" : setPavillon("UK");break;
+            case "DE" : setPavillon("DE");break;
         }
         
         Label_Pavillon.setText(null);
         Label_Pavillon.setIcon(getPavillon());
 
         Label_Emplacement.setText(st.nextToken());
+        //----------------------------------------------------------------------
+        
+        // Savoir le bateau qu'on modifie --------------------------------------
+        String nom;
+        nom = Label_Bateau.getText();
+        nom = nom.trim();
+        
+        for(int i = 0; i < CW.vBateauAmarré.size();i++)
+        {
+            if(nom.equals(CW.vBateauAmarré.get(i).getNom())) {
+//                System.err.println(CW.vBateauAmarré.get(i).getNom());
+                Iterator = i;
+                break;
+            }
+            
+        }
+        //----------------------------------------------------------------------
+        
+//        System.err.println(Iterator);
+        
+        TextField_Tonnage.setText(Integer.toString(CW.vBateauAmarré.get(Iterator).getTonnage()));
+        TextField_PortAttache.setText(CW.vBateauAmarré.get(Iterator).getPortAttache());
         
     }
 
@@ -88,6 +124,11 @@ public class InfoBateauWindow extends javax.swing.JDialog {
         jLabel5.setText("Tonnage :");
 
         Button_Equipage.setText("Equipage");
+        Button_Equipage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_EquipageActionPerformed(evt);
+            }
+        });
 
         Button_Ok.setText("Ok");
         Button_Ok.addActionListener(new java.awt.event.ActionListener() {
@@ -199,12 +240,33 @@ public class InfoBateauWindow extends javax.swing.JDialog {
 
     private void Button_OkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_OkActionPerformed
         // TODO add your handling code here:
-        this.dispose();
+        
+        if(isNullOrEmpty(TextField_Tonnage.getText()) || isNullOrEmpty(TextField_PortAttache.getText()))
+        {
+            JOptionPane.showMessageDialog(new JFrame(), "Compléter tous les champs", "Erreur", JOptionPane.ERROR_MESSAGE);
+            return;
+        }   
+        else
+        {
+            Bateau bateauTmp = CW.vBateauAmarré.get(Iterator);
+            
+            bateauTmp.setTonnage(Integer.parseInt(TextField_Tonnage.getText()));
+            bateauTmp.setPortAttache(TextField_PortAttache.getText());
+            
+            CW.vBateauAmarré.set(Iterator, bateauTmp);            
+            
+            this.dispose();
+        } 
     }//GEN-LAST:event_Button_OkActionPerformed
+
+    private void Button_EquipageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_EquipageActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_Button_EquipageActionPerformed
 
     private void setPavillon(String pavillon)
     {
-        img = new ImageIcon(new ImageIcon("images/"+ pavillon +".png").getImage().getScaledInstance(Label_Pavillon.getWidth(), Label_Pavillon.getHeight(), 20));
+        img = new ImageIcon(new ImageIcon("images/"+ pavillon +".png").getImage().getScaledInstance(Label_Pavillon.getWidth()/2, Label_Pavillon.getHeight(), 20));
     }
     private ImageIcon getPavillon()
     {

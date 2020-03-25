@@ -15,8 +15,14 @@ public class Marin extends Humain implements AUnIdentifiant
 {
     private String fonction;
 
-    public Marin(String n, String p, String d) {
+    public Marin() 
+    {
+        fonction = "Non défini";
+    }
+        
+    public Marin(String n, String p, String d, String f) {
         super(n, p, d);
+        fonction = f;
     }
     
     public void setFonction(String f)

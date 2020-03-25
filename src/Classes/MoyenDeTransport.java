@@ -16,6 +16,12 @@ public class MoyenDeTransport implements AvecHumain
     protected String formeEnergie;
     protected int nombreHumains;
     
+    public MoyenDeTransport()
+    {
+        formeEnergie = "Non défini";
+        nombreHumains = 0;
+    }
+    
     public MoyenDeTransport(String fe, int nh)
     {
         formeEnergie = fe;

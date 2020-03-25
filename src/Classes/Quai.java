@@ -14,7 +14,9 @@ import java.util.ArrayList;
  */
 public class Quai extends Amarrage
 {
-    private ArrayList <MoyenDeTransportSurEau> List; //faire une array List
+    private ArrayList <MoyenDeTransportSurEau> List = new ArrayList<>(); //faire une array List
+    
+    public Quai(){}
     
     public Quai(String i, int c) 
     {

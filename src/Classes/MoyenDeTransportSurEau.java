@@ -13,6 +13,10 @@ public class MoyenDeTransportSurEau extends MoyenDeTransport
 {
     private boolean submersible;
 
+    public MoyenDeTransportSurEau() {
+        submersible = false;
+    }
+    
     public MoyenDeTransportSurEau(String fe, int nh, boolean s) {
         super(fe, nh);
         submersible = s;

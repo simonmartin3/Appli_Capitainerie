@@ -5,6 +5,7 @@
  */
 package Windows;
 
+import Exception.LoginException;
 import Classes.*;
 import java.util.Enumeration;
 import java.util.Hashtable;

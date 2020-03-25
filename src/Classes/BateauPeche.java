@@ -13,9 +13,9 @@ public class BateauPeche extends Bateau
 {
     private String type;
 
-    public BateauPeche(String n, String pa, int t, int l, String p, String ty, String fe, int nh, boolean s) {
-        super(n, pa, t, l, p, fe, nh, s);
-        type = ty;
+    public BateauPeche(String n, String pa, int t, int l, String p, String e, String ty, String fe, int nh, boolean s) {
+        super(n, pa, t, l, p, e, fe, nh, s);
+        type = "Peche";
     }
     
     public void affiche()
@@ -32,5 +32,10 @@ public class BateauPeche extends Bateau
     public String getType()
     {
         return type;
+    }
+    
+    public String display()
+    {
+        return getNom() + " -- " + type + " -- " + getPavillon() + " --> " + getEmplacement();
     }
 }

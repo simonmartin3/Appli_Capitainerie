@@ -5,7 +5,7 @@
  */
 package Windows;
 
-import Classes.LoginException;
+import Exception.LoginException;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import javafx.scene.Parent;
