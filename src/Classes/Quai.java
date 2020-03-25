@@ -5,6 +5,7 @@
  */
 package Classes;
 
+import java.awt.List;
 import java.util.ArrayList;
 
 /**
@@ -13,14 +14,14 @@ import java.util.ArrayList;
  */
 public class Quai extends Amarrage
 {
-    private MoyenDeTransportSurEau[] List;
+    private ArrayList <MoyenDeTransportSurEau> List; //faire une array List
     
     public Quai(String i, int c) 
     {
         super(i, c);
     }
     
-    public MoyenDeTransportSurEau[] getListe()
+    public ArrayList <MoyenDeTransportSurEau> getListe()
     {
         return List;
     }

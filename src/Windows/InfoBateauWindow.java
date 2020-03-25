@@ -32,7 +32,6 @@ public class InfoBateauWindow extends javax.swing.JDialog {
         Label_Bateau.setText(st.nextToken("--"));
         st.nextToken("--");
         String pavillon = (String) st.nextToken("-->");
-        System.err.println(pavillon);
         switch(pavillon)
         {
             case " FR " : setPavillon("FR");break;
@@ -91,6 +90,11 @@ public class InfoBateauWindow extends javax.swing.JDialog {
         Button_Equipage.setText("Equipage");
 
         Button_Ok.setText("Ok");
+        Button_Ok.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_OkActionPerformed(evt);
+            }
+        });
 
         Button_Annuler.setText("Annuler");
         Button_Annuler.addActionListener(new java.awt.event.ActionListener() {
@@ -193,10 +197,14 @@ public class InfoBateauWindow extends javax.swing.JDialog {
         this.dispose();
     }//GEN-LAST:event_Button_AnnulerActionPerformed
 
+    private void Button_OkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_OkActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_Button_OkActionPerformed
+
     private void setPavillon(String pavillon)
     {
         img = new ImageIcon(new ImageIcon("images/"+ pavillon +".png").getImage().getScaledInstance(Label_Pavillon.getWidth(), Label_Pavillon.getHeight(), 20));
-        System.err.println(img);
     }
     private ImageIcon getPavillon()
     {

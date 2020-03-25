@@ -5,6 +5,8 @@
  */
 package Classes;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Simon
@@ -12,13 +14,20 @@ package Classes;
 public class Ponton extends Amarrage
 {
     
+    private ArrayList <MoyenDeTransportSurEau> List1; //faire une array List
+    private ArrayList <MoyenDeTransportSurEau> List2; //faire une array List
+    
     public Ponton(String i, int c) 
     {
         super(i, c);
     }
     
-    public MoyenDeTransportSurEau[] getListe(int cote)
+    public ArrayList <MoyenDeTransportSurEau> getListe(int cote)
     {
-        return null; // A compléter      
+        if(cote == 1)
+            return List1;
+        if(cote == 2)
+            return List2;
+        return null;
     }
 }

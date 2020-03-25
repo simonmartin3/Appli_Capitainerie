@@ -13,13 +13,12 @@ import Interfaces.AUnIdentifiant;
  */
 public class Amarrage implements AUnIdentifiant
 {
-    private int capacite;
+    private static int CAPACITE = 20;
     private String id;
     
     public Amarrage(String i, int c)
     {
         id = i;
-        capacite = c;
     }
     
     public void setId(String i)
@@ -32,13 +31,8 @@ public class Amarrage implements AUnIdentifiant
         return id;
     }
     
-    public void setCapacite(int c)
-    {
-        capacite = c;
-    }
-    
     public int getCapacite()
     {
-        return capacite;
+        return CAPACITE;
     }
 }
