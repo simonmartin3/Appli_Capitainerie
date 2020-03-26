@@ -29,7 +29,7 @@ public class EquipageWindow extends javax.swing.JDialog {
      */
     InfoBateauWindow ifw;
     private Marin tmp = null;
-    private Equipage tmpEquipage;
+    private Equipage tmpE;
     Vector <Marin> vMarrin;
     DefaultListModel model = new DefaultListModel();
     ButtonGroup G;
@@ -39,7 +39,9 @@ public class EquipageWindow extends javax.swing.JDialog {
         initComponents();
         ifw = (InfoBateauWindow) parent;
         vMarrin = new Vector<>();
-        
+        tmpE = ifw.CW.vBateauAmarré.get(ifw.Iterator).getEquipage();
+        List_Equipage.removeAll();
+                
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setTitle("Capitainerie - Enregistrement d'un équipage");
@@ -47,14 +49,32 @@ public class EquipageWindow extends javax.swing.JDialog {
         
         Label_NomBateau.setText(ifw.CW.vBateauAmarré.get(ifw.Iterator).getNom() + "(" + ifw.CW.vBateauAmarré.get(ifw.Iterator).getPortAttache()+ ")");
         
-        isCapitaine();
-        
         G = new ButtonGroup();
         G.add(RadioButton_Capitaine);
         G.add(RadioButton_Second);
         G.add(RadioButton_Bosco);
         G.add(RadioButton_Matelot);
         G.add(RadioButton_Passager);
+        
+        if(tmpE.getCapitainerie().getFonction() != null)
+        {
+            model.addElement(tmpE.getCapitainerie().getFonction() + " : " + tmpE.getCapitainerie().getNom());
+            
+            if(tmpE.getSecond().getFonction() != null)
+            {
+                model.addElement(tmpE.getSecond().getFonction() + " : " + tmpE.getSecond().getNom());
+            }   
+            
+            if(tmpE.getEquipage() != null)
+            {
+                for(int i = 0; i < tmpE.getEquipage().size(); i++)
+                    model.addElement(tmpE.getEquipage().get(i).getFonction() + " : " + tmpE.getEquipage().get(i).getNom());
+            }
+        
+        List_Equipage.setModel(model);
+        }
+        
+        isCapitaine();
     }
 
     /**
@@ -99,6 +119,11 @@ public class EquipageWindow extends javax.swing.JDialog {
         Label_NomBateau.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         Label_NomBateau.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Label_NomBateau.setText("/");
+        Label_NomBateau.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Label_NomBateauMouseClicked(evt);
+            }
+        });
 
         TextField_DateNaissance.setToolTipText("test");
 
@@ -242,17 +267,32 @@ public class EquipageWindow extends javax.swing.JDialog {
                 {
 
                     tmp = new Marin(TextField_Nom.getText(), TextField_Prenom.getText(), TextField_DateNaissance.getText(), "Capitaine");
-                    
-                    //tmpEquipage.setCapitainerie(tmp);
+                                       
+                    tmpE.setCapitainerie(tmp);
                 }
                 else if (RadioButton_Second.isSelected())
                 {
                     
                     tmp = new Marin(TextField_Nom.getText(), TextField_Prenom.getText(), TextField_DateNaissance.getText(), "Second");
-                    //tmpEquipage.setSecond(tmp);    
+                    tmpE.setSecond(tmp);    
                 }
-            } catch (SailorWithoutIdentificationException ex) {
-                    ex.Affiche();
+                else if (RadioButton_Bosco.isSelected())
+                {
+                    tmp = new Marin(TextField_Nom.getText(), TextField_Prenom.getText(), TextField_DateNaissance.getText(), "Bosco");
+                    tmpE.getEquipage().add(tmp);
+                }
+                else if (RadioButton_Matelot.isSelected())
+                {
+                    tmp = new Marin(TextField_Nom.getText(), TextField_Prenom.getText(), TextField_DateNaissance.getText(), "Matelot");
+                    tmpE.getEquipage().add(tmp);
+                }
+                else if (RadioButton_Passager.isSelected())
+                {
+                    tmp = new Marin(TextField_Nom.getText(), TextField_Prenom.getText(), TextField_DateNaissance.getText(), "Passager");
+                    tmpE.getEquipage().add(tmp);
+                }
+            } catch (SailorWithoutIdentificationException er) {
+                    er.Affiche();
             }
             
             //Insertion Marin dans JList
@@ -270,14 +310,25 @@ public class EquipageWindow extends javax.swing.JDialog {
         // TODO add your handling code here:
         
         Bateau bateauTmp = ifw.CW.vBateauAmarré.get(ifw.Iterator);
-        bateauTmp.setEquipage(tmpEquipage);
-        ifw.CW.vBateauAmarré.set(ifw.Iterator, bateauTmp); 
+        bateauTmp.setEquipage(tmpE);
+        ifw.CW.vBateauAmarré.set(ifw.Iterator, bateauTmp);
+        
+        ifw.CW.vBateauAmarré.get(ifw.Iterator).getEquipage().Affiche();
+        ifw.autoComboBoxEquipage();
+        this.dispose();
     }//GEN-LAST:event_Button_ValiderActionPerformed
 
     private void Button_AbandonnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_AbandonnerActionPerformed
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_Button_AbandonnerActionPerformed
+
+    private void Label_NomBateauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_NomBateauMouseClicked
+        // TODO add your handling code here:
+        TextField_Nom.setText("Test");
+        TextField_Prenom.setText("Test");
+        TextField_DateNaissance.setText("test");
+    }//GEN-LAST:event_Label_NomBateauMouseClicked
 
     private void isCapitaine()
     {
@@ -292,12 +343,23 @@ public class EquipageWindow extends javax.swing.JDialog {
             RadioButton_Matelot.setEnabled(false);
             RadioButton_Passager.setEnabled(false);
         }
-        else
+        else if (tmpE.getSecond().getNom() != null)
         {
-            RadioButton_Second.setEnabled(true);
+            RadioButton_Bosco.setSelected(true);
+            RadioButton_Capitaine.setEnabled(false);
+            RadioButton_Second.setEnabled(false);
             RadioButton_Bosco.setEnabled(true);
             RadioButton_Matelot.setEnabled(true);
             RadioButton_Passager.setEnabled(true);
+        }
+        else if (tmpE.getCapitainerie().getNom() != null)
+        {
+            RadioButton_Second.setSelected(true);
+            RadioButton_Capitaine.setEnabled(false);
+            RadioButton_Second.setEnabled(true);
+            RadioButton_Bosco.setEnabled(true);
+            RadioButton_Matelot.setEnabled(true);
+            RadioButton_Passager.setEnabled(true);            
         }
     }
     

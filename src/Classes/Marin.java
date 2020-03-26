@@ -15,7 +15,12 @@ import Exception.*;
 public class Marin extends Humain implements AUnIdentifiant
 {
     private String fonction;
-
+    
+    public Marin()
+    {
+        
+    }
+    
     public Marin(String n, String p, String d, String f)throws SailorWithoutIdentificationException
     {
         super(n, p, d);

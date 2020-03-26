@@ -9,6 +9,7 @@ import Classes.Bateau;
 /*import Classes.Marin;*/
 import static Windows.LoginWindow.isNullOrEmpty;
 import java.util.StringTokenizer;
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -65,7 +66,6 @@ public class InfoBateauWindow extends javax.swing.JFrame {
         for(int i = 0; i < CW.vBateauAmarré.size();i++)
         {
             if(nom.equals(CW.vBateauAmarré.get(i).getNom())) {
-//                System.err.println(CW.vBateauAmarré.get(i).getNom());
                 Iterator = i;
                 break;
             }
@@ -73,17 +73,10 @@ public class InfoBateauWindow extends javax.swing.JFrame {
         }
         //----------------------------------------------------------------------
         
-//        System.err.println(Iterator);
-        
         TextField_Tonnage.setText(Integer.toString(CW.vBateauAmarré.get(Iterator).getTonnage()));
         TextField_PortAttache.setText(CW.vBateauAmarré.get(Iterator).getPortAttache());
         
-//        if(CW.vBateauAmarré.get(Iterator).getEquipage() != null)
-//        {
-//            Equipage tmpMarin = CW.vBateauAmarré.get(Iterator).getEquipage();
-//            for(int i=0;i<10;i++);
-//                ComboBox_Equipage.addItem(tmpMarin.getEquipage().toString());
-//        }
+        autoComboBoxEquipage();
         
         
     }
@@ -284,6 +277,25 @@ public class InfoBateauWindow extends javax.swing.JFrame {
     private ImageIcon getPavillon()
     {
         return img;
+    }
+    
+    public void autoComboBoxEquipage()
+    {
+        if(CW.vBateauAmarré.get(Iterator).getEquipage().getCapitainerie().getFonction() != null)
+        {
+            ComboBox_Equipage.addItem(CW.vBateauAmarré.get(Iterator).getEquipage().getCapitainerie().getFonction() + " : " + CW.vBateauAmarré.get(Iterator).getEquipage().getCapitainerie().getNom());
+            
+            if(CW.vBateauAmarré.get(Iterator).getEquipage().getSecond().getFonction() != null)
+            {
+                ComboBox_Equipage.addItem(CW.vBateauAmarré.get(Iterator).getEquipage().getSecond().getFonction() + " : " + CW.vBateauAmarré.get(Iterator).getEquipage().getSecond().getNom());
+            }   
+            
+            if(CW.vBateauAmarré.get(Iterator).getEquipage().getEquipage() != null)
+            {
+                for(int i = 0; i < CW.vBateauAmarré.get(Iterator).getEquipage().getEquipage().size(); i++)
+                    ComboBox_Equipage.addItem(CW.vBateauAmarré.get(Iterator).getEquipage().getEquipage().get(i).getFonction() + " : " + CW.vBateauAmarré.get(Iterator).getEquipage().getEquipage().get(i).getNom());
+            }
+        }
     }
     
     /**

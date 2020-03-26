@@ -26,35 +26,21 @@ public class Equipage
 //        second.setNom("Non défini");
 //        second.setPrenom("Non défini");
 //        second.setDate("Non défini");
-        capitainerie = null;
-        second = null;
-
-        equipage = null;
+        capitainerie = new Marin();
+        second = new Marin();
+        equipage = new ArrayList<>();
     }    
     
     public Equipage(Marin c, Marin s, ArrayList <Marin> m)
     {
-        capitainerie.setNom(c.getNom());
-        capitainerie.setPrenom(c.getPrenom());
-        capitainerie.setDate(c.getDate());
-        second.setNom(s.getNom());
-        second.setPrenom(s.getPrenom());
-        second.setDate(s.getDate());
+        capitainerie = c;
+        second = s;
         equipage = m;
     }
     
     public void setCapitainerie(Marin c)
     {
-        capitainerie.setNom(c.getNom());
-        capitainerie.setPrenom(c.getPrenom());
-        capitainerie.setDate(c.getDate());
-    }
-    
-    public void setCapitainerie(String n, String p, String d)
-    {
-        capitainerie.setNom(n);
-        capitainerie.setPrenom(p);
-        capitainerie.setDate(d);
+        capitainerie = c;
     }
     
     public Marin getCapitainerie()
@@ -64,9 +50,7 @@ public class Equipage
     
     public void setSecond(Marin s)
     {
-        second.setNom(s.getNom());
-        second.setPrenom(s.getPrenom());
-        second.setDate(s.getDate());
+        second = s;
     }
     
     public Marin getSecond()
@@ -82,6 +66,15 @@ public class Equipage
     public ArrayList<Marin> getEquipage()
     {
         return equipage;
+    }
+    
+    public void Affiche()
+    {
+        System.err.println("Capitaine : " + getCapitainerie().getNom() + " " + getCapitainerie().getPrenom());
+        System.err.println("Second : " + getSecond().getNom() + " " + getSecond().getPrenom());
+        for(int i = 0; i < getEquipage().size(); i++)
+            System.err.println(getEquipage().get(i).getFonction() + " : " + getEquipage().get(i).getNom() + " " + getEquipage().get(i).getPrenom());
+        
     }
 
 }

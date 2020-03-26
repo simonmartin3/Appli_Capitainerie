@@ -7,6 +7,7 @@ package Windows;
 
 import Classes.*;
 import Exception.LoginException;
+import Exception.SailorWithoutIdentificationException;
 import Exception.ShipWithoutIdentificationException;
 import static java.lang.Thread.sleep;
 import java.text.DateFormat;
@@ -37,7 +38,8 @@ public class CapitainerieWindow extends javax.swing.JFrame {
     
     LoginWindow LW;
     Hashtable<String, String> hmap = new Hashtable<>();
-    Vector <Bateau> vBateauAmarré ;
+    Vector <Bateau> vBateauAmarré;
+    
     
     // Format current date
     private static int formatDate;
@@ -48,19 +50,18 @@ public class CapitainerieWindow extends javax.swing.JFrame {
     public static void setFormatHeure(int tmp){formatHeure = tmp;}   
     public static void setFormatLocale(Locale tmp){formatPays = tmp;}
     
-    public CapitainerieWindow(java.awt.Frame parent, Hashtable tmp) throws ShipWithoutIdentificationException {
+    public CapitainerieWindow(java.awt.Frame parent, Hashtable tmp) throws ShipWithoutIdentificationException, SailorWithoutIdentificationException {
         //Initialisation variables
         LW = (LoginWindow) parent;
         hmap = tmp;
-        
-        
+               
         //Création de 4 bateaux
         Bateau b1 = null, b2 = null, b3 = null, b4 = null;
         try{
-            b1 = new BateauPeche("Marie Gueulante", "", 0, 0, "FR", "Q2*4", null, "", "", 0, false);
-            b2 = new BateauPlaisance("Aigle des mers", "", 0, 0, "FR", "P11*4", null, "", "", 0, false);
-            b3 = new BateauPlaisance("Victory", "", 0, 0, "UK", "P22*1", null, "", "", 0, false);
-            b4 = new BateauPlaisance("Schweinhund", "", 0, 0, "DE", "P21*1", null, "", "", 0, false);
+            b1 = new BateauPeche("Marie Gueulante", "", 0, 0, "FR", "Q2*4", new Equipage(), "", "", 0, false);
+            b2 = new BateauPlaisance("Aigle des mers", "", 0, 0, "FR", "P11*4", new Equipage(), "", "", 0, false);
+            b3 = new BateauPlaisance("Victory", "", 0, 0, "UK", "P22*1", new Equipage(), "", "", 0, false);
+            b4 = new BateauPlaisance("Schweinhund", "", 0, 0, "DE", "P21*1", new Equipage(), "", "", 0, false);
         }
         catch(ShipWithoutIdentificationException msg)
         {
@@ -571,6 +572,8 @@ public class CapitainerieWindow extends javax.swing.JFrame {
                 try {
                     new CapitainerieWindow(null, null).setVisible(true);
                 } catch (ShipWithoutIdentificationException ex) {
+                    Logger.getLogger(CapitainerieWindow.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SailorWithoutIdentificationException ex) {
                     Logger.getLogger(CapitainerieWindow.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }

@@ -7,6 +7,7 @@ package Windows;
 
 import Exception.LoginException;
 import Classes.*;
+import Exception.SailorWithoutIdentificationException;
 import Exception.ShipWithoutIdentificationException;
 import java.util.Enumeration;
 import java.util.Hashtable;
@@ -160,11 +161,13 @@ public class LoginWindow extends javax.swing.JFrame {
                 tmp.Affiche();
             } catch (ShipWithoutIdentificationException ex) {
                 Logger.getLogger(LoginWindow.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SailorWithoutIdentificationException ex) {
+                Logger.getLogger(LoginWindow.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_Button_ValiderActionPerformed
 
-    public void authentification(Hashtable<String,String> hmap,String user,String pass) throws LoginException, ShipWithoutIdentificationException
+    public void authentification(Hashtable<String,String> hmap,String user,String pass) throws LoginException, ShipWithoutIdentificationException, SailorWithoutIdentificationException
     {    
 
         Enumeration users;
