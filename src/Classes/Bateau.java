@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 package Classes;
+import Exception.*;
 import Interfaces.*;
+import java.util.ArrayList;
 
 /**
  *
@@ -18,21 +20,21 @@ public class Bateau extends MoyenDeTransportSurEau implements AUnIdentifiant
     private int longueur;
     private String pavillon;
     private String emplacement;
+    private Equipage equipage;
     
-    public Bateau(String fe, int nh, boolean s)
+    public Bateau(){}
+    
+    public Bateau(String n, String pa, int t, int l, String p, String e, Equipage equi, String fe, int nh, boolean s) throws ShipWithoutIdentificationException
     {
         super(fe, nh, s);
-    }
-    
-    public Bateau(String n, String pa, int t, int l, String p, String e, String fe, int nh, boolean s)
-    {
-        super(fe, nh, s);
+        if(n.equals("") && pa.equals(""))throw new ShipWithoutIdentificationException("Le nom et le port du bateau sont obligatoires.");
         nom = n;
         portAttache = pa;
         tonnage = t;
         longueur = l;
         pavillon = p;
         emplacement = e;
+        equipage = equi;
     }
     
     public String getIdentifiant()
@@ -104,5 +106,20 @@ public class Bateau extends MoyenDeTransportSurEau implements AUnIdentifiant
     public String getEmplacement()
     {
         return emplacement;
+    }
+    
+    public String display()
+    {
+        return getNom() + " -- " + getPavillon() + " --> " + getEmplacement();
+    }
+    
+    public void setEquipage(Equipage e)
+    {
+        equipage = e;
+    }
+    
+    public Equipage getEquipage()
+    {
+        return equipage;
     }
 }

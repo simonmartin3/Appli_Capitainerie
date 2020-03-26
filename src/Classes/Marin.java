@@ -6,6 +6,7 @@
 package Classes;
 
 import Interfaces.AUnIdentifiant;
+import Exception.*;
 
 /**
  *
@@ -15,13 +16,10 @@ public class Marin extends Humain implements AUnIdentifiant
 {
     private String fonction;
 
-    public Marin() 
+    public Marin(String n, String p, String d, String f)throws SailorWithoutIdentificationException
     {
-        fonction = "Non défini";
-    }
-        
-    public Marin(String n, String p, String d, String f) {
         super(n, p, d);
+        if(n.equals("") || p.equals(""))throw new SailorWithoutIdentificationException("Le nom et le prénom du marin/passager sont obligatoires.");
         fonction = f;
     }
     
@@ -38,5 +36,10 @@ public class Marin extends Humain implements AUnIdentifiant
     public String getIdentifiant()
     {
         return super.nom+super.prenom+super.date;
+    }
+    
+    public void Affiche()
+    {
+        System.out.println(getFonction() + " : " + getNom() + " " + getPrenom());
     }
 }

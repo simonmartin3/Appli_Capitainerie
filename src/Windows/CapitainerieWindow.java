@@ -7,6 +7,7 @@ package Windows;
 
 import Classes.*;
 import Exception.LoginException;
+import Exception.ShipWithoutIdentificationException;
 import static java.lang.Thread.sleep;
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -15,6 +16,8 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Locale;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
@@ -45,13 +48,33 @@ public class CapitainerieWindow extends javax.swing.JFrame {
     public static void setFormatHeure(int tmp){formatHeure = tmp;}   
     public static void setFormatLocale(Locale tmp){formatPays = tmp;}
     
-    public CapitainerieWindow(java.awt.Frame parent, Hashtable tmp) {
+    public CapitainerieWindow(java.awt.Frame parent, Hashtable tmp) throws ShipWithoutIdentificationException {
+        //Initialisation variables
         LW = (LoginWindow) parent;
         hmap = tmp;
         
-        //Initialisation vector
-        vBateauAmarré = new Vector<>();
         
+        //Création de 4 bateaux
+        Bateau b1 = null, b2 = null, b3 = null, b4 = null;
+        try{
+            b1 = new BateauPeche("Marie Gueulante", "", 0, 0, "FR", "Q2*4", null, "", "", 0, false);
+            b2 = new BateauPlaisance("Aigle des mers", "", 0, 0, "FR", "P11*4", null, "", "", 0, false);
+            b3 = new BateauPlaisance("Victory", "", 0, 0, "UK", "P22*1", null, "", "", 0, false);
+            b4 = new BateauPlaisance("Schweinhund", "", 0, 0, "DE", "P21*1", null, "", "", 0, false);
+        }
+        catch(ShipWithoutIdentificationException msg)
+        {
+            msg.Affiche();
+        }
+
+        vBateauAmarré = new Vector<>();
+        vBateauAmarré.add(b1);
+        vBateauAmarré.add(b2);
+        vBateauAmarré.add(b3);
+        vBateauAmarré.add(b4);
+        //----------------------------------------------------------------------
+        
+        //Initialisation JFrame ------------------------------------------------
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
@@ -75,24 +98,15 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         setFormatLocale(Locale.FRANCE);
         displayDate();
         
-        //création de 4 bateaux
-        BateauPeche b1 = new BateauPeche("Marie Gueulante", "", 0, 0, "FR", "Q2*4", "", "", 0, false);
-        BateauPlaisance b2 = new BateauPlaisance("Aigle des mers", "", 0, 0, "FR", "P11*4", "", "", 0, false);
-        BateauPlaisance b3 = new BateauPlaisance("Victory", "", 0, 0, "UK", "P22*1", "", "", 0, false);
-        BateauPlaisance b4 = new BateauPlaisance("Schweinhund", "", 0, 0, "DE", "P21*1", "", "", 0, false);
-        
-        vBateauAmarré.add(b1);
-        vBateauAmarré.add(b2);
-        vBateauAmarré.add(b3);
-        vBateauAmarré.add(b4);
-        
+        //Insertion vector dans JList
         DefaultListModel model = new DefaultListModel();
-        model.addElement(b1.display());
-        model.addElement(b2.display());
-        model.addElement(b3.display());
-        model.addElement(b4.display());
+        
+        for(int i = 0; i < vBateauAmarré.size(); i++)
+            model.addElement(vBateauAmarré.get(i).display());
+        
         List_Bateau.setModel(model);
         
+        //----------------------------------------------------------------------
     }
 
     /**
@@ -182,6 +196,11 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         });
 
         Button_ServeurOff.setText("Arrêter le serveur");
+        Button_ServeurOff.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_ServeurOffActionPerformed(evt);
+            }
+        });
 
         Label_CurrentDate.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         Label_CurrentDate.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -386,7 +405,6 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
         MenuItem_Login.setEnabled(true);
         IsEnable(false);
-
     }//GEN-LAST:event_MenuItem_LogoutActionPerformed
 
     private void MenuItem_LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItem_LoginActionPerformed
@@ -452,10 +470,15 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         {
             System.out.println("Traitement du bateau :" + List_Bateau.getSelectedValue());
             
-            InfoBateauWindow ifw = new InfoBateauWindow(this, true, List_Bateau.getSelectedValue());
+            InfoBateauWindow ifw = new InfoBateauWindow(this, List_Bateau.getSelectedValue());
             ifw.setVisible(true);
         }
     }//GEN-LAST:event_Button_BatteauAmarreActionPerformed
+
+    private void Button_ServeurOffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ServeurOffActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_Button_ServeurOffActionPerformed
 
     public void IsEnable(boolean tmp)
     {
@@ -545,7 +568,11 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CapitainerieWindow(null, null).setVisible(true);
+                try {
+                    new CapitainerieWindow(null, null).setVisible(true);
+                } catch (ShipWithoutIdentificationException ex) {
+                    Logger.getLogger(CapitainerieWindow.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

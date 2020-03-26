@@ -13,40 +13,63 @@ import java.util.ArrayList;
  */
 public class Equipage 
 {
-    private String capitainerie;
-    private String second;
+    private Marin capitainerie;
+    private Marin second;
     private ArrayList<Marin> equipage;
 
     public Equipage()
     {
-        capitainerie = "Non défini";
-        second = "Non défini";
+//        capitainerie.setNom("Non défini");
+//        capitainerie.setPrenom("Non défini");
+//        capitainerie.setDate("Non défini");
+//        
+//        second.setNom("Non défini");
+//        second.setPrenom("Non défini");
+//        second.setDate("Non défini");
+        capitainerie = null;
+        second = null;
+
         equipage = null;
     }    
     
-    public Equipage(String c, String s, ArrayList <Marin> m)
+    public Equipage(Marin c, Marin s, ArrayList <Marin> m)
     {
-        capitainerie = c;
-        second = s;
+        capitainerie.setNom(c.getNom());
+        capitainerie.setPrenom(c.getPrenom());
+        capitainerie.setDate(c.getDate());
+        second.setNom(s.getNom());
+        second.setPrenom(s.getPrenom());
+        second.setDate(s.getDate());
         equipage = m;
     }
     
-    public void setCapitainerie(String c)
+    public void setCapitainerie(Marin c)
     {
-        capitainerie = c;
+        capitainerie.setNom(c.getNom());
+        capitainerie.setPrenom(c.getPrenom());
+        capitainerie.setDate(c.getDate());
     }
     
-    public String getCapitainerie()
+    public void setCapitainerie(String n, String p, String d)
+    {
+        capitainerie.setNom(n);
+        capitainerie.setPrenom(p);
+        capitainerie.setDate(d);
+    }
+    
+    public Marin getCapitainerie()
     {
         return capitainerie;
     }
     
-    public void setSecond(String s)
+    public void setSecond(Marin s)
     {
-        second = s;
+        second.setNom(s.getNom());
+        second.setPrenom(s.getPrenom());
+        second.setDate(s.getDate());
     }
     
-    public String getSecond()
+    public Marin getSecond()
     {
         return second;
     }

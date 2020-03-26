@@ -5,30 +5,29 @@
  */
 package Exception;
 
-import javax.swing.ImageIcon;
+
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author Simon
  */
-public class LoginException extends Exception
+public class ShipWithoutIdentificationException extends Exception
 {
-    private ImageIcon img = new ImageIcon("images/Erreur.jpg");
     private String message;
     
-    public LoginException()
+    public ShipWithoutIdentificationException()
     {
-        message = "Une erreur est survenu mais elle n'est pas définit.";
+        message = "Erreur lors de l'instanciation d'un BATEAU.";
     }
     
-    public LoginException(String tmp)
+    public ShipWithoutIdentificationException(String tmp)
     {
         message = tmp;
     }
     
     public void Affiche()
     {
-        JOptionPane.showMessageDialog(null,message, "Erreur - Login", JOptionPane.ERROR_MESSAGE, img);
+        JOptionPane.showMessageDialog(null,message, "Erreur - Instanciation bateau", JOptionPane.ERROR_MESSAGE, null);
     }
 }

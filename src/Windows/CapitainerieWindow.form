@@ -335,6 +335,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Arr&#xea;ter le serveur"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Button_ServeurOffActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="Image2">
     </Component>

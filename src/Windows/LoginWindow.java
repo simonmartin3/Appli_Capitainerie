@@ -7,8 +7,11 @@ package Windows;
 
 import Exception.LoginException;
 import Classes.*;
+import Exception.ShipWithoutIdentificationException;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -155,11 +158,13 @@ public class LoginWindow extends javax.swing.JFrame {
             {
                 System.out.println("Login Exception");
                 tmp.Affiche();
+            } catch (ShipWithoutIdentificationException ex) {
+                Logger.getLogger(LoginWindow.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }//GEN-LAST:event_Button_ValiderActionPerformed
 
-    public void authentification(Hashtable<String,String> hmap,String user,String pass) throws LoginException
+    public void authentification(Hashtable<String,String> hmap,String user,String pass) throws LoginException, ShipWithoutIdentificationException
     {    
 
         Enumeration users;

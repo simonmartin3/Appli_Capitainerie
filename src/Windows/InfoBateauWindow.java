@@ -6,11 +6,9 @@
 package Windows;
 
 import Classes.Bateau;
+/*import Classes.Marin;*/
 import static Windows.LoginWindow.isNullOrEmpty;
-import java.util.Collection;
-import java.util.Enumeration;
 import java.util.StringTokenizer;
-import java.util.Vector;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -19,7 +17,7 @@ import javax.swing.JOptionPane;
  *
  * @author Simon
  */
-public class InfoBateauWindow extends javax.swing.JDialog {
+public class InfoBateauWindow extends javax.swing.JFrame {
 
     /**
      * Creates new form InfoBateauWindow
@@ -29,12 +27,12 @@ public class InfoBateauWindow extends javax.swing.JDialog {
     ImageIcon img;
     int Iterator;
     
-    public InfoBateauWindow(java.awt.Frame parent, boolean modal, String tmp) {
-        super(parent, modal);
+    public InfoBateauWindow(java.awt.Frame parent, String tmp) {
         initComponents();
-        CW = (CapitainerieWindow) parent;       
+        CW = (CapitainerieWindow) parent;
         
         this.setLocationRelativeTo(null);
+        this.setLocation(CW.getX()-this.getWidth(), CW.getY());
         this.setResizable(false);
         this.setTitle("Capitainerie - Informations sur bateau entrant");
         
@@ -79,6 +77,14 @@ public class InfoBateauWindow extends javax.swing.JDialog {
         
         TextField_Tonnage.setText(Integer.toString(CW.vBateauAmarré.get(Iterator).getTonnage()));
         TextField_PortAttache.setText(CW.vBateauAmarré.get(Iterator).getPortAttache());
+        
+//        if(CW.vBateauAmarré.get(Iterator).getEquipage() != null)
+//        {
+//            Equipage tmpMarin = CW.vBateauAmarré.get(Iterator).getEquipage();
+//            for(int i=0;i<10;i++);
+//                ComboBox_Equipage.addItem(tmpMarin.getEquipage().toString());
+//        }
+        
         
     }
 
@@ -253,7 +259,7 @@ public class InfoBateauWindow extends javax.swing.JDialog {
             bateauTmp.setTonnage(Integer.parseInt(TextField_Tonnage.getText()));
             bateauTmp.setPortAttache(TextField_PortAttache.getText());
             
-            CW.vBateauAmarré.set(Iterator, bateauTmp);            
+            CW.vBateauAmarré.set(Iterator, bateauTmp);
             
             this.dispose();
         } 
@@ -261,7 +267,14 @@ public class InfoBateauWindow extends javax.swing.JDialog {
 
     private void Button_EquipageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_EquipageActionPerformed
         // TODO add your handling code here:
-        
+        Bateau bateauTmp = CW.vBateauAmarré.get(Iterator);
+            
+            bateauTmp.setTonnage(Integer.parseInt(TextField_Tonnage.getText()));
+            bateauTmp.setPortAttache(TextField_PortAttache.getText());
+            
+            CW.vBateauAmarré.set(Iterator, bateauTmp);
+        EquipageWindow ew = new EquipageWindow(this, true);
+        ew.setVisible(true);
     }//GEN-LAST:event_Button_EquipageActionPerformed
 
     private void setPavillon(String pavillon)
@@ -303,7 +316,7 @@ public class InfoBateauWindow extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                InfoBateauWindow dialog = new InfoBateauWindow(new javax.swing.JFrame(), true, null);
+                InfoBateauWindow dialog = new InfoBateauWindow(new javax.swing.JFrame(),null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
