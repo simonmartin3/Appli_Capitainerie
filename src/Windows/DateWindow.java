@@ -171,14 +171,14 @@ public class DateWindow extends javax.swing.JDialog {
             case "ITALIE" : CW.setFormatLocale(Locale.ITALY);break;
             case "AMERIQUE" : CW.setFormatLocale(Locale.US);break;
         }
-        String formatheure = (String) ComboBox_Date.getSelectedItem();
+        String formatheure = (String) ComboBox_Heure.getSelectedItem();
         switch(formatheure)
         {
             case "SHORT": CW.setFormatHeure(DateFormat.SHORT);break;
             case "MEDIUM": CW.setFormatHeure(DateFormat.MEDIUM);break;
             case "FULL": CW.setFormatHeure(DateFormat.FULL);break;
         }
-        String formatdate = (String) ComboBox_Heure.getSelectedItem();
+        String formatdate = (String) ComboBox_Date.getSelectedItem();
         switch(formatdate)
         {
             case "SHORT": CW.setFormatDate(DateFormat.SHORT);break;
@@ -198,14 +198,14 @@ public class DateWindow extends javax.swing.JDialog {
             case "ITALIE" : CW.setFormatLocale(Locale.ITALY);break;
             case "AMERIQUE" : CW.setFormatLocale(Locale.US);break;
         }
-        String formatheure = (String) ComboBox_Date.getSelectedItem();
+        String formatheure = (String) ComboBox_Heure.getSelectedItem();
         switch(formatheure)
         {
             case "SHORT": CW.setFormatHeure(DateFormat.SHORT);break;
             case "MEDIUM": CW.setFormatHeure(DateFormat.MEDIUM);break;
             case "FULL": CW.setFormatHeure(DateFormat.FULL);break;
         }
-        String formatdate = (String) ComboBox_Heure.getSelectedItem();
+        String formatdate = (String) ComboBox_Date.getSelectedItem();
         switch(formatdate)
         {
             case "SHORT": CW.setFormatDate(DateFormat.SHORT);break;

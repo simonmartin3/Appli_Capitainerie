@@ -254,6 +254,8 @@ public class InfoBateauWindow extends javax.swing.JFrame {
             
             CW.vBateauAmarré.set(Iterator, bateauTmp);
             
+            CW.insertListBateau();
+            
             this.dispose();
         } 
     }//GEN-LAST:event_Button_OkActionPerformed

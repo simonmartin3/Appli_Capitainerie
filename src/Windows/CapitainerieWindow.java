@@ -9,6 +9,7 @@ import Classes.*;
 import Exception.LoginException;
 import Exception.SailorWithoutIdentificationException;
 import Exception.ShipWithoutIdentificationException;
+import java.awt.Color;
 import static java.lang.Thread.sleep;
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -100,12 +101,9 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         displayDate();
         
         //Insertion vector dans JList
-        DefaultListModel model = new DefaultListModel();
+        insertListBateau();
         
-        for(int i = 0; i < vBateauAmarré.size(); i++)
-            model.addElement(vBateauAmarré.get(i).display());
         
-        List_Bateau.setModel(model);
         
         //----------------------------------------------------------------------
     }
@@ -346,7 +344,7 @@ public class CapitainerieWindow extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(Button_ServeurOn)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(Label_CurrentDate, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(Label_CurrentDate, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(Label_AmarragePossible)
                                 .addGap(18, 18, 18)
@@ -537,6 +535,25 @@ public class CapitainerieWindow extends javax.swing.JFrame {
             }
         };
         thread.start();
+    }
+    
+    public void insertListBateau()
+    {
+        DefaultListModel model = new DefaultListModel();
+        
+        for(int i = 0; i < vBateauAmarré.size(); i++)
+        {
+            if(vBateauAmarré.get(i).getTonnage() == 0 || vBateauAmarré.get(i).getPortAttache() == "" || vBateauAmarré.get(i).getEquipage().getCapitainerie().getFonction() == null )
+            {
+                model.addElement(vBateauAmarré.get(i).display() + " - Non enregistré");
+            }
+            else
+            {
+                model.addElement(vBateauAmarré.get(i).display() + " - Enregistré");
+            }
+            
+        }
+        List_Bateau.setModel(model);
     }
     
     /**
