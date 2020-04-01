@@ -6,15 +6,11 @@
 package Windows;
 
 import Classes.*;
-import Exception.LoginException;
 import Exception.SailorWithoutIdentificationException;
 import Exception.ShipWithoutIdentificationException;
-import java.awt.Color;
 import static java.lang.Thread.sleep;
 import java.text.DateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Locale;
 import java.util.Vector;
@@ -22,9 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 
 /**
@@ -55,11 +49,19 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         //Initialisation variables
         LW = (LoginWindow) parent;
         hmap = tmp;
+        
+        //Création du Quai 2 et des pontons P1 et P2
+        Quai emplAmarrage1 = new Quai("Q2");
+        Ponton emplAmarrage2 = new Ponton("P1");
+        Ponton emplAmarrage3 = new Ponton("P2");
+        emplAmarrage1.getListe().ensureCapacity(emplAmarrage1.getCapacite());
+        for(int i = 0; i < emplAmarrage1.getCapacite(); i++)
+            emplAmarrage1.getListe().add(i, null);
                
         //Création de 4 bateaux
         Bateau b1 = null, b2 = null, b3 = null, b4 = null;
         try{
-            b1 = new BateauPeche("Marie Gueulante", "", 0, 0, "FR", "Q2*4", new Equipage(), "", "", 0, false);
+            b1 = new BateauPeche("Marie Gueulante", "", 0, 0, "FR", "Q2*4", new Equipage(), "", "", 0, false); //Q2*4
             b2 = new BateauPlaisance("Aigle des mers", "", 0, 0, "FR", "P11*4", new Equipage(), "", "", 0, false);
             b3 = new BateauPlaisance("Victory", "", 0, 0, "UK", "P22*1", new Equipage(), "", "", 0, false);
             b4 = new BateauPlaisance("Schweinhund", "", 0, 0, "DE", "P21*1", new Equipage(), "", "", 0, false);
@@ -238,6 +240,11 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         Menu_Amarrages.setText("Amarrages");
 
         MenuItem_Plaisance.setText("Plaisance");
+        MenuItem_Plaisance.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuItem_PlaisanceActionPerformed(evt);
+            }
+        });
         Menu_Amarrages.add(MenuItem_Plaisance);
 
         MenuItem_Peche.setText("Pêche");
@@ -467,9 +474,10 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         }
         else
         {
-            System.out.println("Traitement du bateau :" + List_Bateau.getSelectedValue());
+            System.out.println("Traitement du bateau : " + List_Bateau.getSelectedValue());
             
-            InfoBateauWindow ifw = new InfoBateauWindow(this, List_Bateau.getSelectedValue());
+//            InfoBateauWindow ifw = new InfoBateauWindow(this, List_Bateau.getSelectedValue());
+            InfoBateauWindow ifw = new InfoBateauWindow(this, vBateauAmarré.get(List_Bateau.getSelectedIndex()), List_Bateau.getSelectedIndex());
             ifw.setVisible(true);
         }
     }//GEN-LAST:event_Button_BatteauAmarreActionPerformed
@@ -478,6 +486,12 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
 
     }//GEN-LAST:event_Button_ServeurOffActionPerformed
+
+    private void MenuItem_PlaisanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItem_PlaisanceActionPerformed
+        // TODO add your handling code here:
+        PlaisanceWindow pw = new PlaisanceWindow(this, true);
+        pw.setVisible(true);
+    }//GEN-LAST:event_MenuItem_PlaisanceActionPerformed
 
     public void IsEnable(boolean tmp)
     {
@@ -543,7 +557,7 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         
         for(int i = 0; i < vBateauAmarré.size(); i++)
         {
-            if(vBateauAmarré.get(i).getTonnage() == 0 || vBateauAmarré.get(i).getPortAttache() == "" || vBateauAmarré.get(i).getEquipage().getCapitainerie().getFonction() == null )
+            if(vBateauAmarré.get(i).getTonnage() == 0 || vBateauAmarré.get(i).getPortAttache() == "" || vBateauAmarré.get(i).getEquipage().getAUnEquipage() == false )
             {
                 model.addElement(vBateauAmarré.get(i).display() + " - Non enregistré");
             }

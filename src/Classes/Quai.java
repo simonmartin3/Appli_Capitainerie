@@ -14,13 +14,13 @@ import java.util.ArrayList;
  */
 public class Quai extends Amarrage
 {
-    private ArrayList <MoyenDeTransportSurEau> List = new ArrayList<>(); //faire une array List
+    private ArrayList <MoyenDeTransportSurEau> List = new ArrayList<>();
     
     public Quai(){}
     
-    public Quai(String i, int c) 
+    public Quai(String i) 
     {
-        super(i, c);
+        super(i);
     }
     
     public ArrayList <MoyenDeTransportSurEau> getListe()

@@ -13,7 +13,8 @@ import Interfaces.AUnIdentifiant;
  */
 public class Amarrage implements AUnIdentifiant
 {
-    private static int CAPACITE = 20;
+    private static int CAPACITE = 10;
+    private static int LONGUEUR = 15;
     private String id;
     
     public Amarrage()
@@ -21,7 +22,7 @@ public class Amarrage implements AUnIdentifiant
         id = "non défini";
     }
     
-    public Amarrage(String i, int c)
+    public Amarrage(String i)
     {
         id = i;
     }
@@ -39,5 +40,10 @@ public class Amarrage implements AUnIdentifiant
     public int getCapacite()
     {
         return CAPACITE;
+    }
+    
+    public int getLongueur()
+    {
+        return LONGUEUR;
     }
 }

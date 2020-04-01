@@ -6,9 +6,12 @@
 package Windows;
 
 import Classes.Bateau;
+import Exception.NumberFormatException;
 /*import Classes.Marin;*/
 import static Windows.LoginWindow.isNullOrEmpty;
 import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -23,62 +26,68 @@ public class InfoBateauWindow extends javax.swing.JFrame {
     /**
      * Creates new form InfoBateauWindow
      */
-    
     CapitainerieWindow CW;
     ImageIcon img;
-    int Iterator;
-    
-    public InfoBateauWindow(java.awt.Frame parent, String tmp) {
+    Bateau tmpBateau;
+    int tmpIndex;
+
+    public InfoBateauWindow(java.awt.Frame parent, Bateau tmp, int index) {
         initComponents();
         CW = (CapitainerieWindow) parent;
-        
+        tmpBateau = tmp;
+        tmpIndex = index;
+
         this.setLocationRelativeTo(null);
-        this.setLocation(CW.getX()-this.getWidth(), CW.getY());
+        this.setLocation(CW.getX() - this.getWidth(), CW.getY());
         this.setResizable(false);
         this.setTitle("Capitainerie - Informations sur bateau entrant");
-        
 
         //Display info ---------------------------------------------------------
-        StringTokenizer st = new StringTokenizer(tmp);
-        
-        Label_Bateau.setText(st.nextToken("--"));
-        st.nextToken("--");
-        String pavillon = (String) st.nextToken("-->");
-        pavillon = pavillon.trim();
-        switch(pavillon)
-        {
-            case "FR" : setPavillon("FR");break;
-            case "UK" : setPavillon("UK");break;
-            case "DE" : setPavillon("DE");break;
+        //StringTokenizer st = new StringTokenizer(tmp);
+        Label_Bateau.setText(tmp.getNom());
+        //st.nextToken("--");
+        //String pavillon = (String) st.nextToken("-->");
+        //pavillon = pavillon.trim();
+        String pavillon = tmp.getPavillon();
+        switch (pavillon) {
+            case "FR":
+                setPavillon("FR");
+                break;
+            case "UK":
+                setPavillon("UK");
+                break;
+            case "DE":
+                setPavillon("DE");
+                break;
         }
-        
+
         Label_Pavillon.setText(null);
         Label_Pavillon.setIcon(getPavillon());
 
-        Label_Emplacement.setText(st.nextToken());
+        Label_Emplacement.setText(tmp.getEmplacement());
         //----------------------------------------------------------------------
-        
+
         // Savoir le bateau qu'on modifie --------------------------------------
-        String nom;
-        nom = Label_Bateau.getText();
-        nom = nom.trim();
-        
-        for(int i = 0; i < CW.vBateauAmarré.size();i++)
-        {
-            if(nom.equals(CW.vBateauAmarré.get(i).getNom())) {
-                Iterator = i;
-                break;
-            }
-            
-        }
+//        String nom;
+//        nom = Label_Bateau.getText();
+//        nom = nom.trim();
+//        
+//        for(int i = 0; i < CW.vBateauAmarré.size();i++)
+//        {
+//            if(nom.equals(CW.vBateauAmarré.get(i).getNom())) {
+//                Iterator = i;
+//                break;
+//            }
+//            
+//        }
         //----------------------------------------------------------------------
+        if(tmp.getTonnage() != 0)
+            TextField_Tonnage.setText(Integer.toString(tmp.getTonnage()));
         
-        TextField_Tonnage.setText(Integer.toString(CW.vBateauAmarré.get(Iterator).getTonnage()));
-        TextField_PortAttache.setText(CW.vBateauAmarré.get(Iterator).getPortAttache());
-        
+        TextField_PortAttache.setText(tmp.getPortAttache());
+
         autoComboBoxEquipage();
-        
-        
+
     }
 
     /**
@@ -239,67 +248,92 @@ public class InfoBateauWindow extends javax.swing.JFrame {
 
     private void Button_OkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_OkActionPerformed
         // TODO add your handling code here:
-        
-        if(isNullOrEmpty(TextField_Tonnage.getText()) || isNullOrEmpty(TextField_PortAttache.getText()))
-        {
+        if (isNullOrEmpty(TextField_Tonnage.getText()) || isNullOrEmpty(TextField_PortAttache.getText())) {
             JOptionPane.showMessageDialog(new JFrame(), "Compléter tous les champs", "Erreur", JOptionPane.ERROR_MESSAGE);
             return;
-        }   
-        else
-        {
-            Bateau bateauTmp = CW.vBateauAmarré.get(Iterator);
-            
-            bateauTmp.setTonnage(Integer.parseInt(TextField_Tonnage.getText()));
-            bateauTmp.setPortAttache(TextField_PortAttache.getText());
-            
-            CW.vBateauAmarré.set(Iterator, bateauTmp);
-            
-            CW.insertListBateau();
-            
-            this.dispose();
         } 
+        else 
+        {
+            try {
+                if(isNumeric(TextField_Tonnage.getText()))
+                {
+                    tmpBateau.setTonnage(Integer.parseInt(TextField_Tonnage.getText()));
+                
+                    tmpBateau.setPortAttache(TextField_PortAttache.getText());
+
+                    CW.vBateauAmarré.set(tmpIndex, tmpBateau);
+
+                    CW.insertListBateau();
+
+                    this.dispose();
+                }
+                else
+                {
+                    throw new NumberFormatException("Le tonnage rentré n'est pas bon.");
+                }
+                
+            } catch (NumberFormatException ex) {
+                ex.Affiche();
+            }
+            
+            
+        }
     }//GEN-LAST:event_Button_OkActionPerformed
 
     private void Button_EquipageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_EquipageActionPerformed
         // TODO add your handling code here:
-        Bateau bateauTmp = CW.vBateauAmarré.get(Iterator);
-            
-            bateauTmp.setTonnage(Integer.parseInt(TextField_Tonnage.getText()));
-            bateauTmp.setPortAttache(TextField_PortAttache.getText());
-            
-            CW.vBateauAmarré.set(Iterator, bateauTmp);
+
+//        tmpBateau.setTonnage(Integer.parseInt(TextField_Tonnage.getText()));
+        tmpBateau.setPortAttache(TextField_PortAttache.getText());
+
+        CW.vBateauAmarré.set(tmpIndex, tmpBateau);
+
         EquipageWindow ew = new EquipageWindow(this, true);
         ew.setVisible(true);
     }//GEN-LAST:event_Button_EquipageActionPerformed
 
-    private void setPavillon(String pavillon)
-    {
-        img = new ImageIcon(new ImageIcon("images/"+ pavillon +".png").getImage().getScaledInstance(Label_Pavillon.getWidth()/2, Label_Pavillon.getHeight(), 20));
+    private void setPavillon(String pavillon) {
+        img = new ImageIcon(new ImageIcon("images/" + pavillon + ".png").getImage().getScaledInstance(Label_Pavillon.getWidth() / 2, Label_Pavillon.getHeight(), 20));
     }
-    private ImageIcon getPavillon()
-    {
+
+    private ImageIcon getPavillon() {
         return img;
     }
-    
-    public void autoComboBoxEquipage()
-    {
-        if(CW.vBateauAmarré.get(Iterator).getEquipage().getCapitainerie().getFonction() != null)
-        {
-            ComboBox_Equipage.addItem(CW.vBateauAmarré.get(Iterator).getEquipage().getCapitainerie().getFonction() + " : " + CW.vBateauAmarré.get(Iterator).getEquipage().getCapitainerie().getNom());
-            
-            if(CW.vBateauAmarré.get(Iterator).getEquipage().getSecond().getFonction() != null)
-            {
-                ComboBox_Equipage.addItem(CW.vBateauAmarré.get(Iterator).getEquipage().getSecond().getFonction() + " : " + CW.vBateauAmarré.get(Iterator).getEquipage().getSecond().getNom());
-            }   
-            
-            if(CW.vBateauAmarré.get(Iterator).getEquipage().getEquipage() != null)
-            {
-                for(int i = 0; i < CW.vBateauAmarré.get(Iterator).getEquipage().getEquipage().size(); i++)
-                    ComboBox_Equipage.addItem(CW.vBateauAmarré.get(Iterator).getEquipage().getEquipage().get(i).getFonction() + " : " + CW.vBateauAmarré.get(Iterator).getEquipage().getEquipage().get(i).getNom());
+
+    public void autoComboBoxEquipage() {
+        if (tmpBateau.getEquipage().getAUnEquipage()) {
+            ComboBox_Equipage.addItem(tmpBateau.getEquipage().getCapitainerie().getFonction() + " : " + tmpBateau.getEquipage().getCapitainerie().getNom());
+
+            if (tmpBateau.getEquipage().getSecond() != null) {
+                ComboBox_Equipage.addItem(tmpBateau.getEquipage().getSecond().getFonction() + " : " + tmpBateau.getEquipage().getSecond().getNom());
+            }
+
+            if (tmpBateau.getEquipage().getEquipage() != null) {
+                for (int i = 0; i < tmpBateau.getEquipage().getEquipage().size(); i++) {
+                    ComboBox_Equipage.addItem(tmpBateau.getEquipage().getEquipage().get(i).getFonction() + " : " + tmpBateau.getEquipage().getEquipage().get(i).getNom());
+                }
             }
         }
     }
     
+    public static boolean isNumeric(final String str) throws NumberFormatException
+    {
+
+        // null or empty
+        if (str == null || str.length() == 0) {
+            return false;
+        }
+
+        for (char c : str.toCharArray()) {
+            if (!Character.isDigit(c)) {
+                return false;
+            }
+        }
+
+        return true;
+
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -330,7 +364,7 @@ public class InfoBateauWindow extends javax.swing.JFrame {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                InfoBateauWindow dialog = new InfoBateauWindow(new javax.swing.JFrame(),null);
+                InfoBateauWindow dialog = new InfoBateauWindow(new javax.swing.JFrame(), null, 0);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

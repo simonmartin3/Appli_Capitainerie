@@ -14,14 +14,14 @@ import java.util.ArrayList;
 public class Ponton extends Amarrage
 {
     
-    private ArrayList <MoyenDeTransportSurEau> List1; //faire une array List
-    private ArrayList <MoyenDeTransportSurEau> List2; //faire une array List
+    private ArrayList <MoyenDeTransportSurEau> List1 = new ArrayList<>();
+    private ArrayList <MoyenDeTransportSurEau> List2 = new ArrayList<>();
     
     public Ponton(){}
     
-    public Ponton(String i, int c) 
+    public Ponton(String i) 
     {
-        super(i, c);
+        super(i);
     }
     
     public ArrayList <MoyenDeTransportSurEau> getListe(int cote)

@@ -15,20 +15,12 @@ public class Equipage
 {
     private Marin capitainerie;
     private Marin second;
-    private ArrayList<Marin> equipage;
+    private ArrayList<Marin> equipage = new ArrayList<>();
+    private boolean aUnEquipage;
 
     public Equipage()
     {
-//        capitainerie.setNom("Non défini");
-//        capitainerie.setPrenom("Non défini");
-//        capitainerie.setDate("Non défini");
-//        
-//        second.setNom("Non défini");
-//        second.setPrenom("Non défini");
-//        second.setDate("Non défini");
-        capitainerie = new Marin();
-        second = new Marin();
-        equipage = new ArrayList<>();
+        aUnEquipage = false;
     }    
     
     public Equipage(Marin c, Marin s, ArrayList <Marin> m)
@@ -75,6 +67,16 @@ public class Equipage
         for(int i = 0; i < getEquipage().size(); i++)
             System.err.println(getEquipage().get(i).getFonction() + " : " + getEquipage().get(i).getNom() + " " + getEquipage().get(i).getPrenom());
         
+    }
+    
+    public void setAUnEquipage(boolean tmp)
+    {
+        aUnEquipage = tmp;
+    }
+    
+    public boolean getAUnEquipage()
+    {
+        return aUnEquipage;
     }
 
 }
