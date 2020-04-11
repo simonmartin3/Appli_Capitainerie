@@ -33,7 +33,9 @@ public class CapitainerieWindow extends javax.swing.JFrame {
     
     LoginWindow LW;
     Hashtable<String, String> hmap = new Hashtable<>();
-    Vector <Bateau> vBateauAmarré;
+    Vector <Bateau> vBateauAmarré = new Vector<>();
+    Vector <Quai> vQuai = new Vector<>();
+    Vector <Ponton> vPonton = new Vector<>();
     
     
     // Format current date
@@ -55,8 +57,28 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         Ponton emplAmarrage2 = new Ponton("P1");
         Ponton emplAmarrage3 = new Ponton("P2");
         emplAmarrage1.getListe().ensureCapacity(emplAmarrage1.getCapacite());
+        
         for(int i = 0; i < emplAmarrage1.getCapacite(); i++)
+        {
             emplAmarrage1.getListe().add(i, null);
+            emplAmarrage2.getListe(1).add(i, null);
+            emplAmarrage2.getListe(2).add(i, null);
+            emplAmarrage2.getListe(1).add(i, null);
+            emplAmarrage2.getListe(2).add(i, null);
+        }
+        
+        vQuai.add(emplAmarrage1);
+        vPonton.add(emplAmarrage2);
+        vPonton.add(emplAmarrage3);
+        
+//        for(int i = 0; i < emplAmarrage1.getCapacite(); i++)
+//            System.err.println(emplAmarrage1.getIdentifiant() + "*" + (i+1) + " : " + emplAmarrage1.getListe().get(i));
+//        
+//        for(int i = 0; i < emplAmarrage1.getCapacite(); i++)
+//            System.err.println(emplAmarrage2.getIdentifiant() +"1*" + (i+1) + " : " + emplAmarrage2.getListe(1).get(i));
+//        
+//        for(int i = 0; i < emplAmarrage1.getCapacite(); i++)
+//            System.err.println(emplAmarrage2.getIdentifiant() + "2*" + (i+1) + " : " + emplAmarrage2.getListe(2).get(i));
                
         //Création de 4 bateaux
         Bateau b1 = null, b2 = null, b3 = null, b4 = null;
@@ -71,12 +93,13 @@ public class CapitainerieWindow extends javax.swing.JFrame {
             msg.Affiche();
         }
 
-        vBateauAmarré = new Vector<>();
+        
         vBateauAmarré.add(b1);
         vBateauAmarré.add(b2);
         vBateauAmarré.add(b3);
         vBateauAmarré.add(b4);
         //----------------------------------------------------------------------
+        
         
         //Initialisation JFrame ------------------------------------------------
         initComponents();
@@ -105,9 +128,6 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         //Insertion vector dans JList
         insertListBateau();
         
-        
-        
-        //----------------------------------------------------------------------
     }
 
     /**
@@ -489,7 +509,7 @@ public class CapitainerieWindow extends javax.swing.JFrame {
 
     private void MenuItem_PlaisanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItem_PlaisanceActionPerformed
         // TODO add your handling code here:
-        PlaisanceWindow pw = new PlaisanceWindow(this, true);
+        PlaisanceWindow pw = new PlaisanceWindow(this, true, vQuai);
         pw.setVisible(true);
     }//GEN-LAST:event_MenuItem_PlaisanceActionPerformed
 

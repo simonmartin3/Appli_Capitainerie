@@ -5,6 +5,10 @@
  */
 package Windows;
 
+import Classes.Ponton;
+import Classes.Quai;
+import java.util.Vector;
+
 /**
  *
  * @author Simon
@@ -15,10 +19,13 @@ public class PlaisanceWindow extends javax.swing.JDialog {
      * Creates new form PlaisanceWindow
      */
     CapitainerieWindow CW;
+    Vector<Object> vTmp = new Vector<>();
     
-    public PlaisanceWindow(java.awt.Frame parent, boolean modal) {
+    public PlaisanceWindow(java.awt.Frame parent, boolean modal, Vector v)
+    {
         super(parent, modal);
         initComponents();
+        vTmp = v;
         
         CW = (CapitainerieWindow) parent;
         
@@ -135,7 +142,7 @@ public class PlaisanceWindow extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                PlaisanceWindow dialog = new PlaisanceWindow(new javax.swing.JFrame(), true);
+                PlaisanceWindow dialog = new PlaisanceWindow(new javax.swing.JFrame(), true, null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
