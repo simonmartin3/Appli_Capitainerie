@@ -51,35 +51,7 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         //Initialisation variables
         LW = (LoginWindow) parent;
         hmap = tmp;
-        
-        //Création du Quai 2 et des pontons P1 et P2
-        Quai emplAmarrage1 = new Quai("Q2");
-        Ponton emplAmarrage2 = new Ponton("P1");
-        Ponton emplAmarrage3 = new Ponton("P2");
-        emplAmarrage1.getListe().ensureCapacity(emplAmarrage1.getCapacite());
-        
-        for(int i = 0; i < emplAmarrage1.getCapacite(); i++)
-        {
-            emplAmarrage1.getListe().add(i, null);
-            emplAmarrage2.getListe(1).add(i, null);
-            emplAmarrage2.getListe(2).add(i, null);
-            emplAmarrage2.getListe(1).add(i, null);
-            emplAmarrage2.getListe(2).add(i, null);
-        }
-        
-        vQuai.add(emplAmarrage1);
-        vPonton.add(emplAmarrage2);
-        vPonton.add(emplAmarrage3);
-        
-//        for(int i = 0; i < emplAmarrage1.getCapacite(); i++)
-//            System.err.println(emplAmarrage1.getIdentifiant() + "*" + (i+1) + " : " + emplAmarrage1.getListe().get(i));
-//        
-//        for(int i = 0; i < emplAmarrage1.getCapacite(); i++)
-//            System.err.println(emplAmarrage2.getIdentifiant() +"1*" + (i+1) + " : " + emplAmarrage2.getListe(1).get(i));
-//        
-//        for(int i = 0; i < emplAmarrage1.getCapacite(); i++)
-//            System.err.println(emplAmarrage2.getIdentifiant() + "2*" + (i+1) + " : " + emplAmarrage2.getListe(2).get(i));
-               
+                       
         //Création de 4 bateaux
         Bateau b1 = null, b2 = null, b3 = null, b4 = null;
         try{
@@ -100,6 +72,31 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         vBateauAmarré.add(b4);
         //----------------------------------------------------------------------
         
+        //Création du Quai 2 et des pontons P1 et P2
+        Quai emplAmarrage1 = new Quai("Q2");
+        Ponton emplAmarrage2 = new Ponton("P1");
+        Ponton emplAmarrage3 = new Ponton("P2");
+        emplAmarrage1.getListe().ensureCapacity(emplAmarrage1.getCapacite());
+        
+        for(int i = 0; i < emplAmarrage1.getCapacite(); i++)
+        {
+            emplAmarrage1.getListe().add(i, new BateauPeche());
+            emplAmarrage2.getListe(1).add(i, new BateauPlaisance());
+            emplAmarrage2.getListe(2).add(i, new BateauPlaisance());
+            emplAmarrage3.getListe(1).add(i, new BateauPlaisance());
+            emplAmarrage3.getListe(2).add(i, new BateauPlaisance());
+        }
+        
+//        emplAmarrage2.getListe(1).add(0, b2);
+//        emplAmarrage2.getListe(1).add(9, b4);
+//        emplAmarrage1.getListe().add(0, b1);
+//        emplAmarrage1.getListe().add(8, b1);
+        
+        
+        vQuai.add(emplAmarrage1);
+        vPonton.add(emplAmarrage2);
+        vPonton.add(emplAmarrage3);
+
         
         //Initialisation JFrame ------------------------------------------------
         initComponents();
@@ -268,6 +265,11 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         Menu_Amarrages.add(MenuItem_Plaisance);
 
         MenuItem_Peche.setText("Pêche");
+        MenuItem_Peche.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuItem_PecheActionPerformed(evt);
+            }
+        });
         Menu_Amarrages.add(MenuItem_Peche);
 
         jMenuBar1.add(Menu_Amarrages);
@@ -275,6 +277,11 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         Menu_Bateaux.setText("Bateaux");
 
         MenuItem_Liste.setText("Liste complète");
+        MenuItem_Liste.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuItem_ListeActionPerformed(evt);
+            }
+        });
         Menu_Bateaux.add(MenuItem_Liste);
 
         MenuItem_RechercheBateau.setText("Rechercher un bateau");
@@ -509,9 +516,21 @@ public class CapitainerieWindow extends javax.swing.JFrame {
 
     private void MenuItem_PlaisanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItem_PlaisanceActionPerformed
         // TODO add your handling code here:
-        PlaisanceWindow pw = new PlaisanceWindow(this, true, vQuai);
+        PlaisanceWindow pw = new PlaisanceWindow(this, true, vPonton);
         pw.setVisible(true);
     }//GEN-LAST:event_MenuItem_PlaisanceActionPerformed
+
+    private void MenuItem_ListeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItem_ListeActionPerformed
+        // TODO add your handling code here:
+        ListBateauWindow lbw = new ListBateauWindow(this, true, vBateauAmarré);
+        lbw.setVisible(true);
+    }//GEN-LAST:event_MenuItem_ListeActionPerformed
+
+    private void MenuItem_PecheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItem_PecheActionPerformed
+        // TODO add your handling code here:
+        PecheWindow pw = new PecheWindow(this, true, vQuai);
+        pw.setVisible(true);
+    }//GEN-LAST:event_MenuItem_PecheActionPerformed
 
     public void IsEnable(boolean tmp)
     {

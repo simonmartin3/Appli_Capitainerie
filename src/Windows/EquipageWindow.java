@@ -51,6 +51,7 @@ public class EquipageWindow extends javax.swing.JDialog {
         
         
         Label_NomBateau.setText(tmpBateau.getNom() + "(" + tmpBateau.getPortAttache()+ ")");
+        Label_NbrePassager.setText(Integer.toString(tmpBateau.getNombreHumains()));
         
         G = new ButtonGroup();
         G.add(RadioButton_Capitaine);
@@ -108,6 +109,8 @@ public class EquipageWindow extends javax.swing.JDialog {
         Button_Abandonner = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         List_Equipage = new javax.swing.JList<>();
+        jLabel5 = new javax.swing.JLabel();
+        Label_NbrePassager = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -163,12 +166,17 @@ public class EquipageWindow extends javax.swing.JDialog {
 
         jScrollPane1.setViewportView(List_Equipage);
 
+        jLabel5.setText("Nombre de passager :");
+
+        Label_NbrePassager.setText("/");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,19 +203,24 @@ public class EquipageWindow extends javax.swing.JDialog {
                                 .addGap(18, 18, 18)
                                 .addComponent(RadioButton_Passager)))
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Label_NbrePassager)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(Button_Ok, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(249, 249, 249))
             .addGroup(layout.createSequentialGroup()
                 .addGap(133, 133, 133)
                 .addComponent(Button_Valider)
                 .addGap(86, 86, 86)
                 .addComponent(Button_Abandonner, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(131, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Button_Ok, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(249, 249, 249))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -240,7 +253,11 @@ public class EquipageWindow extends javax.swing.JDialog {
                             .addComponent(RadioButton_Matelot)
                             .addComponent(RadioButton_Passager)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(Label_NbrePassager))
+                .addGap(11, 11, 11)
                 .addComponent(Button_Ok, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -256,6 +273,7 @@ public class EquipageWindow extends javax.swing.JDialog {
 
     private void Button_OkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_OkActionPerformed
         // TODO add your handling code here:
+        int nbrePassager;
         try 
         {
             if(RadioButton_Capitaine.isSelected())
@@ -293,9 +311,16 @@ public class EquipageWindow extends javax.swing.JDialog {
             List_Equipage.removeAll();
             List_Equipage.setModel(model);
             isCapitaine();
+            
+            // Incrémentation du nombre de passager + affichage
+            nbrePassager = tmpBateau.getNombreHumains();
+            nbrePassager++;
+            tmpBateau.setNombreHumains(nbrePassager);
+
+            Label_NbrePassager.setText(Integer.toString(tmpBateau.getNombreHumains()));
                 
         } catch (SailorWithoutIdentificationException error) {
-                    error.Affiche();
+            error.Affiche();
         }      
     }//GEN-LAST:event_Button_OkActionPerformed
 
@@ -399,6 +424,7 @@ public class EquipageWindow extends javax.swing.JDialog {
     private javax.swing.JButton Button_Abandonner;
     private javax.swing.JButton Button_Ok;
     private javax.swing.JButton Button_Valider;
+    private javax.swing.JLabel Label_NbrePassager;
     private javax.swing.JLabel Label_NomBateau;
     private javax.swing.JList<String> List_Equipage;
     private javax.swing.JRadioButton RadioButton_Bosco;
@@ -413,6 +439,7 @@ public class EquipageWindow extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables

@@ -17,25 +17,25 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Simon
  */
-public class PlaisanceWindow extends javax.swing.JDialog {
+public class PecheWindow extends javax.swing.JDialog {
 
     /**
      * Creates new form PlaisanceWindow
      */
     CapitainerieWindow CW;
-    Vector<Ponton> vTmp = new Vector<>();
+    Vector<Quai> vTmp = new Vector<>();
     ArrayList <MoyenDeTransportSurEau> tmpList = new ArrayList<>();
 
-    public PlaisanceWindow(java.awt.Frame parent, boolean modal, Vector v) {
+    public PecheWindow(java.awt.Frame parent, boolean modal, Vector v) {
         super(parent, modal);
         initComponents();
-        vTmp = v;
         CW = (CapitainerieWindow) parent;
-        
+        vTmp = v;
+
         this.setLocationRelativeTo(null);
         this.setLocation(CW.getX() + CW.getWidth(), CW.getY());
         this.setResizable(false);
-        this.setTitle("Capitainerie - Liste Bateau plaisance");
+        this.setTitle("Capitainerie - Liste Bateau peche");
         
         jTable1.setEnabled(false);
         // Remplissage JTable
@@ -47,13 +47,12 @@ public class PlaisanceWindow extends javax.swing.JDialog {
         
         for(int i = 0; i < vTmp.size(); i++)
         {
-            // coté 1
             for(int j = 0; j < vTmp.get(i).getCapacite();j++)
             {
                 String nom;
                 
-                if(((Bateau)vTmp.get(i).getListe(1).get(j)).getNom() != null)
-                    nom = ((Bateau)vTmp.get(i).getListe(1).get(j)).getNom();
+                if(((Bateau)vTmp.get(i).getListe().get(j)).getNom() != null)
+                    nom = ((Bateau)vTmp.get(i).getListe().get(j)).getNom();
                 else    
                     nom = "/";
                 
@@ -61,24 +60,6 @@ public class PlaisanceWindow extends javax.swing.JDialog {
                     model.addRow(new Object[]{vTmp.get(i).getIdentifiant(), 1 + "*" + (j+1), nom});
                 else
                     model.addRow(new Object[]{"", 1 + "*" + (j+1), nom});
-            }
-            
-            model.addRow(new Object[]{}); // Ligne vide
-            
-            // coté 2
-            for(int j = 0; j < vTmp.get(i).getCapacite();j++)
-            {
-                String nom;
-                
-                if(((Bateau)vTmp.get(i).getListe(2).get(j)).getNom() != null)
-                    nom = ((Bateau)vTmp.get(i).getListe(1).get(j)).getNom();
-                else    
-                    nom = "/";
-                
-                if(j == 0)
-                    model.addRow(new Object[]{vTmp.get(i).getIdentifiant(), 2 + "*" + (j+1), nom});
-                else
-                    model.addRow(new Object[]{"", 2 + "*" + (j+1), nom});
             }
             
             model.addRow(new Object[]{}); // Ligne vide
@@ -187,20 +168,21 @@ public class PlaisanceWindow extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PlaisanceWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PecheWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PlaisanceWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PecheWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PlaisanceWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PecheWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PlaisanceWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PecheWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                PlaisanceWindow dialog = new PlaisanceWindow(new javax.swing.JFrame(), true, null);
+                PecheWindow dialog = new PecheWindow(new javax.swing.JFrame(), true, null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
