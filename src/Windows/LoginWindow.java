@@ -103,9 +103,9 @@ public class LoginWindow extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(Button_Valider)
-                        .addGap(18, 18, 18)
-                        .addComponent(Button_Annuler)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Button_Annuler)
+                        .addGap(18, 18, 18)
                         .addComponent(Button_Quitter))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -133,8 +133,8 @@ public class LoginWindow extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Button_Valider)
-                    .addComponent(Button_Annuler)
-                    .addComponent(Button_Quitter))
+                    .addComponent(Button_Quitter)
+                    .addComponent(Button_Annuler))
                 .addContainerGap(74, Short.MAX_VALUE))
         );
 

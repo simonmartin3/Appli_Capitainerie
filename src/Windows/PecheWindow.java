@@ -37,7 +37,7 @@ public class PecheWindow extends javax.swing.JDialog {
         this.setResizable(false);
         this.setTitle("Capitainerie - Liste Bateau peche");
         
-        jTable1.setEnabled(false);
+        
         // Remplissage JTable
         DefaultTableModel model = new DefaultTableModel()
         {
@@ -47,7 +47,7 @@ public class PecheWindow extends javax.swing.JDialog {
             };
         };
         model.addColumn("Ponton");
-        model.addColumn("Coté*Emplacement");
+        model.addColumn("Emplacement");
         model.addColumn("Nom");
         
         
@@ -62,10 +62,11 @@ public class PecheWindow extends javax.swing.JDialog {
                 else    
                     nom = "/";
                 
+                // N'afficher que l'identifiant une seule fois
                 if(j == 0)
-                    model.addRow(new Object[]{vTmp.get(i).getIdentifiant(), 1 + "*" + (j+1), nom});
+                    model.addRow(new Object[]{vTmp.get(i).getIdentifiant(), (j+1), nom});
                 else
-                    model.addRow(new Object[]{"", 1 + "*" + (j+1), nom});
+                    model.addRow(new Object[]{"",(j+1), nom});
             }
             
             model.addRow(new Object[]{}); // Ligne vide

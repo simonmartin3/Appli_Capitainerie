@@ -129,9 +129,8 @@ public class ListBateauWindow extends javax.swing.JDialog {
         else
         {
             System.out.println("Traitement du bateau : " + jList1.getSelectedValue());
-            
-//            InfoBateauWindow ifw = new InfoBateauWindow(this, List_Bateau.getSelectedValue());
-            InfoBateauWindow ifw = new InfoBateauWindow(CW, vBateauAmarré.get(jList1.getSelectedIndex()), jList1.getSelectedIndex());
+
+            InfoBateauWindow ifw = new InfoBateauWindow(CW, vBateauAmarré.get(jList1.getSelectedIndex()), jList1.getSelectedIndex(), false);
             ifw.setVisible(true);
             this.dispose();
         }

@@ -48,11 +48,27 @@ public class CapitainerieWindow extends javax.swing.JFrame {
     public static void setFormatLocale(Locale tmp){formatPays = tmp;}
     
     public CapitainerieWindow(java.awt.Frame parent, Hashtable tmp) throws ShipWithoutIdentificationException, SailorWithoutIdentificationException {
-        //Initialisation variables
+        
+// Initialisation JFrame -----------------------------------------------
+        
+        initComponents();
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        this.setTitle("Capitainerie d'Inpres-Harbour");
+        
+        //----------------------------------------------------------------------
+
+        
+        // Initialisation variables --------------------------------------------
+        
         LW = (LoginWindow) parent;
         hmap = tmp;
-                       
-        //Création de 4 bateaux
+        
+        //----------------------------------------------------------------------
+        
+        
+        // Création de 4 bateaux -----------------------------------------------
+        
         Bateau b1 = null, b2 = null, b3 = null, b4 = null;
         try{
             b1 = new BateauPeche("Marie Gueulante", "", 0, 0, "FR", "Q2*4", new Equipage(), "", "", 0, false); //Q2*4
@@ -64,15 +80,17 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         {
             msg.Affiche();
         }
-
-        
+ 
         vBateauAmarré.add(b1);
         vBateauAmarré.add(b2);
         vBateauAmarré.add(b3);
         vBateauAmarré.add(b4);
+        
         //----------------------------------------------------------------------
         
-        //Création du Quai 2 et des pontons P1 et P2
+        
+        // Création du Quai 2 et des pontons P1 et P2 --------------------------
+        
         Quai emplAmarrage1 = new Quai("Q2");
         Ponton emplAmarrage2 = new Ponton("P1");
         Ponton emplAmarrage3 = new Ponton("P2");
@@ -87,24 +105,21 @@ public class CapitainerieWindow extends javax.swing.JFrame {
             emplAmarrage3.getListe(2).add(i, new BateauPlaisance());
         }
         
+        // Ajout de bateau dans emplacement quai et ponton
 //        emplAmarrage2.getListe(1).add(0, b2);
 //        emplAmarrage2.getListe(1).add(9, b4);
 //        emplAmarrage1.getListe().add(0, b1);
 //        emplAmarrage1.getListe().add(8, b1);
         
-        
         vQuai.add(emplAmarrage1);
         vPonton.add(emplAmarrage2);
         vPonton.add(emplAmarrage3);
-
         
-        //Initialisation JFrame ------------------------------------------------
-        initComponents();
-        this.setLocationRelativeTo(null);
-        this.setResizable(false);
-        this.setTitle("Capitainerie d'Inpres-Harbour");
+        //----------------------------------------------------------------------
         
-        //Insertion images
+        
+        // Insertion images ----------------------------------------------------
+        
         ImageIcon image1 = new ImageIcon(new ImageIcon("images/image1.jpg").getImage().getScaledInstance(Image1.getWidth(), Image1.getHeight(), 20));
         Image1.setText(null);
         Image1.setIcon(image1);
@@ -113,18 +128,29 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         Image2.setText(null);
         Image2.setIcon(image2);
         
-        //Login disable
+        //----------------------------------------------------------------------
+        
+        
+        // Login disable -------------------------------------------------------
+        
         MenuItem_Login.setEnabled(false);
         
-        //Display current date
+        //----------------------------------------------------------------------
+        
+        // Display current date ------------------------------------------------
+        
         setFormatDate(DateFormat.SHORT);
         setFormatHeure(DateFormat.SHORT);
         setFormatLocale(Locale.FRANCE);
         displayDate();
         
-        //Insertion vector dans JList
+        //----------------------------------------------------------------------
+        
+        // Insertion vector dans JList ------------------------------------------
+        
         insertListBateau();
         
+        //---------------------------------------------------------------------- 
     }
 
     /**
@@ -285,6 +311,11 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         Menu_Bateaux.add(MenuItem_Liste);
 
         MenuItem_RechercheBateau.setText("Rechercher un bateau");
+        MenuItem_RechercheBateau.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuItem_RechercheBateauActionPerformed(evt);
+            }
+        });
         Menu_Bateaux.add(MenuItem_RechercheBateau);
 
         jMenuBar1.add(Menu_Bateaux);
@@ -503,8 +534,7 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         {
             System.out.println("Traitement du bateau : " + List_Bateau.getSelectedValue());
             
-//            InfoBateauWindow ifw = new InfoBateauWindow(this, List_Bateau.getSelectedValue());
-            InfoBateauWindow ifw = new InfoBateauWindow(this, vBateauAmarré.get(List_Bateau.getSelectedIndex()), List_Bateau.getSelectedIndex());
+            InfoBateauWindow ifw = new InfoBateauWindow(this, vBateauAmarré.get(List_Bateau.getSelectedIndex()), List_Bateau.getSelectedIndex(), true);
             ifw.setVisible(true);
         }
     }//GEN-LAST:event_Button_BatteauAmarreActionPerformed
@@ -531,6 +561,12 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         PecheWindow pw = new PecheWindow(this, true, vQuai);
         pw.setVisible(true);
     }//GEN-LAST:event_MenuItem_PecheActionPerformed
+
+    private void MenuItem_RechercheBateauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItem_RechercheBateauActionPerformed
+        // TODO add your handling code here:
+        SearchBateauWindow sbw = new SearchBateauWindow(this, true);
+        sbw.setVisible(true);
+    }//GEN-LAST:event_MenuItem_RechercheBateauActionPerformed
 
     public void IsEnable(boolean tmp)
     {

@@ -31,23 +31,31 @@ public class InfoBateauWindow extends javax.swing.JFrame {
     Bateau tmpBateau;
     int tmpIndex;
 
-    public InfoBateauWindow(java.awt.Frame parent, Bateau tmp, int index) {
+    public InfoBateauWindow(java.awt.Frame parent, Bateau tmp, int index, boolean bool) {
+        
+        // Initialisation JFrame -----------------------------------------------
+        
         initComponents();
-        CW = (CapitainerieWindow) parent;
-        tmpBateau = tmp;
-        tmpIndex = index;
-
         this.setLocationRelativeTo(null);
         this.setLocation(CW.getX() - this.getWidth(), CW.getY());
         this.setResizable(false);
         this.setTitle("Capitainerie - Informations sur bateau entrant");
+        
+        // ---------------------------------------------------------------------
+        
+        
+        // Initialisation variables --------------------------------------------
+        CW = (CapitainerieWindow) parent;
+        tmpBateau = tmp;
+        tmpIndex = index;
+        boolean traitement = bool;
 
-        //Display info ---------------------------------------------------------
-        //StringTokenizer st = new StringTokenizer(tmp);
+        // ---------------------------------------------------------------------
+        
+        
+        // Display info --------------------------------------------------------
+        
         Label_Bateau.setText(tmp.getNom());
-        //st.nextToken("--");
-        //String pavillon = (String) st.nextToken("-->");
-        //pavillon = pavillon.trim();
         String pavillon = tmp.getPavillon();
         switch (pavillon) {
             case "FR":
@@ -65,29 +73,29 @@ public class InfoBateauWindow extends javax.swing.JFrame {
         Label_Pavillon.setIcon(getPavillon());
 
         Label_Emplacement.setText(tmp.getEmplacement());
-        //----------------------------------------------------------------------
-
-        // Savoir le bateau qu'on modifie --------------------------------------
-//        String nom;
-//        nom = Label_Bateau.getText();
-//        nom = nom.trim();
-//        
-//        for(int i = 0; i < CW.vBateauAmarré.size();i++)
-//        {
-//            if(nom.equals(CW.vBateauAmarré.get(i).getNom())) {
-//                Iterator = i;
-//                break;
-//            }
-//            
-//        }
-        //----------------------------------------------------------------------
+        
         if(tmp.getTonnage() != 0)
             TextField_Tonnage.setText(Integer.toString(tmp.getTonnage()));
         
         TextField_PortAttache.setText(tmp.getPortAttache());
 
         autoComboBoxEquipage();
+        
+        // ---------------------------------------------------------------------
+        
+        
+        // Affichage ou modification -------------------------------------------
+        
+        if(!traitement)
+        {
+            Button_Annuler.setText("Quitter");
+            TextField_PortAttache.setEditable(traitement);
+            TextField_Tonnage.setEditable(traitement);
+            Button_Ok.setEnabled(traitement);
+            Button_Equipage.setEnabled(traitement);
+        }
 
+        // ---------------------------------------------------------------------
     }
 
     /**
@@ -364,7 +372,7 @@ public class InfoBateauWindow extends javax.swing.JFrame {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                InfoBateauWindow dialog = new InfoBateauWindow(new javax.swing.JFrame(), null, 0);
+                InfoBateauWindow dialog = new InfoBateauWindow(new javax.swing.JFrame(), null, 0, false);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

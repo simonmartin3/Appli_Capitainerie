@@ -37,8 +37,6 @@ public class PlaisanceWindow extends javax.swing.JDialog {
         this.setResizable(false);
         this.setTitle("Capitainerie - Liste Bateau plaisance");
         
-//        jTable1.setEnabled(false);
-        
         // Remplissage JTable
         DefaultTableModel model = new DefaultTableModel()
         {
@@ -64,6 +62,7 @@ public class PlaisanceWindow extends javax.swing.JDialog {
                 else    
                     nom = "/";
                 
+                // N'afficher que l'identifiant une seule fois
                 if(j == 0)
                     model.addRow(new Object[]{vTmp.get(i).getIdentifiant(), 1 + "*" + (j+1), nom});
                 else
@@ -78,10 +77,11 @@ public class PlaisanceWindow extends javax.swing.JDialog {
                 String nom;
                 
                 if(((Bateau)vTmp.get(i).getListe(2).get(j)).getNom() != null)
-                    nom = ((Bateau)vTmp.get(i).getListe(1).get(j)).getNom();
+                    nom = ((Bateau)vTmp.get(i).getListe(2).get(j)).getNom();
                 else    
                     nom = "/";
                 
+                // N'afficher que l'identifiant une seule fois
                 if(j == 0)
                     model.addRow(new Object[]{vTmp.get(i).getIdentifiant(), 2 + "*" + (j+1), nom});
                 else
