@@ -39,7 +39,13 @@ public class PecheWindow extends javax.swing.JDialog {
         
         jTable1.setEnabled(false);
         // Remplissage JTable
-        DefaultTableModel model = new DefaultTableModel();
+        DefaultTableModel model = new DefaultTableModel()
+        {
+            // Cellule non éditable
+            public boolean isCellEditable(int row, int col) {
+                return false;
+            };
+        };
         model.addColumn("Ponton");
         model.addColumn("Coté*Emplacement");
         model.addColumn("Nom");

@@ -37,9 +37,16 @@ public class PlaisanceWindow extends javax.swing.JDialog {
         this.setResizable(false);
         this.setTitle("Capitainerie - Liste Bateau plaisance");
         
-        jTable1.setEnabled(false);
+//        jTable1.setEnabled(false);
+        
         // Remplissage JTable
-        DefaultTableModel model = new DefaultTableModel();
+        DefaultTableModel model = new DefaultTableModel()
+        {
+            // Cellule non éditable
+            public boolean isCellEditable(int row, int col) {
+                return false;
+            };
+        };
         model.addColumn("Ponton");
         model.addColumn("Coté*Emplacement");
         model.addColumn("Nom");
