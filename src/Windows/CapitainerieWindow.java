@@ -49,7 +49,7 @@ public class CapitainerieWindow extends javax.swing.JFrame {
     
     public CapitainerieWindow(java.awt.Frame parent, Hashtable tmp) throws ShipWithoutIdentificationException, SailorWithoutIdentificationException {
         
-// Initialisation JFrame -----------------------------------------------
+        // Initialisation JFrame -----------------------------------------------
         
         initComponents();
         this.setLocationRelativeTo(null);
@@ -323,6 +323,11 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         Menu_Personnel.setText("Personnel");
 
         MenuItem_Equipage.setText("Equipage d'un bateau");
+        MenuItem_Equipage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuItem_EquipageActionPerformed(evt);
+            }
+        });
         Menu_Personnel.add(MenuItem_Equipage);
 
         MenuItem_RechecrheMarin.setText("Rechercher un marin");
@@ -567,6 +572,12 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         SearchBateauWindow sbw = new SearchBateauWindow(this, true);
         sbw.setVisible(true);
     }//GEN-LAST:event_MenuItem_RechercheBateauActionPerformed
+
+    private void MenuItem_EquipageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItem_EquipageActionPerformed
+        // TODO add your handling code here:
+        ListEquipageWindow lew = new ListEquipageWindow(this, true, vBateauAmarré);
+        lew.setVisible(true);
+    }//GEN-LAST:event_MenuItem_EquipageActionPerformed
 
     public void IsEnable(boolean tmp)
     {

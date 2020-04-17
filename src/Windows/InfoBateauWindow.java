@@ -33,6 +33,15 @@ public class InfoBateauWindow extends javax.swing.JFrame {
 
     public InfoBateauWindow(java.awt.Frame parent, Bateau tmp, int index, boolean bool) {
         
+        // Initialisation variables --------------------------------------------
+        CW = (CapitainerieWindow) parent;
+        tmpBateau = tmp;
+        tmpIndex = index;
+        boolean traitement = bool;
+
+        // ---------------------------------------------------------------------
+        
+        
         // Initialisation JFrame -----------------------------------------------
         
         initComponents();
@@ -42,16 +51,7 @@ public class InfoBateauWindow extends javax.swing.JFrame {
         this.setTitle("Capitainerie - Informations sur bateau entrant");
         
         // ---------------------------------------------------------------------
-        
-        
-        // Initialisation variables --------------------------------------------
-        CW = (CapitainerieWindow) parent;
-        tmpBateau = tmp;
-        tmpIndex = index;
-        boolean traitement = bool;
-
-        // ---------------------------------------------------------------------
-        
+               
         
         // Display info --------------------------------------------------------
         
@@ -163,6 +163,11 @@ public class InfoBateauWindow extends javax.swing.JFrame {
         Label_Emplacement.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         Label_Emplacement.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Label_Emplacement.setText("/");
+        Label_Emplacement.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Label_EmplacementMouseClicked(evt);
+            }
+        });
 
         Label_Bateau.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         Label_Bateau.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -300,6 +305,12 @@ public class InfoBateauWindow extends javax.swing.JFrame {
         ew.setVisible(true);
     }//GEN-LAST:event_Button_EquipageActionPerformed
 
+    private void Label_EmplacementMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_EmplacementMouseClicked
+        // TODO add your handling code here:
+        TextField_PortAttache.setText("Paris");
+        TextField_Tonnage.setText("15");
+    }//GEN-LAST:event_Label_EmplacementMouseClicked
+
     private void setPavillon(String pavillon) {
         img = new ImageIcon(new ImageIcon("images/" + pavillon + ".png").getImage().getScaledInstance(Label_Pavillon.getWidth() / 2, Label_Pavillon.getHeight(), 20));
     }
@@ -309,6 +320,9 @@ public class InfoBateauWindow extends javax.swing.JFrame {
     }
 
     public void autoComboBoxEquipage() {
+        
+        ComboBox_Equipage.removeAllItems();
+        
         if (tmpBateau.getEquipage().getAUnEquipage()) {
             ComboBox_Equipage.addItem(tmpBateau.getEquipage().getCapitainerie().getFonction() + " : " + tmpBateau.getEquipage().getCapitainerie().getNom());
 

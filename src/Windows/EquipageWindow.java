@@ -64,7 +64,7 @@ public class EquipageWindow extends javax.swing.JDialog {
         {
             model.addElement(tmpEquipage.getCapitainerie().getFonction() + " : " + tmpEquipage.getCapitainerie().getNom());
             
-            if(tmpEquipage.getSecond().getFonction() != null)
+            if(tmpEquipage.getSecond() != null)
             {
                 model.addElement(tmpEquipage.getSecond().getFonction() + " : " + tmpEquipage.getSecond().getNom());
             }   
@@ -75,7 +75,7 @@ public class EquipageWindow extends javax.swing.JDialog {
                     model.addElement(tmpEquipage.getEquipage().get(i).getFonction() + " : " + tmpEquipage.getEquipage().get(i).getNom());
             }
         
-        List_Equipage.setModel(model);
+            List_Equipage.setModel(model);
         }
         
         isCapitaine();
@@ -326,6 +326,7 @@ public class EquipageWindow extends javax.swing.JDialog {
 
     private void Button_ValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ValiderActionPerformed
         // TODO add your handling code here:
+        
         ifw.CW.vBateauAmarré.set(ifw.tmpIndex, tmpBateau); //On enregistre dans le vecteur
         ifw.autoComboBoxEquipage(); //On met à jour la comboBox
         

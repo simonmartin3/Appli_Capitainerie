@@ -192,6 +192,9 @@
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="/"/>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Label_EmplacementMouseClicked"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="Label_Bateau">
       <Properties>
