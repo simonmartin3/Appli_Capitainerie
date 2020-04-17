@@ -33,7 +33,7 @@ public class EquipageWindow extends javax.swing.JDialog {
     private Equipage tmpEquipage;
     Vector <Marin> vMarrin;
     DefaultListModel model = new DefaultListModel();
-    ButtonGroup G;
+    
     
     public EquipageWindow(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -53,7 +53,7 @@ public class EquipageWindow extends javax.swing.JDialog {
         Label_NomBateau.setText(tmpBateau.getNom() + "(" + tmpBateau.getPortAttache()+ ")");
         Label_NbrePassager.setText(Integer.toString(tmpBateau.getNombreHumains()));
         
-        G = new ButtonGroup();
+        ButtonGroup G = new ButtonGroup();
         G.add(RadioButton_Capitaine);
         G.add(RadioButton_Second);
         G.add(RadioButton_Bosco);

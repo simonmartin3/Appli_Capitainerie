@@ -312,7 +312,8 @@ public class InfoBateauWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_Label_EmplacementMouseClicked
 
     private void setPavillon(String pavillon) {
-        img = new ImageIcon(new ImageIcon("images/" + pavillon + ".png").getImage().getScaledInstance(Label_Pavillon.getWidth() / 2, Label_Pavillon.getHeight(), 20));
+        String separator = System.getProperty("file.separator");
+        img = new ImageIcon(new ImageIcon("images"+ separator + pavillon + ".png").getImage().getScaledInstance(Label_Pavillon.getWidth() / 2, Label_Pavillon.getHeight(), 20));
     }
 
     private ImageIcon getPavillon() {

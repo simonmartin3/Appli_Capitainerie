@@ -13,8 +13,8 @@ import java.util.ArrayList;
  */
 public class Equipage 
 {
-    private Marin capitainerie;
-    private Marin second;
+    private Marin capitainerie = null;
+    private Marin second = null;
     private ArrayList<Marin> equipage = new ArrayList<>();
     private boolean aUnEquipage;
 

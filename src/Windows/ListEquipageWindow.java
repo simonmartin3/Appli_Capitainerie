@@ -6,6 +6,7 @@
 package Windows;
 
 import Classes.Bateau;
+import Classes.Marin;
 import java.util.Vector;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
@@ -58,6 +59,7 @@ public class ListEquipageWindow extends javax.swing.JDialog {
         jList1 = new javax.swing.JList<>();
         ComboBox_Bateau = new javax.swing.JComboBox<>();
         Button_Search = new javax.swing.JButton();
+        Button_Infos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -82,6 +84,13 @@ public class ListEquipageWindow extends javax.swing.JDialog {
             }
         });
 
+        Button_Infos.setText("Infos");
+        Button_Infos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_InfosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -91,11 +100,14 @@ public class ListEquipageWindow extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(Button_OK, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(ComboBox_Bateau, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Button_Search, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(Button_Search, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(Button_OK, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(Button_Infos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -110,7 +122,9 @@ public class ListEquipageWindow extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Button_OK)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Button_OK)
+                    .addComponent(Button_Infos))
                 .addContainerGap())
         );
 
@@ -143,12 +157,12 @@ public class ListEquipageWindow extends javax.swing.JDialog {
                 model.addElement(tmpBateau.getEquipage().getCapitainerie().getFonction() + " : " + tmpBateau.getEquipage().getCapitainerie().getNom());
 
                 if (tmpBateau.getEquipage().getSecond() != null) {
-                    ComboBox_Bateau.addItem(tmpBateau.getEquipage().getSecond().getFonction() + " : " + tmpBateau.getEquipage().getSecond().getNom());
+                    model.addElement(tmpBateau.getEquipage().getSecond().getFonction() + " : " + tmpBateau.getEquipage().getSecond().getNom());
                 }
 
                 if (tmpBateau.getEquipage().getEquipage() != null) {
                     for (int j = 0; j < tmpBateau.getEquipage().getEquipage().size(); j++) {
-                        ComboBox_Bateau.addItem(tmpBateau.getEquipage().getEquipage().get(i).getFonction() + " : " + tmpBateau.getEquipage().getEquipage().get(i).getNom());
+                        model.addElement(tmpBateau.getEquipage().getEquipage().get(j).getFonction() + " : " + tmpBateau.getEquipage().getEquipage().get(j).getNom());
                     }
                 }
             }
@@ -156,11 +170,15 @@ public class ListEquipageWindow extends javax.swing.JDialog {
             {
                 JOptionPane.showMessageDialog(new JFrame(), "Pas d'équipage encodé pour ce bateau !", "Erreur", JOptionPane.ERROR_MESSAGE);
             }
-            
-            
+
             jList1.setModel(model);
         }
     }//GEN-LAST:event_Button_SearchActionPerformed
+
+    private void Button_InfosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_InfosActionPerformed
+        // TODO add your handling code here:
+ 
+    }//GEN-LAST:event_Button_InfosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -206,6 +224,7 @@ public class ListEquipageWindow extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Button_Infos;
     private javax.swing.JButton Button_OK;
     private javax.swing.JButton Button_Search;
     private javax.swing.JComboBox<String> ComboBox_Bateau;

@@ -10,6 +10,7 @@ import Exception.SailorWithoutIdentificationException;
 import Exception.ShipWithoutIdentificationException;
 import static java.lang.Thread.sleep;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.Locale;
@@ -56,7 +57,7 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         this.setResizable(false);
         this.setTitle("Capitainerie d'Inpres-Harbour");
         
-        //----------------------------------------------------------------------
+        // ---------------------------------------------------------------------
 
         
         // Initialisation variables --------------------------------------------
@@ -64,7 +65,7 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         LW = (LoginWindow) parent;
         hmap = tmp;
         
-        //----------------------------------------------------------------------
+        // ---------------------------------------------------------------------
         
         
         // Création de 4 bateaux -----------------------------------------------
@@ -86,49 +87,50 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         vBateauAmarré.add(b3);
         vBateauAmarré.add(b4);
         
-        //----------------------------------------------------------------------
+        // ---------------------------------------------------------------------
         
         
         // Création du Quai 2 et des pontons P1 et P2 --------------------------
         
-        Quai emplAmarrage1 = new Quai("Q2");
-        Ponton emplAmarrage2 = new Ponton("P1");
-        Ponton emplAmarrage3 = new Ponton("P2");
-        emplAmarrage1.getListe().ensureCapacity(emplAmarrage1.getCapacite());
+        Quai Q2 = new Quai("Q2");
+        Ponton P1 = new Ponton("P1");
+        Ponton P2 = new Ponton("P2");
         
-        for(int i = 0; i < emplAmarrage1.getCapacite(); i++)
+        for(int i = 0; i < Q2.getCapacite(); i++)
         {
-            emplAmarrage1.getListe().add(i, new BateauPeche());
-            emplAmarrage2.getListe(1).add(i, new BateauPlaisance());
-            emplAmarrage2.getListe(2).add(i, new BateauPlaisance());
-            emplAmarrage3.getListe(1).add(i, new BateauPlaisance());
-            emplAmarrage3.getListe(2).add(i, new BateauPlaisance());
+            Q2.getListe().add(i, new BateauPeche());
+            P1.getListe(1).add(i, new BateauPlaisance());
+            P1.getListe(2).add(i, new BateauPlaisance());
+            P2.getListe(1).add(i, new BateauPlaisance());
+            P2.getListe(2).add(i, new BateauPlaisance());
         }
         
         // Ajout de bateau dans emplacement quai et ponton
-//        emplAmarrage2.getListe(1).add(0, b2);
-//        emplAmarrage2.getListe(1).add(9, b4);
-//        emplAmarrage1.getListe().add(0, b1);
-//        emplAmarrage1.getListe().add(8, b1);
+        Q2.getListe().add(3, b1);
+        P1.getListe(1).add(3, b2);
+        P2.getListe(2).add(0, b3);
+        P2.getListe(1).add(0, b4);
         
-        vQuai.add(emplAmarrage1);
-        vPonton.add(emplAmarrage2);
-        vPonton.add(emplAmarrage3);
+        vQuai.add(Q2);
+        vPonton.add(P1);
+        vPonton.add(P2);
         
-        //----------------------------------------------------------------------
+        // ---------------------------------------------------------------------
         
         
         // Insertion images ----------------------------------------------------
         
-        ImageIcon image1 = new ImageIcon(new ImageIcon("images/image1.jpg").getImage().getScaledInstance(Image1.getWidth(), Image1.getHeight(), 20));
+        String separator = System.getProperty("file.separator");
+        
+        ImageIcon image1 = new ImageIcon(new ImageIcon("images"+separator+"image1.jpg").getImage().getScaledInstance(Image1.getWidth(), Image1.getHeight(), 20));
         Image1.setText(null);
         Image1.setIcon(image1);
         
-        ImageIcon image2 = new ImageIcon(new ImageIcon("images/image2.jpg").getImage().getScaledInstance(Image2.getWidth(), Image2.getHeight(), 20));
+        ImageIcon image2 = new ImageIcon(new ImageIcon("images"+separator+"image2.jpg").getImage().getScaledInstance(Image2.getWidth(), Image2.getHeight(), 20));
         Image2.setText(null);
         Image2.setIcon(image2);
         
-        //----------------------------------------------------------------------
+        // ---------------------------------------------------------------------
         
         
         // Login disable -------------------------------------------------------
@@ -144,13 +146,13 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         setFormatLocale(Locale.FRANCE);
         displayDate();
         
-        //----------------------------------------------------------------------
+        // ---------------------------------------------------------------------
         
-        // Insertion vector dans JList ------------------------------------------
+        // Insertion vector dans JList -----------------------------------------
         
         insertListBateau();
         
-        //---------------------------------------------------------------------- 
+        // ---------------------------------------------------------------------
     }
 
     /**
@@ -331,6 +333,11 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         Menu_Personnel.add(MenuItem_Equipage);
 
         MenuItem_RechecrheMarin.setText("Rechercher un marin");
+        MenuItem_RechecrheMarin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuItem_RechecrheMarinActionPerformed(evt);
+            }
+        });
         Menu_Personnel.add(MenuItem_RechecrheMarin);
 
         jMenuBar1.add(Menu_Personnel);
@@ -469,6 +476,16 @@ public class CapitainerieWindow extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    /**********************************************************************/
+    /*                          Menu Utilisateur                          */
+    /**********************************************************************/
+    
+    private void MenuItem_LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItem_LoginActionPerformed
+        // TODO add your handling code here:
+        LW.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_MenuItem_LoginActionPerformed
 
     private void MenuItem_LogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItem_LogoutActionPerformed
         // TODO add your handling code here:
@@ -476,34 +493,73 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         IsEnable(false);
     }//GEN-LAST:event_MenuItem_LogoutActionPerformed
 
-    private void MenuItem_LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItem_LoginActionPerformed
-        // TODO add your handling code here:
-        LW.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_MenuItem_LoginActionPerformed
-
-    private void MenuItem_AuteursActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItem_AuteursActionPerformed
-        // TODO add your handling code here:
-        String message = "Copyright 2020\nMARTIN Simon"; 
-        JOptionPane.showMessageDialog(null,message, "A Propos", JOptionPane.INFORMATION_MESSAGE);
-    }//GEN-LAST:event_MenuItem_AuteursActionPerformed
-
     private void MenuItem_NouveauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItem_NouveauActionPerformed
         // TODO add your handling code here:
         NewLoginWindow nw = new NewLoginWindow(this, true);
         nw.setVisible(true);
     }//GEN-LAST:event_MenuItem_NouveauActionPerformed
+    
+    
+    /**********************************************************************/
+    /*                            Menu Amarrages                          */
+    /**********************************************************************/
 
-    private void Button_ServeurOnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ServeurOnActionPerformed
+    private void MenuItem_PlaisanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItem_PlaisanceActionPerformed
         // TODO add your handling code here:
-        System.out.println("User + pass" + hmap.toString());
-    }//GEN-LAST:event_Button_ServeurOnActionPerformed
+        PlaisanceWindow pw = new PlaisanceWindow(this, true, vPonton);
+        pw.setVisible(true);
+    }//GEN-LAST:event_MenuItem_PlaisanceActionPerformed
 
+    private void MenuItem_PecheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItem_PecheActionPerformed
+        // TODO add your handling code here:
+        PecheWindow pw = new PecheWindow(this, true, vQuai);
+        pw.setVisible(true);
+    }//GEN-LAST:event_MenuItem_PecheActionPerformed
+
+
+    /**********************************************************************/
+    /*                            Menu Bateaux                            */
+    /**********************************************************************/
+
+    private void MenuItem_ListeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItem_ListeActionPerformed
+        // TODO add your handling code here:
+        ListBateauWindow lbw = new ListBateauWindow(this, true, vBateauAmarré);
+        lbw.setVisible(true);
+    }//GEN-LAST:event_MenuItem_ListeActionPerformed
+    
+    private void MenuItem_RechercheBateauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItem_RechercheBateauActionPerformed
+        // TODO add your handling code here:
+        SearchBateauWindow sbw = new SearchBateauWindow(this, true);
+        sbw.setVisible(true);
+    }//GEN-LAST:event_MenuItem_RechercheBateauActionPerformed
+    
+
+    /**********************************************************************/
+    /*                           Menu Personnel                           */
+    /**********************************************************************/
+    
+    private void MenuItem_EquipageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItem_EquipageActionPerformed
+        // TODO add your handling code here:
+        ListEquipageWindow lew = new ListEquipageWindow(this, true, vBateauAmarré);
+        lew.setVisible(true);
+    }//GEN-LAST:event_MenuItem_EquipageActionPerformed
+
+
+    /**********************************************************************/
+    /*                           Menu Paramètres                          */
+    /**********************************************************************/
+    
     private void MenuItem_FormatDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItem_FormatDateActionPerformed
         // TODO add your handling code here:
         DateWindow dw = new DateWindow(this, true);
         dw.setVisible(true);
     }//GEN-LAST:event_MenuItem_FormatDateActionPerformed
+    
+    private void MenuItem_LogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItem_LogActionPerformed
+        // TODO add your handling code here:
+        LogWindow lw = new LogWindow(this, true);
+        lw.setVisible(true);
+    }//GEN-LAST:event_MenuItem_LogActionPerformed
 
     private void CheckBoxMenuItem_AffichageDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CheckBoxMenuItem_AffichageDateActionPerformed
         // TODO add your handling code here:
@@ -517,17 +573,101 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_CheckBoxMenuItem_AffichageDateActionPerformed
 
+
+    /**********************************************************************/
+    /*                            Menu A Propos                           */
+    /**********************************************************************/
+    
+    private void MenuItem_AuteursActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItem_AuteursActionPerformed
+        // TODO add your handling code here:
+        String message = "Copyright 2020\nMARTIN Simon"; 
+        JOptionPane.showMessageDialog(null,message, "A Propos", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_MenuItem_AuteursActionPerformed
+
     private void MenuItem_AideActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItem_AideActionPerformed
         // TODO add your handling code here:
         HelpWindow hw = new HelpWindow(this, true);
         hw.setVisible(true);
     }//GEN-LAST:event_MenuItem_AideActionPerformed
-
-    private void MenuItem_LogActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItem_LogActionPerformed
+    
+    
+    /**********************************************************************/
+    /*                              Buttons                               */
+    /**********************************************************************/
+    
+    private void Button_ServeurOnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ServeurOnActionPerformed
         // TODO add your handling code here:
-        LogWindow lw = new LogWindow(this, true);
-        lw.setVisible(true);
-    }//GEN-LAST:event_MenuItem_LogActionPerformed
+        System.out.println("User + pass" + hmap.toString());
+    }//GEN-LAST:event_Button_ServeurOnActionPerformed
+    
+    private void Button_ServeurOffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ServeurOffActionPerformed
+        // TODO add your handling code here:
+        
+        // création de marins
+        Marin c1 = null, c2 = null, c3 = null, c4 = null, s1 = null, s2 = null, s3 = null, b1 = null, b2 = null, b3 = null, m1 = null, m2 = null, m3 = null, m4 = null;
+        try {
+            c1 = new Marin("MARTIN", "Simon", "07-10-1998", "Capitaine");
+            c2 = new Marin("CAHAY", "Aurélie", "01-01-2001", "Capitaine");
+            c3 = new Marin("NEUFCOUR", "Sean", "10-09-1997", "Capitaine");
+            c4 = new Marin("DEFAWES", "Corentin", "29-09-1998", "Capitaine");
+            
+            s1 = new Marin("MERLO", "Cyril", "06-06-1995", "Second");
+            s2 = new Marin("BOUCHU", "Bryan", "21-10-1991", "Second");
+            s3 = new Marin("BOUCHU", "Salomé", "21-10-1993", "Second");
+            
+            b1 = new Marin("VOTION", "Hugo", "11-12-1995", "Bosco");
+            b2 = new Marin("CLAES", "Gustave", "25-04-1997", "Bosco");
+            b3 = new Marin("LIZIN", "Alexandre", "14-08-1992", "Bosco");
+            
+            m1 = new Marin("RICCARDO", "Adrien", "31-08-1998", "Matelot");
+            m2 = new Marin("GENOT", "Benoit", "18-02-1998", "Matelot");
+            m3 = new Marin("ERNOTTE", "Benoit", "13-03-1990", "Matelot");
+            m4 = new Marin("SIMONS", "Michel", "20-07-1995", "Matelot");
+        } catch (SailorWithoutIdentificationException ex) {
+            ex.Affiche();
+        }
+        
+        // Création d'equipage
+        Equipage e1, e2, e3, e4;
+        ArrayList<Marin> p1, p2, p3, p4;
+        
+        // Insertion equipage b1
+        p1 = new ArrayList<Marin>();
+        p1.add(b1);
+        p1.add(m1);
+        p1.add(m2);
+        e1 = new Equipage(c1, s1, p1);
+           
+        vBateauAmarré.get(0).setEquipage(e1);
+        vBateauAmarré.get(0).getEquipage().setAUnEquipage(true);
+        
+        // Insertion equipage b2
+        p2 = new ArrayList<Marin>();
+        p2.add(b2);
+        p2.add(m3);
+        e2 = new Equipage(c2, s2, p2);
+           
+        vBateauAmarré.get(1).setEquipage(e2);
+        vBateauAmarré.get(1).getEquipage().setAUnEquipage(true);
+        
+        // Insertion equipage b3
+        p3 = new ArrayList<Marin>();
+        p3.add(m4);
+        e3 = new Equipage(c3, s3, p3);
+           
+        vBateauAmarré.get(2).setEquipage(e3);
+        vBateauAmarré.get(2).getEquipage().setAUnEquipage(true);
+        
+        // Insertion equipage b4
+        p4 = new ArrayList<Marin>();
+        p4.add(b3);
+        e4 = new Equipage(c4, null, p4);
+           
+        vBateauAmarré.get(3).setEquipage(e4);
+        vBateauAmarré.get(3).getEquipage().setAUnEquipage(true);
+        
+        System.err.println("Insertion des données");
+    }//GEN-LAST:event_Button_ServeurOffActionPerformed
 
     private void Button_BatteauAmarreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_BatteauAmarreActionPerformed
         // TODO add your handling code here:
@@ -544,40 +684,16 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_Button_BatteauAmarreActionPerformed
 
-    private void Button_ServeurOffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ServeurOffActionPerformed
+    private void MenuItem_RechecrheMarinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItem_RechecrheMarinActionPerformed
         // TODO add your handling code here:
+        SearchMarinWindow smw = new SearchMarinWindow(this, true);
+        smw.setVisible(true);
+    }//GEN-LAST:event_MenuItem_RechecrheMarinActionPerformed
 
-    }//GEN-LAST:event_Button_ServeurOffActionPerformed
 
-    private void MenuItem_PlaisanceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItem_PlaisanceActionPerformed
-        // TODO add your handling code here:
-        PlaisanceWindow pw = new PlaisanceWindow(this, true, vPonton);
-        pw.setVisible(true);
-    }//GEN-LAST:event_MenuItem_PlaisanceActionPerformed
-
-    private void MenuItem_ListeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItem_ListeActionPerformed
-        // TODO add your handling code here:
-        ListBateauWindow lbw = new ListBateauWindow(this, true, vBateauAmarré);
-        lbw.setVisible(true);
-    }//GEN-LAST:event_MenuItem_ListeActionPerformed
-
-    private void MenuItem_PecheActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItem_PecheActionPerformed
-        // TODO add your handling code here:
-        PecheWindow pw = new PecheWindow(this, true, vQuai);
-        pw.setVisible(true);
-    }//GEN-LAST:event_MenuItem_PecheActionPerformed
-
-    private void MenuItem_RechercheBateauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItem_RechercheBateauActionPerformed
-        // TODO add your handling code here:
-        SearchBateauWindow sbw = new SearchBateauWindow(this, true);
-        sbw.setVisible(true);
-    }//GEN-LAST:event_MenuItem_RechercheBateauActionPerformed
-
-    private void MenuItem_EquipageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItem_EquipageActionPerformed
-        // TODO add your handling code here:
-        ListEquipageWindow lew = new ListEquipageWindow(this, true, vBateauAmarré);
-        lew.setVisible(true);
-    }//GEN-LAST:event_MenuItem_EquipageActionPerformed
+    /**********************************************************************/
+    /*                            Mes fonctions                           */
+    /**********************************************************************/
 
     public void IsEnable(boolean tmp)
     {

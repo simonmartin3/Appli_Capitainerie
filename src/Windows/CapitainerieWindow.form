@@ -98,6 +98,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Rechercher un marin"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuItem_RechecrheMarinActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
