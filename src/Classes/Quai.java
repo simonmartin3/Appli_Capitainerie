@@ -5,7 +5,6 @@
  */
 package Classes;
 
-import java.awt.List;
 import java.util.ArrayList;
 
 /**
@@ -16,7 +15,10 @@ public class Quai extends Amarrage
 {
     private ArrayList <MoyenDeTransportSurEau> List = new ArrayList<>();
     
-    public Quai(){}
+    public Quai()
+    {
+    
+    }
     
     public Quai(String i) 
     {
@@ -26,6 +28,5 @@ public class Quai extends Amarrage
     public ArrayList <MoyenDeTransportSurEau> getListe()
     {
         return List;
-    }
-    
+    } 
 }

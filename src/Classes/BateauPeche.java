@@ -6,7 +6,6 @@
 package Classes;
 
 import Exception.ShipWithoutIdentificationException;
-import java.util.ArrayList;
 
 /**
  *
@@ -16,9 +15,13 @@ public class BateauPeche extends Bateau
 {
     private String type;
 
-    public BateauPeche(){}
+    public BateauPeche()
+    {
+        
+    }
     
-    public BateauPeche(String n, String pa, int t, int l, String p, String e, Equipage equi, String ty, String fe, int nh, boolean s) throws ShipWithoutIdentificationException {
+    public BateauPeche(String n, String pa, int t, int l, String p, String e, Equipage equi, String ty, String fe, int nh, boolean s) throws ShipWithoutIdentificationException 
+    {
         super(n, pa, t, l, p, e, equi, fe, nh, s);
         type = "Peche";
     }

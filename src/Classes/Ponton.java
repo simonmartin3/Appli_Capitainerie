@@ -17,7 +17,10 @@ public class Ponton extends Amarrage
     private ArrayList <MoyenDeTransportSurEau> List1 = new ArrayList<>();
     private ArrayList <MoyenDeTransportSurEau> List2 = new ArrayList<>();
     
-    public Ponton(){}
+    public Ponton()
+    {
+    
+    }
     
     public Ponton(String i) 
     {
@@ -31,6 +34,5 @@ public class Ponton extends Amarrage
         if(cote == 2)
             return List2;
         return null;
-    }
-    
+    } 
 }

@@ -14,12 +14,12 @@ import javax.swing.JOptionPane;
  */
 public class LoginException extends Exception
 {
-    private ImageIcon img = new ImageIcon("images/Erreur.jpg");
-    private String message;
+    public ImageIcon img = new ImageIcon("images/Erreur.jpg");
+    public String message;
     
     public LoginException()
     {
-        message = "Une erreur est survenu mais elle n'est pas définit.";
+        message = "Une erreur est survenu mais elle n'est pas défini.";
     }
     
     public LoginException(String tmp)

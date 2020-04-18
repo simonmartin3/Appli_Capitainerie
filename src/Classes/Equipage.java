@@ -66,7 +66,6 @@ public class Equipage
         System.err.println("Second : " + getSecond().getNom() + " " + getSecond().getPrenom());
         for(int i = 0; i < getEquipage().size(); i++)
             System.err.println(getEquipage().get(i).getFonction() + " : " + getEquipage().get(i).getNom() + " " + getEquipage().get(i).getPrenom());
-        
     }
     
     public void setAUnEquipage(boolean tmp)

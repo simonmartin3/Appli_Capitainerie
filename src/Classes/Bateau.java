@@ -6,7 +6,6 @@
 package Classes;
 import Exception.*;
 import Interfaces.*;
-import java.util.ArrayList;
 
 /**
  *
@@ -110,7 +109,7 @@ public class Bateau extends MoyenDeTransportSurEau implements AUnIdentifiant
     
     public String display()
     {
-        return getNom() + " -- " + getPavillon() + " --> " + getEmplacement();
+        return getNom() + " -- " + getPavillon() + " --> " + getEmplacement(); // Fonction d'affichge pour la list principal
     }
     
     public void setEquipage(Equipage e)

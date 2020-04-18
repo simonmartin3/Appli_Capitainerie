@@ -7,12 +7,7 @@ package Windows;
 
 import Classes.Bateau;
 import Exception.NumberFormatException;
-/*import Classes.Marin;*/
 import static Windows.LoginWindow.isNullOrEmpty;
-import java.util.StringTokenizer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -263,8 +258,7 @@ public class InfoBateauWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (isNullOrEmpty(TextField_Tonnage.getText()) || isNullOrEmpty(TextField_PortAttache.getText())) {
             JOptionPane.showMessageDialog(new JFrame(), "Compléter tous les champs", "Erreur", JOptionPane.ERROR_MESSAGE);
-            return;
-        } 
+        }
         else 
         {
             try {
@@ -296,7 +290,6 @@ public class InfoBateauWindow extends javax.swing.JFrame {
     private void Button_EquipageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_EquipageActionPerformed
         // TODO add your handling code here:
 
-//        tmpBateau.setTonnage(Integer.parseInt(TextField_Tonnage.getText()));
         tmpBateau.setPortAttache(TextField_PortAttache.getText());
 
         CW.vBateauAmarré.set(tmpIndex, tmpBateau);
@@ -341,7 +334,6 @@ public class InfoBateauWindow extends javax.swing.JFrame {
     
     public static boolean isNumeric(final String str) throws NumberFormatException
     {
-
         // null or empty
         if (str == null || str.length() == 0) {
             return false;
@@ -352,9 +344,7 @@ public class InfoBateauWindow extends javax.swing.JFrame {
                 return false;
             }
         }
-
         return true;
-
     }
 
     /**

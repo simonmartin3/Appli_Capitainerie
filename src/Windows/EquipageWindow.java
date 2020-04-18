@@ -7,16 +7,9 @@ package Windows;
 
 import Classes.*;
 import Exception.SailorWithoutIdentificationException;
-import static Windows.LoginWindow.isNullOrEmpty;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -27,6 +20,7 @@ public class EquipageWindow extends javax.swing.JDialog {
     /**
      * Creates new form EquipageWindow
      */
+    
     InfoBateauWindow ifw;
     private Marin tmp = null;
     private Bateau tmpBateau;
@@ -36,19 +30,30 @@ public class EquipageWindow extends javax.swing.JDialog {
     
     
     public EquipageWindow(java.awt.Frame parent, boolean modal) {
+        
+        // Initialisation JFrame -----------------------------------------------
+        
         super(parent, modal);
         initComponents();
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        this.setTitle("Capitainerie - Enregistrement d'un équipage");
+        
+        // ---------------------------------------------------------------------
+        
+        // Initialisation variables --------------------------------------------
+        
         ifw = (InfoBateauWindow) parent;
         vMarrin = new Vector<>();
         tmpBateau = ifw.tmpBateau;
         tmpEquipage = tmpBateau.getEquipage();
         
-        List_Equipage.removeAll();
-                
-        this.setLocationRelativeTo(null);
-        this.setResizable(false);
-        this.setTitle("Capitainerie - Enregistrement d'un équipage");
+        // ---------------------------------------------------------------------
         
+        
+        // Set component -------------------------------------------------------
+        
+        List_Equipage.removeAll();
         
         Label_NomBateau.setText(tmpBateau.getNom() + "(" + tmpBateau.getPortAttache()+ ")");
         Label_NbrePassager.setText(Integer.toString(tmpBateau.getNombreHumains()));
@@ -60,7 +65,7 @@ public class EquipageWindow extends javax.swing.JDialog {
         G.add(RadioButton_Matelot);
         G.add(RadioButton_Passager);
         
-        if(tmpBateau.getEquipage().getAUnEquipage())
+        if(tmpBateau.getEquipage().getAUnEquipage()) // Si le bateau a un equipage on l'affiche
         {
             model.addElement(tmpEquipage.getCapitainerie().getFonction() + " : " + tmpEquipage.getCapitainerie().getNom());
             
@@ -78,7 +83,9 @@ public class EquipageWindow extends javax.swing.JDialog {
             List_Equipage.setModel(model);
         }
         
-        isCapitaine();
+        isCapitaine(); // Radio button par défaut
+        
+        // ---------------------------------------------------------------------
     }
 
     /**
@@ -273,46 +280,52 @@ public class EquipageWindow extends javax.swing.JDialog {
 
     private void Button_OkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_OkActionPerformed
         // TODO add your handling code here:
+        
         int nbrePassager;
+        
         try 
         {
             if(RadioButton_Capitaine.isSelected())
             {
-                tmp = new Marin(TextField_Nom.getText(), TextField_Prenom.getText(), TextField_DateNaissance.getText(), "Capitaine");              
+                tmp = new Marin(TextField_Nom.getText().toUpperCase(), TextField_Prenom.getText(), TextField_DateNaissance.getText(), "Capitaine");              
                 tmpEquipage.setCapitainerie(tmp);
                 tmpEquipage.setAUnEquipage(true);
             }
             else if (RadioButton_Second.isSelected())
             {
-                tmp = new Marin(TextField_Nom.getText(), TextField_Prenom.getText(), TextField_DateNaissance.getText(), "Second");
+                tmp = new Marin(TextField_Nom.getText().toUpperCase(), TextField_Prenom.getText(), TextField_DateNaissance.getText(), "Second");
                 tmpEquipage.setSecond(tmp);    
             }
             else if (RadioButton_Bosco.isSelected())
             {
-                tmp = new Marin(TextField_Nom.getText(), TextField_Prenom.getText(), TextField_DateNaissance.getText(), "Bosco");
+                tmp = new Marin(TextField_Nom.getText().toUpperCase(), TextField_Prenom.getText(), TextField_DateNaissance.getText(), "Bosco");
                 tmpEquipage.getEquipage().add(tmp);
             }
             else if (RadioButton_Matelot.isSelected())
             {
-                tmp = new Marin(TextField_Nom.getText(), TextField_Prenom.getText(), TextField_DateNaissance.getText(), "Matelot");
+                tmp = new Marin(TextField_Nom.getText().toUpperCase(), TextField_Prenom.getText(), TextField_DateNaissance.getText(), "Matelot");
                 tmpEquipage.getEquipage().add(tmp);
             }
             else if (RadioButton_Passager.isSelected())
             {
-                tmp = new Marin(TextField_Nom.getText(), TextField_Prenom.getText(), TextField_DateNaissance.getText(), "Passager");
+                tmp = new Marin(TextField_Nom.getText().toUpperCase(), TextField_Prenom.getText(), TextField_DateNaissance.getText(), "Passager");
                 tmpEquipage.getEquipage().add(tmp);
             }
-                
-            //Insertion Marin dans JList
+            
+            
+            // Insertion Marin dans vMarin et model ----------------------------
+            
             vMarrin.add(tmp);
             model.addElement(tmp.getFonction() + " : " + tmp.getNom());
 
-            //Vider Jlist
+            // Vider Jlist et de nouveau remplir -------------------------------
+            
             List_Equipage.removeAll();
             List_Equipage.setModel(model);
             isCapitaine();
             
-            // Incrémentation du nombre de passager + affichage
+            // Incrémentation du nombre de passager + affichage ----------------
+            
             nbrePassager = tmpBateau.getNombreHumains();
             nbrePassager++;
             tmpBateau.setNombreHumains(nbrePassager);
@@ -327,9 +340,8 @@ public class EquipageWindow extends javax.swing.JDialog {
     private void Button_ValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ValiderActionPerformed
         // TODO add your handling code here:
         
-        ifw.CW.vBateauAmarré.set(ifw.tmpIndex, tmpBateau); //On enregistre dans le vecteur
-        ifw.autoComboBoxEquipage(); //On met à jour la comboBox
-        
+        ifw.CW.vBateauAmarré.set(ifw.tmpIndex, tmpBateau); // On enregistre dans le vecteur
+        ifw.autoComboBoxEquipage(); // On met à jour la comboBox
         this.dispose();
     }//GEN-LAST:event_Button_ValiderActionPerformed
 
@@ -340,9 +352,9 @@ public class EquipageWindow extends javax.swing.JDialog {
 
     private void Label_NomBateauMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Label_NomBateauMouseClicked
         // TODO add your handling code here:
-        TextField_Nom.setText("Test");
-        TextField_Prenom.setText("Test");
-        TextField_DateNaissance.setText("test");
+        TextField_Nom.setText("VILVENS");
+        TextField_Prenom.setText("Claude");
+        TextField_DateNaissance.setText("05-09-1961");
     }//GEN-LAST:event_Label_NomBateauMouseClicked
 
     private void isCapitaine()

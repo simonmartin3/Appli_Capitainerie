@@ -33,7 +33,7 @@ public class ListBateauWindow extends javax.swing.JDialog {
         this.setLocationRelativeTo(null);
         this.setLocation(CW.getX() - this.getWidth(), CW.getY());
         this.setResizable(false);
-        this.setTitle("Capitainerie - Informations sur bateau entrant");
+        this.setTitle("Capitainerie - Informations sur bateau");
                 
         DefaultListModel model = new DefaultListModel();
         
@@ -128,8 +128,6 @@ public class ListBateauWindow extends javax.swing.JDialog {
         }
         else
         {
-            System.out.println("Traitement du bateau : " + jList1.getSelectedValue());
-
             InfoBateauWindow ifw = new InfoBateauWindow(CW, vBateauAmarré.get(jList1.getSelectedIndex()), jList1.getSelectedIndex(), false);
             ifw.setVisible(true);
             this.dispose();

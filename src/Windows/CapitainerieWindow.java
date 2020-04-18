@@ -676,9 +676,7 @@ public class CapitainerieWindow extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(new JFrame(), "Pas de bateau sélectionné !", "Erreur", JOptionPane.ERROR_MESSAGE);
         }
         else
-        {
-            System.out.println("Traitement du bateau : " + List_Bateau.getSelectedValue());
-            
+        {            
             InfoBateauWindow ifw = new InfoBateauWindow(this, vBateauAmarré.get(List_Bateau.getSelectedIndex()), List_Bateau.getSelectedIndex(), true);
             ifw.setVisible(true);
         }
@@ -805,9 +803,9 @@ public class CapitainerieWindow extends javax.swing.JFrame {
                 try {
                     new CapitainerieWindow(null, null).setVisible(true);
                 } catch (ShipWithoutIdentificationException ex) {
-                    Logger.getLogger(CapitainerieWindow.class.getName()).log(Level.SEVERE, null, ex);
+                    ex.Affiche();
                 } catch (SailorWithoutIdentificationException ex) {
-                    Logger.getLogger(CapitainerieWindow.class.getName()).log(Level.SEVERE, null, ex);
+                    ex.Affiche();
                 }
             }
         });

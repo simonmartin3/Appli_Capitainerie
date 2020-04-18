@@ -24,6 +24,7 @@ public class ListEquipageWindow extends javax.swing.JDialog {
     
     CapitainerieWindow CW;
     Vector <Bateau> vBateauAmarré = new Vector<>();
+    Vector <Marin> vMarin = new Vector<>();
     
     public ListEquipageWindow(java.awt.Frame parent, boolean modal, Vector tmpVector) {
         super(parent, modal);
@@ -138,7 +139,7 @@ public class ListEquipageWindow extends javax.swing.JDialog {
 
     private void Button_SearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_SearchActionPerformed
         // TODO add your handling code here:
-        
+        vMarin.removeAllElements();
         int i = ComboBox_Bateau.getSelectedIndex();
         
         if(i == 0)
@@ -155,14 +156,17 @@ public class ListEquipageWindow extends javax.swing.JDialog {
 
             if (tmpBateau.getEquipage().getAUnEquipage()) {
                 model.addElement(tmpBateau.getEquipage().getCapitainerie().getFonction() + " : " + tmpBateau.getEquipage().getCapitainerie().getNom());
+                vMarin.addElement(tmpBateau.getEquipage().getCapitainerie());
 
                 if (tmpBateau.getEquipage().getSecond() != null) {
                     model.addElement(tmpBateau.getEquipage().getSecond().getFonction() + " : " + tmpBateau.getEquipage().getSecond().getNom());
+                    vMarin.addElement(tmpBateau.getEquipage().getSecond());
                 }
 
                 if (tmpBateau.getEquipage().getEquipage() != null) {
                     for (int j = 0; j < tmpBateau.getEquipage().getEquipage().size(); j++) {
                         model.addElement(tmpBateau.getEquipage().getEquipage().get(j).getFonction() + " : " + tmpBateau.getEquipage().getEquipage().get(j).getNom());
+                        vMarin.addElement(tmpBateau.getEquipage().getEquipage().get(j));
                     }
                 }
             }
@@ -177,7 +181,19 @@ public class ListEquipageWindow extends javax.swing.JDialog {
 
     private void Button_InfosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_InfosActionPerformed
         // TODO add your handling code here:
- 
+        if(jList1.getSelectedValue() == null)
+        {
+            JOptionPane.showMessageDialog(new JFrame(), "Pas de marin sélectionné !", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+        else
+        {
+            int i = jList1.getSelectedIndex();
+            Vector <Marin> vTmp = new Vector<> ();
+            vTmp.add(vMarin.get(i));
+
+            InfoMarinWindow imw = new InfoMarinWindow(CW, true, vTmp);
+            imw.setVisible(true);
+        }
     }//GEN-LAST:event_Button_InfosActionPerformed
 
     /**

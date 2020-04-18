@@ -21,18 +21,32 @@ public class DateWindow extends javax.swing.JDialog {
     CapitainerieWindow CW;
     
     public DateWindow(java.awt.Frame parent, boolean modal) {
+        
+        // Initialisation JFrame -----------------------------------------------
+        
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         
+        // ---------------------------------------------------------------------
+        
+        
+        // Initialisation variables --------------------------------------------
+        
         CW = (CapitainerieWindow) parent;
         
-        //Display current date
+        // ---------------------------------------------------------------------
+        
+        // Display current date ------------------------------------------------
+        
         CW.setFormatDate(DateFormat.SHORT);
         CW.setFormatHeure(DateFormat.SHORT);
         CW.setFormatLocale(Locale.FRANCE);
+        
         displayDate();
+        
+        // ---------------------------------------------------------------------
     }
 
     /**
@@ -163,6 +177,7 @@ public class DateWindow extends javax.swing.JDialog {
 
     private void Button_OkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_OkActionPerformed
         // TODO add your handling code here:
+        
         String formatpays = (String) ComboBox_Pays.getSelectedItem();
         switch(formatpays)
         {
@@ -171,6 +186,7 @@ public class DateWindow extends javax.swing.JDialog {
             case "ITALIE" : CW.setFormatLocale(Locale.ITALY);break;
             case "AMERIQUE" : CW.setFormatLocale(Locale.US);break;
         }
+        
         String formatheure = (String) ComboBox_Heure.getSelectedItem();
         switch(formatheure)
         {
@@ -178,6 +194,7 @@ public class DateWindow extends javax.swing.JDialog {
             case "MEDIUM": CW.setFormatHeure(DateFormat.MEDIUM);break;
             case "FULL": CW.setFormatHeure(DateFormat.FULL);break;
         }
+        
         String formatdate = (String) ComboBox_Date.getSelectedItem();
         switch(formatdate)
         {
@@ -185,11 +202,13 @@ public class DateWindow extends javax.swing.JDialog {
             case "MEDIUM": CW.setFormatDate(DateFormat.MEDIUM);break;
             case "FULL": CW.setFormatDate(DateFormat.FULL);break;
         }
+        
         this.dispose();
     }//GEN-LAST:event_Button_OkActionPerformed
 
     private void Button_AppliquerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_AppliquerActionPerformed
         // TODO add your handling code here:
+        
         String formatpays = (String) ComboBox_Pays.getSelectedItem();
         switch(formatpays)
         {
@@ -198,6 +217,7 @@ public class DateWindow extends javax.swing.JDialog {
             case "ITALIE" : CW.setFormatLocale(Locale.ITALY);break;
             case "AMERIQUE" : CW.setFormatLocale(Locale.US);break;
         }
+        
         String formatheure = (String) ComboBox_Heure.getSelectedItem();
         switch(formatheure)
         {
@@ -205,6 +225,7 @@ public class DateWindow extends javax.swing.JDialog {
             case "MEDIUM": CW.setFormatHeure(DateFormat.MEDIUM);break;
             case "FULL": CW.setFormatHeure(DateFormat.FULL);break;
         }
+        
         String formatdate = (String) ComboBox_Date.getSelectedItem();
         switch(formatdate)
         {

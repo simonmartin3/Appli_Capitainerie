@@ -7,8 +7,8 @@ package Windows;
 
 import Exception.LoginException;
 import java.util.Enumeration;
-import java.util.Hashtable;
-import javafx.scene.Parent;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -143,28 +143,28 @@ public class NewLoginWindow extends javax.swing.JDialog {
         String confirmpass = new String(PasswordField_ConfirmPassword.getPassword());
         
         if(isNullOrEmpty(user) || isNullOrEmpty(pass) || isNullOrEmpty(confirmpass))
-            return;
+            JOptionPane.showMessageDialog(new JFrame(), "Compléter tous les champs !", "Erreur", JOptionPane.ERROR_MESSAGE);
         else
         {
             try
             {
-                //vérification double user
+                // Vérification double user
                 DoublonUser(user);
             
-                //Vérification de l'authentification
+                // Vérification de l'authentification
                 if(!(pass.equals(confirmpass)))
                 {
                     LoginException tmp = new LoginException("Les mots de passes ne coresspondent pas");
                     tmp.Affiche();
                     return;
                 }
+                
                 CW.hmap.put(user, pass);
                 this.dispose();
                 
             }
             catch(LoginException tmp)
             {
-                System.out.println("Login Exception");
                 tmp.Affiche();
             }
         }

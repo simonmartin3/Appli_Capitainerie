@@ -19,7 +19,7 @@ public class Amarrage implements AUnIdentifiant
     
     public Amarrage()
     {
-        id = "non défini";
+        
     }
     
     public Amarrage(String i)

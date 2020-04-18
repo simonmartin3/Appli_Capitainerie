@@ -6,13 +6,14 @@
 package Windows;
 
 import Exception.LoginException;
-import Classes.*;
 import Exception.SailorWithoutIdentificationException;
 import Exception.ShipWithoutIdentificationException;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -147,22 +148,19 @@ public class LoginWindow extends javax.swing.JFrame {
         String pass = new String(PasswordField_Password.getPassword());
         
         if(isNullOrEmpty(user) || isNullOrEmpty(pass))
-            return;
+            JOptionPane.showMessageDialog(new JFrame(), "Compléter tous les champs !", "Erreur", JOptionPane.ERROR_MESSAGE);
         else
         {
             //Vérification de l'authentification
             try
             {
                 authentification(hmap, user, pass);
-            }
-            catch(LoginException tmp)
-            {
-                System.out.println("Login Exception");
+            } catch(LoginException tmp) {
                 tmp.Affiche();
             } catch (ShipWithoutIdentificationException ex) {
-                Logger.getLogger(LoginWindow.class.getName()).log(Level.SEVERE, null, ex);
+                ex.Affiche();
             } catch (SailorWithoutIdentificationException ex) {
-                Logger.getLogger(LoginWindow.class.getName()).log(Level.SEVERE, null, ex);
+                ex.Affiche();
             }
         }
     }//GEN-LAST:event_Button_ValiderActionPerformed
@@ -172,26 +170,27 @@ public class LoginWindow extends javax.swing.JFrame {
 
         Enumeration users;
         String key;
-        users = hmap.keys(); //Liste des user de la HashTable
+        users = hmap.keys(); // Liste des user de la HashTable
         
-        while(users.hasMoreElements()) //On boucle tant qu'il y a des users
+        while(users.hasMoreElements()) // On boucle tant qu'il y a des users
         {
             key = (String) users.nextElement();
-            if(key.equals(user) == true) //user trouvé dans la liste
+            if(key.equals(user) == true) // user trouvé dans la liste
             {                       
-                if(hmap.get(key).equals(pass) == true) //Vérification si user et pass correspondent
+                if(hmap.get(key).equals(pass) == true) // Vérification si user et pass correspondent
                 {
                     System.out.println("Connexion réussie ! Lancement de l'application");
                     CapitainerieWindow CW;
                     CW = new CapitainerieWindow(this, hmap);
                     CW.setVisible(true);
-                    this.dispose();//Fermeture de la fenetre de connexion
-                    return;
+                    this.dispose(); // Fermeture de la fenetre de connexion
+                    break;
                 }
                 else throw new LoginException("Connexion échoué (Erreur mot de passe) !");
             }
+            else throw new LoginException("Connexion échoué (Utilisateur inconnu) !");
         }
-        throw new LoginException("Connexion échoué (Utilisateur inconnu) !");
+        
     }
     
     private void Button_QuitterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_QuitterActionPerformed
