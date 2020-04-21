@@ -8,6 +8,7 @@ package Windows;
 import Classes.*;
 import Exception.SailorWithoutIdentificationException;
 import Exception.ShipWithoutIdentificationException;
+import java.io.File;
 import static java.lang.Thread.sleep;
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -120,13 +121,15 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         
         // Insertion images ----------------------------------------------------
         
-        String separator = System.getProperty("file.separator");
-        
-        ImageIcon image1 = new ImageIcon(new ImageIcon("images"+separator+"image1.jpg").getImage().getScaledInstance(Image1.getWidth(), Image1.getHeight(), 20));
+        String image = "images" + File.separator + "image1.jpg";
+                
+        ImageIcon image1 = new ImageIcon(new ImageIcon(image).getImage().getScaledInstance(Image1.getWidth(), Image1.getHeight(), 20));
         Image1.setText(null);
         Image1.setIcon(image1);
         
-        ImageIcon image2 = new ImageIcon(new ImageIcon("images"+separator+"image2.jpg").getImage().getScaledInstance(Image2.getWidth(), Image2.getHeight(), 20));
+        image = "images" + File.separator + "image2.jpg";
+        
+        ImageIcon image2 = new ImageIcon(new ImageIcon(image).getImage().getScaledInstance(Image2.getWidth(), Image2.getHeight(), 20));
         Image2.setText(null);
         Image2.setIcon(image2);
         

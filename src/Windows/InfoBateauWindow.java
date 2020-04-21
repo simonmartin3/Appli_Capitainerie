@@ -282,8 +282,6 @@ public class InfoBateauWindow extends javax.swing.JFrame {
             } catch (NumberFormatException ex) {
                 ex.Affiche();
             }
-            
-            
         }
     }//GEN-LAST:event_Button_OkActionPerformed
 
