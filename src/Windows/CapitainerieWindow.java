@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.Locale;
+import java.util.StringTokenizer;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,6 +23,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import network.*;
 
 /**
  *
@@ -39,6 +41,9 @@ public class CapitainerieWindow extends javax.swing.JFrame {
     Vector <Quai> vQuai = new Vector<>();
     Vector <Ponton> vPonton = new Vector<>();
     
+    private NetworkBasicServer nbs;
+    private int PORT = 50000;
+    
     
     // Format current date
     private static int formatDate;
@@ -54,7 +59,7 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         // Initialisation JFrame -----------------------------------------------
         
         initComponents();
-        this.setLocationRelativeTo(null);
+        this.setLocation(1920-this.getWidth(), 0);
         this.setResizable(false);
         this.setTitle("Capitainerie d'Inpres-Harbour");
         
@@ -219,16 +224,31 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         CheckBox_RequeteAttente.setText("Requête en attente");
 
         Button_Lire.setText("Lire");
+        Button_Lire.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_LireActionPerformed(evt);
+            }
+        });
 
         TextField_Requete.setText("??");
 
         Label_AmarragePossible.setText("Amarrage possible :");
 
         Button_Choisir.setText("Choisir");
+        Button_Choisir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_ChoisirActionPerformed(evt);
+            }
+        });
 
         TextField_ChoixAmarage.setText("??");
 
         Button_EnvoyerChoix.setText("Envoyer choix");
+        Button_EnvoyerChoix.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_EnvoyerChoixActionPerformed(evt);
+            }
+        });
 
         TextField_Confirmation.setText("??");
 
@@ -599,8 +619,7 @@ public class CapitainerieWindow extends javax.swing.JFrame {
     /**********************************************************************/
     
     private void Button_ServeurOnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ServeurOnActionPerformed
-        // TODO add your handling code here:
-        System.out.println("User + pass" + hmap.toString());
+        nbs = new NetworkBasicServer(PORT, CheckBox_RequeteAttente);
     }//GEN-LAST:event_Button_ServeurOnActionPerformed
     
     private void Button_ServeurOffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ServeurOffActionPerformed
@@ -690,6 +709,38 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         SearchMarinWindow smw = new SearchMarinWindow(this, true);
         smw.setVisible(true);
     }//GEN-LAST:event_MenuItem_RechecrheMarinActionPerformed
+
+    private void Button_LireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_LireActionPerformed
+        String req = nbs.getMessage();
+        TextField_Requete.setText(req);
+    }//GEN-LAST:event_Button_LireActionPerformed
+
+    private void Button_ChoisirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ChoisirActionPerformed
+        StringTokenizer req = new StringTokenizer(this.TextField_Requete.getText(), " / ");
+        
+        while(req.hasMoreTokens())
+        {
+            String tmp = req.nextToken();
+            if(tmp.equals("Peche"))
+            {
+                System.err.println("Peche");
+                TextField_ChoixAmarage.setText("Q2*3");
+                break;
+            }
+            if(tmp == "Plaisance")
+            {
+                System.err.println("Plaisance");
+                TextField_ChoixAmarage.setText("P22*3");
+                break;
+            }
+        }
+        
+    }//GEN-LAST:event_Button_ChoisirActionPerformed
+
+    private void Button_EnvoyerChoixActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_EnvoyerChoixActionPerformed
+        String rep = this.TextField_ChoixAmarage.getText();
+        nbs.sendMessage(rep);
+    }//GEN-LAST:event_Button_EnvoyerChoixActionPerformed
 
 
     /**********************************************************************/

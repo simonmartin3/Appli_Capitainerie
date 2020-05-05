@@ -299,6 +299,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Lire"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Button_LireActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="TextField_Requete">
       <Properties>
@@ -314,6 +317,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Choisir"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Button_ChoisirActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="TextField_ChoixAmarage">
       <Properties>
@@ -324,6 +330,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Envoyer choix"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Button_EnvoyerChoixActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="TextField_Confirmation">
       <Properties>

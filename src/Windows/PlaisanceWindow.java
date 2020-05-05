@@ -32,7 +32,7 @@ public class PlaisanceWindow extends javax.swing.JDialog {
         CW = (CapitainerieWindow) parent;
         
         this.setLocationRelativeTo(null);
-        this.setLocation(CW.getX() + CW.getWidth(), CW.getY());
+        this.setLocation(CW.getX() - this.getWidth(), CW.getY());
         this.setResizable(false);
         this.setTitle("Capitainerie - Liste Bateau plaisance");
         
