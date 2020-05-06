@@ -294,10 +294,14 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Requ&#xea;te en attente"/>
       </Properties>
+      <Events>
+        <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="CheckBox_RequeteAttenteStateChanged"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="Button_Lire">
       <Properties>
         <Property name="text" type="java.lang.String" value="Lire"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Button_LireActionPerformed"/>
@@ -329,6 +333,7 @@
     <Component class="javax.swing.JButton" name="Button_EnvoyerChoix">
       <Properties>
         <Property name="text" type="java.lang.String" value="Envoyer choix"/>
+        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Button_EnvoyerChoixActionPerformed"/>
@@ -343,6 +348,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Envoyer confirmation"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Button_EnoyerConfirmationActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="Label_BateauxEnEntree">
       <Properties>

@@ -10,13 +10,15 @@ import Classes.MoyenDeTransportSurEau;
 import Classes.Quai;
 import java.util.ArrayList;
 import java.util.Vector;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author Simon
  */
-public class PecheWindow extends javax.swing.JDialog {
+public class ChoixPecheWindow extends javax.swing.JDialog {
 
     /**
      * Creates new form PlaisanceWindow
@@ -25,7 +27,7 @@ public class PecheWindow extends javax.swing.JDialog {
     Vector<Quai> vTmp = new Vector<>();
     ArrayList <MoyenDeTransportSurEau> tmpList = new ArrayList<>();
 
-    public PecheWindow(java.awt.Frame parent, boolean modal, Vector v) {
+    public ChoixPecheWindow(java.awt.Frame parent, boolean modal, Vector v) {
         super(parent, modal);
         initComponents();
         CW = (CapitainerieWindow) parent;
@@ -74,6 +76,7 @@ public class PecheWindow extends javax.swing.JDialog {
         
         jTable1.setModel(model);
 
+        jTable1.setColumnSelectionInterval(0, 2);
     }
 
     /**
@@ -86,20 +89,23 @@ public class PecheWindow extends javax.swing.JDialog {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        Button_Ok = new javax.swing.JButton();
+        Button_Annuler = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        Button_Valider = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        Label_Emplacement = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Peche");
+        jLabel1.setText("Plaisance");
 
-        Button_Ok.setText("OK");
-        Button_Ok.addActionListener(new java.awt.event.ActionListener() {
+        Button_Annuler.setText("Annuler");
+        Button_Annuler.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Button_OkActionPerformed(evt);
+                Button_AnnulerActionPerformed(evt);
             }
         });
 
@@ -123,7 +129,23 @@ public class PecheWindow extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
+
+        Button_Valider.setText("Valider");
+        Button_Valider.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_ValiderActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Emplacement : ");
+
+        Label_Emplacement.setText("/");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -133,8 +155,15 @@ public class PecheWindow extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
-                    .addComponent(Button_Ok, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1))
+                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(Button_Annuler, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Button_Valider, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(Label_Emplacement, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -143,19 +172,59 @@ public class PecheWindow extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(Button_Ok)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(Label_Emplacement))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Button_Annuler)
+                    .addComponent(Button_Valider))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void Button_OkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_OkActionPerformed
+    private void Button_AnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_AnnulerActionPerformed
         // TODO add your handling code here:
         this.dispose();
-    }//GEN-LAST:event_Button_OkActionPerformed
+    }//GEN-LAST:event_Button_AnnulerActionPerformed
+
+    private void Button_ValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ValiderActionPerformed
+        int i = jTable1.getSelectedRow();
+        
+        if(i == -1 || jTable1.getValueAt(i, 1) == null)
+        {
+            JOptionPane.showMessageDialog(new JFrame(), "Selectionner un emplacement!", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+        else if(!jTable1.getValueAt(i, 2).toString().equals("/"))
+        {
+            JOptionPane.showMessageDialog(new JFrame(), "L'emplacement est déjà occupé !", "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+        else
+        {
+            this.dispose();
+            CW.tmp.setEmplacement(Label_Emplacement.getText());
+        }
+    }//GEN-LAST:event_Button_ValiderActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+        int i = jTable1.getSelectedRow();
+        int j;
+        
+        if(jTable1.getValueAt(i, 1) != null)
+        {
+            for(j = i; jTable1.getValueAt(j, 0).toString().equals("") && j >= 0; j--);
+
+            String ponton = jTable1.getValueAt(j, 0).toString();
+            String emplacement = jTable1.getValueAt(i, 1).toString();
+
+            Label_Emplacement.setText(ponton + "*" + emplacement);
+        }
+    }//GEN-LAST:event_jTable1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -174,21 +243,23 @@ public class PecheWindow extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PecheWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChoixPecheWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(PecheWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChoixPecheWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(PecheWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChoixPecheWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(PecheWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ChoixPecheWindow.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                PecheWindow dialog = new PecheWindow(new javax.swing.JFrame(), true, null);
+                ChoixPecheWindow dialog = new ChoixPecheWindow(new javax.swing.JFrame(), true, null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -201,8 +272,11 @@ public class PecheWindow extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Button_Ok;
+    private javax.swing.JButton Button_Annuler;
+    private javax.swing.JButton Button_Valider;
+    private javax.swing.JLabel Label_Emplacement;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
