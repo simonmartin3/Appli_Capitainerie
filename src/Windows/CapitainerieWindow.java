@@ -40,6 +40,7 @@ public class CapitainerieWindow extends javax.swing.JFrame {
     Vector <Bateau> vBateauAmarré = new Vector<>();
     Vector <Quai> vQuai = new Vector<>();
     Vector <Ponton> vPonton = new Vector<>();
+    Bateau tmp;
     
     private NetworkBasicServer nbs;
     private int PORT = 50000;
@@ -141,9 +142,10 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         // ---------------------------------------------------------------------
         
         
-        // Login disable -------------------------------------------------------
+        // Disable component -------------------------------------------------------
         
         MenuItem_Login.setEnabled(false);
+        Button_EnoyerConfirmation.setEnabled(false);
         
         //----------------------------------------------------------------------
         
@@ -222,8 +224,14 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         });
 
         CheckBox_RequeteAttente.setText("Requête en attente");
+        CheckBox_RequeteAttente.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                CheckBox_RequeteAttenteStateChanged(evt);
+            }
+        });
 
         Button_Lire.setText("Lire");
+        Button_Lire.setEnabled(false);
         Button_Lire.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Button_LireActionPerformed(evt);
@@ -244,6 +252,7 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         TextField_ChoixAmarage.setText("??");
 
         Button_EnvoyerChoix.setText("Envoyer choix");
+        Button_EnvoyerChoix.setEnabled(false);
         Button_EnvoyerChoix.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Button_EnvoyerChoixActionPerformed(evt);
@@ -253,6 +262,11 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         TextField_Confirmation.setText("??");
 
         Button_EnoyerConfirmation.setText("Envoyer confirmation");
+        Button_EnoyerConfirmation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Button_EnoyerConfirmationActionPerformed(evt);
+            }
+        });
 
         Label_BateauxEnEntree.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         Label_BateauxEnEntree.setText("Bateaux en entrée");
@@ -712,35 +726,82 @@ public class CapitainerieWindow extends javax.swing.JFrame {
 
     private void Button_LireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_LireActionPerformed
         String req = nbs.getMessage();
-        TextField_Requete.setText(req);
+
+        if(!req.equals("RIEN"))
+        {
+            TextField_Requete.setText(req);
+//            Button_Lire.setEnabled(false);
+        }
     }//GEN-LAST:event_Button_LireActionPerformed
 
     private void Button_ChoisirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_ChoisirActionPerformed
         StringTokenizer req = new StringTokenizer(this.TextField_Requete.getText(), " / ");
         
-        while(req.hasMoreTokens())
-        {
-            String tmp = req.nextToken();
-            if(tmp.equals("Peche"))
+        String nomBateau = req.nextToken();
+        String longueur = req.nextToken();
+        String type = req.nextToken();
+        String pavillon = req.nextToken();        
+        try {
+            if(type.equals("Peche"))
             {
-                System.err.println("Peche");
-                TextField_ChoixAmarage.setText("Q2*3");
-                break;
+                tmp = new BateauPeche(nomBateau, "", 0, Integer.parseInt(longueur), pavillon, "", new Equipage(), "", "", 0, false);
+                ChoixPecheWindow cpw = new ChoixPecheWindow(this, true, vQuai);
+                cpw.setVisible(true);
+                TextField_ChoixAmarage.setText(tmp.getEmplacement());
+                System.err.println("Bateau " + nomBateau + " créé");
             }
-            if(tmp == "Plaisance")
+            else if(type.equals("Plaisance"))
             {
-                System.err.println("Plaisance");
-                TextField_ChoixAmarage.setText("P22*3");
-                break;
+                tmp = new BateauPlaisance(nomBateau, "", 0, Integer.parseInt(longueur), pavillon, "", new Equipage(), "", "", 0, false); 
+                ChoixPlaisanceWindow cpw = new ChoixPlaisanceWindow(this, true, vPonton);
+                cpw.setVisible(true);
+                TextField_ChoixAmarage.setText(tmp.getEmplacement());
+                
+                System.err.println("Bateau " + nomBateau + " créé");
             }
+            else
+            {
+                System.err.println("error !!!!");
+            }
+        } catch (ShipWithoutIdentificationException ex) {
+                ex.Affiche();
         }
-        
+        Button_EnvoyerChoix.setEnabled(true);
     }//GEN-LAST:event_Button_ChoisirActionPerformed
 
     private void Button_EnvoyerChoixActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_EnvoyerChoixActionPerformed
+        String confirmation = tmp.getNom() + "<--" + this.TextField_ChoixAmarage.getText();
+        
+        TextField_Confirmation.setText(confirmation);
+//        Button_Lire.setEnabled(true);
+        Button_EnoyerConfirmation.setEnabled(true);
+        
         String rep = this.TextField_ChoixAmarage.getText();
         nbs.sendMessage(rep);
+        
+        Button_EnvoyerChoix.setEnabled(false);
     }//GEN-LAST:event_Button_EnvoyerChoixActionPerformed
+
+    private void Button_EnoyerConfirmationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_EnoyerConfirmationActionPerformed
+        String rep = this.TextField_Confirmation.getText();
+        nbs.sendMessage(rep);
+//        Button_Lire.setEnabled(true);
+        Button_EnoyerConfirmation.setEnabled(false);
+        
+        vBateauAmarré.add(tmp);
+        insertListBateau();
+    }//GEN-LAST:event_Button_EnoyerConfirmationActionPerformed
+
+    private void CheckBox_RequeteAttenteStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_CheckBox_RequeteAttenteStateChanged
+        if(CheckBox_RequeteAttente.isSelected())
+        {
+            Button_Lire.setEnabled(true);
+        }
+        else
+        {
+            Button_Lire.setEnabled(false);
+        }
+    }//GEN-LAST:event_CheckBox_RequeteAttenteStateChanged
 
 
     /**********************************************************************/
