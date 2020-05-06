@@ -892,7 +892,6 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         char typeEmplacement = emplacement.charAt(0);
         int id = Character.getNumericValue(emplacement.charAt(1));
         
-        
         if(typeEmplacement == 'Q')
         {
             int i = Character.getNumericValue(emplacement.charAt(3));
