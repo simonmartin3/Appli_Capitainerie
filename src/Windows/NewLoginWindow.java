@@ -5,8 +5,16 @@
  */
 package Windows;
 
+import Classes.Persistance;
+import static Classes.Persistance.getPathLogin;
 import Exception.LoginException;
+import java.io.IOException;
 import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -20,15 +28,16 @@ public class NewLoginWindow extends javax.swing.JDialog {
      * Creates new form NewLoginWindow
      */
     
-    CapitainerieWindow CW;
+    Properties propertiesLogin;
     
-    public NewLoginWindow(java.awt.Frame parent, boolean modal) {
+    public NewLoginWindow(java.awt.Frame parent, boolean modal) throws IOException {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         
-        CW = (CapitainerieWindow) parent;
+        // Chargement du fichier properties des logins
+        propertiesLogin = Persistance.LoadProperties(getPathLogin());
     }
 
     /**
@@ -159,30 +168,27 @@ public class NewLoginWindow extends javax.swing.JDialog {
                     return;
                 }
                 
-                CW.hmap.put(user, pass);
+                System.out.println("New user : "+ user);
+                propertiesLogin.setProperty(user, pass); 
+           
+                //On ajoute les utilisateur
+                Persistance.SaveProperties(propertiesLogin,getPathLogin());
                 this.dispose();
                 
             }
-            catch(LoginException tmp)
-            {
+            catch(LoginException tmp){
                 tmp.Affiche();
+            } catch (IOException ex) {
+                ex.getMessage();
             }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
     
     public void DoublonUser(String user) throws LoginException
     {
-        System.out.println("New user : "+ user);
+        String users = propertiesLogin.getProperty(user);
         
-        Enumeration names; 
-        String key;
-        names = CW.hmap.keys(); //Liste des user de la HashTable
-        
-        while(names.hasMoreElements()) //On boucle tant qu'il y a des users
-        {
-            key = (String) names.nextElement();
-            if(key.equals(user))throw new LoginException(user + " existe déja");
-        }
+        if(users != null)throw new LoginException(user + " existe déja");
     }
     
     public static boolean isNullOrEmpty(String str) {
@@ -222,7 +228,12 @@ public class NewLoginWindow extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                NewLoginWindow dialog = new NewLoginWindow(new javax.swing.JFrame(), true);
+                NewLoginWindow dialog = null;
+                try {
+                    dialog = new NewLoginWindow(new javax.swing.JFrame(), true);
+                } catch (IOException ex) {
+                    Logger.getLogger(NewLoginWindow.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

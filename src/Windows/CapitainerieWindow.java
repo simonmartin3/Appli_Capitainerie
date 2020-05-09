@@ -9,6 +9,7 @@ import Classes.*;
 import Exception.SailorWithoutIdentificationException;
 import Exception.ShipWithoutIdentificationException;
 import java.io.File;
+import java.io.IOException;
 import static java.lang.Thread.sleep;
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -130,13 +131,13 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         
         // Insertion images ----------------------------------------------------
         
-        String image = "images" + File.separator + "image1.jpg";
+        String image = System.getProperty("user.dir") + System.getProperty("file.separator") + "images" + System.getProperty("file.separator") + "image1.jpg";
                 
         ImageIcon image1 = new ImageIcon(new ImageIcon(image).getImage().getScaledInstance(Image1.getWidth(), Image1.getHeight(), 20));
         Image1.setText(null);
         Image1.setIcon(image1);
         
-        image = "images" + File.separator + "image2.jpg";
+        image = System.getProperty("user.dir") + System.getProperty("file.separator") + "images" + System.getProperty("file.separator") + "image2.jpg";
         
         ImageIcon image2 = new ImageIcon(new ImageIcon(image).getImage().getScaledInstance(Image2.getWidth(), Image2.getHeight(), 20));
         Image2.setText(null);
@@ -315,7 +316,11 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         MenuItem_Nouveau.setText("Nouveau");
         MenuItem_Nouveau.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                MenuItem_NouveauActionPerformed(evt);
+                try {
+                    MenuItem_NouveauActionPerformed(evt);
+                } catch (IOException ex) {
+                    Logger.getLogger(CapitainerieWindow.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
         Menu_Utilisateurs.add(MenuItem_Nouveau);
@@ -533,7 +538,7 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         IsEnable(false);
     }                                               
 
-    private void MenuItem_NouveauActionPerformed(java.awt.event.ActionEvent evt) {                                                 
+    private void MenuItem_NouveauActionPerformed(java.awt.event.ActionEvent evt) throws IOException {                                                 
         // TODO add your handling code here:
         NewLoginWindow nw = new NewLoginWindow(this, true);
         nw.setVisible(true);
