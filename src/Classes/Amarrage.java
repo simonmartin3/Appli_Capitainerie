@@ -6,6 +6,7 @@
 package Classes;
 
 import Interfaces.AUnIdentifiant;
+import java.io.Serializable;
 
 /**
  *

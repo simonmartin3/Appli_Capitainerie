@@ -49,6 +49,7 @@ public class LoginWindow extends javax.swing.JFrame {
             // On charge le fichier qu'on vient de créer
             propertiesLogin = Persistance.LoadProperties(getPathLogin());
         }
+        
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);

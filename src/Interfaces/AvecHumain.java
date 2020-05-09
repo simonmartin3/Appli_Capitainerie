@@ -5,11 +5,13 @@
  */
 package Interfaces;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Simon
  */
-public interface AvecHumain 
+public interface AvecHumain extends Serializable
 {
     int getNombreHumains();
     

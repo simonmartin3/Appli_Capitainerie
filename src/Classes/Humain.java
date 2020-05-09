@@ -5,11 +5,13 @@
  */
 package Classes;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Simon
  */
-public class Humain 
+public class Humain implements Serializable
 {
     protected String nom;
     protected String prenom;

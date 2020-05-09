@@ -6,6 +6,7 @@
 package Classes;
 import Exception.*;
 import Interfaces.*;
+import java.io.Serializable;
 
 /**
  *

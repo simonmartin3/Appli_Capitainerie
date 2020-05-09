@@ -6,6 +6,7 @@
 package Classes;
 
 import Exception.ShipWithoutIdentificationException;
+import java.io.Serializable;
 
 /**
  *

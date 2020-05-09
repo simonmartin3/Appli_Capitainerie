@@ -5,13 +5,14 @@
  */
 package Classes;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Simon
  */
-public class Equipage 
+public class Equipage implements Serializable
 {
     private Marin capitainerie = null;
     private Marin second = null;

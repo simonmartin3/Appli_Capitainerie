@@ -6,6 +6,7 @@
 package Classes;
 
 import Interfaces.AvecHumain;
+import java.io.Serializable;
 
 /**
  *

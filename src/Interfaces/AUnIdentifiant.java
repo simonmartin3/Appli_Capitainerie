@@ -5,11 +5,13 @@
  */
 package Interfaces;
 
+import java.io.Serializable;
+
 /**
  *
  * @author Simon
  */
-public interface AUnIdentifiant 
+public interface AUnIdentifiant
 {
     String getIdentifiant();
 }

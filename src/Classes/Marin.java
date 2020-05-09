@@ -7,12 +7,13 @@ package Classes;
 
 import Interfaces.AUnIdentifiant;
 import Exception.*;
+import java.io.Serializable;
 
 /**
  *
  * @author Simon
  */
-public class Marin extends Humain implements AUnIdentifiant
+public class Marin extends Humain implements AUnIdentifiant, Serializable
 {
     private String fonction;
     

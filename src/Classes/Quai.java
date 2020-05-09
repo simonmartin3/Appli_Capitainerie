@@ -5,13 +5,14 @@
  */
 package Classes;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  *
  * @author Simon
  */
-public class Quai extends Amarrage
+public class Quai extends Amarrage implements Serializable
 {
     private ArrayList <MoyenDeTransportSurEau> List = new ArrayList<>();
     
