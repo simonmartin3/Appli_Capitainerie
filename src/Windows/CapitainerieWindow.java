@@ -6,17 +6,14 @@
 package Windows;
 
 import Classes.*;
-import static Classes.Persistance.getPathLogin;
 import Exception.SailorWithoutIdentificationException;
 import Exception.ShipWithoutIdentificationException;
-import java.io.File;
 import java.io.IOException;
 import static java.lang.Thread.sleep;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.Locale;
 import java.util.StringTokenizer;
 import java.util.Vector;
