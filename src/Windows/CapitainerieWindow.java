@@ -6,6 +6,7 @@
 package Windows;
 
 import Classes.*;
+import static Classes.Persistance.getPathLog;
 import Exception.SailorWithoutIdentificationException;
 import Exception.ShipWithoutIdentificationException;
 import java.io.IOException;
@@ -55,6 +56,10 @@ public class CapitainerieWindow extends javax.swing.JFrame {
     public static void setFormatHeure(int tmp){formatHeure = tmp;}   
     public static void setFormatLocale(Locale tmp){formatPays = tmp;}
     
+    public static int getFormatDate(){return formatDate;}
+    public static int getFormatHeure(){return formatHeure;}   
+    public static Locale getFormatLocale(){return formatPays;}
+    
     public CapitainerieWindow(java.awt.Frame parent, Hashtable tmp) throws ShipWithoutIdentificationException, SailorWithoutIdentificationException, IOException {
         
         // Initialisation JFrame -----------------------------------------------
@@ -87,23 +92,22 @@ public class CapitainerieWindow extends javax.swing.JFrame {
                 System.err.println("Fichier vide");
                 b1 = new BateauPeche("Marie Gueulante", "", 0, 0, "FR", "Q2*4", new Equipage(), "", "", 0, false); //Q2*4
                 b2 = new BateauPlaisance("Aigle des mers", "", 0, 0, "FR", "P11*4", new Equipage(), "", "", 0, false);
-                b3 = new BateauPlaisance("Victory", "", 0, 0, "UK", "P22*1", new Equipage(), "", "", 0, false);
-                b4 = new BateauPlaisance("Schweinhund", "", 0, 0, "DE", "P21*1", new Equipage(), "", "", 0, false);
+                b3 = new BateauPlaisance("Victory", "", 0, 0, "UK", "P22*3", new Equipage(), "", "", 0, false);
+                b4 = new BateauPlaisance("Schweinhund", "", 0, 0, "DE", "P21*2", new Equipage(), "", "", 0, false);
 
                 vBateauAmarré.add(b1);
                 vBateauAmarré.add(b2);
                 vBateauAmarré.add(b3);
                 vBateauAmarré.add(b4);
                 
-                // Enregistrement des bateaux dans le fichier
-                Persistance.SaveObject(vBateauAmarré, Persistance.getPathBateau());
-                
-                vBateauAmarré = (Vector < Bateau >)Persistance.LoadObject(Persistance.getPathBateau());
+                saveandload();
             }
             else
             {
                 System.err.println("Fichier rempli");
                 vBateauAmarré = (Vector < Bateau >)Persistance.LoadObject(Persistance.getPathBateau());
+                
+                Persistance.WriteLog(getCurrentDate(DateFormat.SHORT, DateFormat.MEDIUM, Locale.FRANCE) + " - Chargement du fichier bateaux.bat", getPathLog());   
             }
             
         }
@@ -133,17 +137,17 @@ public class CapitainerieWindow extends javax.swing.JFrame {
             P2.getListe(2).add(i, new BateauPlaisance());
         }
         
-        // Ajout de bateau dans emplacement quai et ponton
-        Q2.getListe().add(3, b1);
-        P1.getListe(1).add(3, b2);
-        P2.getListe(2).add(0, b3);
-        P2.getListe(1).add(0, b4);
-        
         vQuai.add(Q1);
         vQuai.add(Q2);
         vPonton.add(P1);
         vPonton.add(P2);
         
+        // Ajout de bateau dans emplacement quai et ponton
+        for(int i = 0; i < vBateauAmarré.size(); i++)
+        {
+            insertAmarrage(vBateauAmarré.get(i));
+        }
+
         // ---------------------------------------------------------------------
         
         
@@ -237,6 +241,11 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         MenuItem_Aide = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         Button_ServeurOn.setText("Démarrer le serveur");
         Button_ServeurOn.addActionListener(new java.awt.event.ActionListener() {
@@ -334,11 +343,7 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         MenuItem_Nouveau.setText("Nouveau");
         MenuItem_Nouveau.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    MenuItem_NouveauActionPerformed(evt);
-                } catch (IOException ex) {
-                    Logger.getLogger(CapitainerieWindow.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                MenuItem_NouveauActionPerformed(evt);
             }
         });
         Menu_Utilisateurs.add(MenuItem_Nouveau);
@@ -539,27 +544,34 @@ public class CapitainerieWindow extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        Persistance.WriteLog(getCurrentDate(DateFormat.SHORT, DateFormat.MEDIUM, Locale.FRANCE) + " - Déconnexion de l'utilisateur", getPathLog());
+    }//GEN-LAST:event_formWindowClosing
     
     /**********************************************************************/
     /*                          Menu Utilisateur                          */
     /**********************************************************************/
     
-    private void MenuItem_LoginActionPerformed(java.awt.event.ActionEvent evt) {                                               
-        // TODO add your handling code here:
+    private void MenuItem_LoginActionPerformed(java.awt.event.ActionEvent evt) {
         LW.setVisible(true);
+        Persistance.WriteLog(getCurrentDate(DateFormat.SHORT, DateFormat.MEDIUM, Locale.FRANCE) + " - Déconnexion de l'utilisateur", getPathLog());
         this.dispose();
     }                                              
 
-    private void MenuItem_LogoutActionPerformed(java.awt.event.ActionEvent evt) {                                                
-        // TODO add your handling code here:
+    private void MenuItem_LogoutActionPerformed(java.awt.event.ActionEvent evt) { 
         MenuItem_Login.setEnabled(true);
         IsEnable(false);
     }                                               
 
-    private void MenuItem_NouveauActionPerformed(java.awt.event.ActionEvent evt) throws IOException {                                                 
-        // TODO add your handling code here:
-        NewLoginWindow nw = new NewLoginWindow(this, true);
-        nw.setVisible(true);
+    private void MenuItem_NouveauActionPerformed(java.awt.event.ActionEvent evt) {  
+        NewLoginWindow nw;
+        try {
+            nw = new NewLoginWindow(this, true);
+            nw.setVisible(true);
+        } catch (IOException ex) {
+            System.err.println(ex.getMessage());
+        }
     }                                                
     
     
@@ -567,14 +579,12 @@ public class CapitainerieWindow extends javax.swing.JFrame {
     /*                            Menu Amarrages                          */
     /**********************************************************************/
 
-    private void MenuItem_PlaisanceActionPerformed(java.awt.event.ActionEvent evt) {                                                   
-        // TODO add your handling code here:
+    private void MenuItem_PlaisanceActionPerformed(java.awt.event.ActionEvent evt) {    
         PlaisanceWindow pw = new PlaisanceWindow(this, true, vPonton);
         pw.setVisible(true);
     }                                                  
 
-    private void MenuItem_PecheActionPerformed(java.awt.event.ActionEvent evt) {                                               
-        // TODO add your handling code here:
+    private void MenuItem_PecheActionPerformed(java.awt.event.ActionEvent evt) {
         PecheWindow pw = new PecheWindow(this, true, vQuai);
         pw.setVisible(true);
     }                                              
@@ -584,14 +594,12 @@ public class CapitainerieWindow extends javax.swing.JFrame {
     /*                            Menu Bateaux                            */
     /**********************************************************************/
 
-    private void MenuItem_ListeActionPerformed(java.awt.event.ActionEvent evt) {                                               
-        // TODO add your handling code here:
+    private void MenuItem_ListeActionPerformed(java.awt.event.ActionEvent evt) {
         ListBateauWindow lbw = new ListBateauWindow(this, true, vBateauAmarré);
         lbw.setVisible(true);
     }                                              
     
-    private void MenuItem_RechercheBateauActionPerformed(java.awt.event.ActionEvent evt) {                                                         
-        // TODO add your handling code here:
+    private void MenuItem_RechercheBateauActionPerformed(java.awt.event.ActionEvent evt) {          
         SearchBateauWindow sbw = new SearchBateauWindow(this, true);
         sbw.setVisible(true);
     }                                                        
@@ -601,8 +609,7 @@ public class CapitainerieWindow extends javax.swing.JFrame {
     /*                           Menu Personnel                           */
     /**********************************************************************/
     
-    private void MenuItem_EquipageActionPerformed(java.awt.event.ActionEvent evt) {                                                  
-        // TODO add your handling code here:
+    private void MenuItem_EquipageActionPerformed(java.awt.event.ActionEvent evt) {   
         ListEquipageWindow lew = new ListEquipageWindow(this, true, vBateauAmarré);
         lew.setVisible(true);
     }                                                 
@@ -612,8 +619,7 @@ public class CapitainerieWindow extends javax.swing.JFrame {
     /*                           Menu Paramètres                          */
     /**********************************************************************/
     
-    private void MenuItem_FormatDateActionPerformed(java.awt.event.ActionEvent evt) {                                                    
-        // TODO add your handling code here:
+    private void MenuItem_FormatDateActionPerformed(java.awt.event.ActionEvent evt) {     
         DateWindow dw = new DateWindow(this, true);
         dw.setVisible(true);
     }                                                   
@@ -624,8 +630,7 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         lw.setVisible(true);
     }                                            
 
-    private void CheckBoxMenuItem_AffichageDateActionPerformed(java.awt.event.ActionEvent evt) {                                                               
-        // TODO add your handling code here:
+    private void CheckBoxMenuItem_AffichageDateActionPerformed(java.awt.event.ActionEvent evt) {                
         if(CheckBoxMenuItem_AffichageDate.isSelected())
         {
             Label_CurrentDate.setVisible(true);
@@ -641,14 +646,12 @@ public class CapitainerieWindow extends javax.swing.JFrame {
     /*                            Menu A Propos                           */
     /**********************************************************************/
     
-    private void MenuItem_AuteursActionPerformed(java.awt.event.ActionEvent evt) {                                                 
-        // TODO add your handling code here:
+    private void MenuItem_AuteursActionPerformed(java.awt.event.ActionEvent evt) {  
         String message = "Copyright 2020\nMARTIN Simon"; 
         JOptionPane.showMessageDialog(null,message, "A Propos", JOptionPane.INFORMATION_MESSAGE);
     }                                                
 
-    private void MenuItem_AideActionPerformed(java.awt.event.ActionEvent evt) {                                              
-        // TODO add your handling code here:
+    private void MenuItem_AideActionPerformed(java.awt.event.ActionEvent evt) {
         HelpWindow hw = new HelpWindow(this, true);
         hw.setVisible(true);
     }                                             
@@ -660,10 +663,10 @@ public class CapitainerieWindow extends javax.swing.JFrame {
     
     private void Button_ServeurOnActionPerformed(java.awt.event.ActionEvent evt) {                                                 
         nbs = new NetworkBasicServer(PORT, CheckBox_RequeteAttente);
+        Persistance.WriteLog(getCurrentDate(DateFormat.SHORT, DateFormat.MEDIUM, Locale.FRANCE) + " - Démarrage du serveur", getPathLog());
     }                                                
     
-    private void Button_ServeurOffActionPerformed(java.awt.event.ActionEvent evt) {                                                  
-        // TODO add your handling code here:
+    private void Button_ServeurOffActionPerformed(java.awt.event.ActionEvent evt) {   
         
         // création de marins
         Marin c1 = null, c2 = null, c3 = null, c4 = null, s1 = null, s2 = null, s3 = null, b1 = null, b2 = null, b3 = null, m1 = null, m2 = null, m3 = null, m4 = null;
@@ -731,8 +734,7 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         System.err.println("Insertion des données");
     }                                                 
 
-    private void Button_BatteauAmarreActionPerformed(java.awt.event.ActionEvent evt) {                                                     
-        // TODO add your handling code here:
+    private void Button_BatteauAmarreActionPerformed(java.awt.event.ActionEvent evt) {      
         if(List_Bateau.getSelectedValue() == null)
         {
             JOptionPane.showMessageDialog(new JFrame(), "Pas de bateau sélectionné !", "Erreur", JOptionPane.ERROR_MESSAGE);
@@ -744,8 +746,7 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         }
     }                                                    
 
-    private void MenuItem_RechecrheMarinActionPerformed(java.awt.event.ActionEvent evt) {                                                        
-        // TODO add your handling code here:
+    private void MenuItem_RechecrheMarinActionPerformed(java.awt.event.ActionEvent evt) {         
         SearchMarinWindow smw = new SearchMarinWindow(this, true);
         smw.setVisible(true);
     }                                                       
@@ -757,6 +758,7 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         {
             TextField_Requete.setText(req);
         }
+        Persistance.WriteLog(getCurrentDate(DateFormat.SHORT, DateFormat.MEDIUM, Locale.FRANCE) + " - Lecture d'un message serveur" , getPathLog());
     }                                           
 
     private void Button_ChoisirActionPerformed(java.awt.event.ActionEvent evt) {                                               
@@ -814,6 +816,14 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         vBateauAmarré.add(tmp);
         insertAmarrage(tmp);
         insertListBateau();
+        
+        Persistance.WriteLog(getCurrentDate(DateFormat.SHORT, DateFormat.MEDIUM, Locale.FRANCE) + " - Insertion d'un nouveau bateau " + tmp.getNom() , getPathLog());
+        
+        try {
+            saveandload();
+        } catch (IOException ex) {
+            System.err.println(ex.getMessage());
+        }
     }                                                         
 
     private void CheckBox_RequeteAttenteStateChanged(javax.swing.event.ChangeEvent evt) {                                                     
@@ -859,11 +869,10 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         Label_BateauxEnEntree.setEnabled(tmp);
     }
     
-    public static String getCurrentDate()
+    public String getCurrentDate(int fDate, int fHeure, Locale pays)
     {
-        
         Date date = new Date();
-        String currentDate = DateFormat.getDateTimeInstance(formatDate,formatHeure,formatPays).format(date);
+        String currentDate = DateFormat.getDateTimeInstance(fDate,fHeure,pays).format(date);
         return currentDate;
     }
     
@@ -875,7 +884,7 @@ public class CapitainerieWindow extends javax.swing.JFrame {
             {
                while(true)
                {
-                   Label_CurrentDate.setText(getCurrentDate());
+                   Label_CurrentDate.setText(getCurrentDate(formatDate, formatHeure, formatPays));
                    try 
                    {
                        sleep(1000);
@@ -903,8 +912,7 @@ public class CapitainerieWindow extends javax.swing.JFrame {
             else
             {
                 model.addElement(vBateauAmarré.get(i).display() + " - Enregistré");
-            }
-            
+            } 
         }
         List_Bateau.setModel(model);
     }
@@ -919,24 +927,32 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         {
             int i = Character.getNumericValue(emplacement.charAt(3));
             Quai quaiTmp = vQuai.get(id-1);
-            quaiTmp.getListe().add(i-1, (BateauPeche)tmp);
-            vQuai.removeElementAt(id-1);
-            vQuai.insertElementAt(quaiTmp, id-1);
-            
+            quaiTmp.getListe().set(i-1, (BateauPeche)tmp);
+            vQuai.set(id-1, quaiTmp);            
         }
         else if(typeEmplacement == 'P')
         {
             int i = Character.getNumericValue(emplacement.charAt(2));
             int j = Character.getNumericValue(emplacement.charAt(4));
             Ponton pontonTmp = vPonton.get(id-1);
-            pontonTmp.getListe(i).add(j-1, (BateauPlaisance)tmp);
-            vPonton.removeElementAt(id-1);
-            vPonton.insertElementAt(pontonTmp, id-1);
+            pontonTmp.getListe(i).set(j-1, (BateauPlaisance)tmp);
+            vPonton.set(id-1, pontonTmp);
         }
         else
         {
-            System.err.println("error insert amarrage");
+            System.err.println("Error insert amarrage");
         }
+    }
+    
+    public void saveandload() throws IOException
+    {
+        // Enregistrement des bateaux dans le fichier
+        Persistance.SaveObject(vBateauAmarré, Persistance.getPathBateau());
+        
+        // Chargement des bateaux dans le Vector
+        vBateauAmarré = (Vector < Bateau >)Persistance.LoadObject(Persistance.getPathBateau());
+        
+        Persistance.WriteLog(getCurrentDate(DateFormat.SHORT, DateFormat.MEDIUM, Locale.FRANCE) + " - Chargement du fichier bateaux.bat" , getPathLog());
     }
     
     /**

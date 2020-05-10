@@ -6,8 +6,16 @@
 package Windows;
 
 import Classes.Bateau;
+import Classes.Persistance;
+import static Classes.Persistance.getPathLog;
 import Exception.NumberFormatException;
 import static Windows.LoginWindow.isNullOrEmpty;
+import java.io.IOException;
+import java.text.DateFormat;
+import java.util.Locale;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -271,7 +279,11 @@ public class InfoBateauWindow extends javax.swing.JFrame {
                     CW.vBateauAmarré.set(tmpIndex, tmpBateau);
 
                     CW.insertListBateau();
+                    
+                    CW.saveandload();
 
+                    Persistance.WriteLog(CW.getCurrentDate(DateFormat.SHORT, DateFormat.MEDIUM, Locale.FRANCE) + " - Modification du bateau " + tmpBateau.getNom(), getPathLog());
+                    
                     this.dispose();
                 }
                 else
@@ -281,6 +293,8 @@ public class InfoBateauWindow extends javax.swing.JFrame {
                 
             } catch (NumberFormatException ex) {
                 ex.Affiche();
+            } catch (IOException ex) {
+                System.err.println(ex.getMessage());
             }
         }
     }//GEN-LAST:event_Button_OkActionPerformed

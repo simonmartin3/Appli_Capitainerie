@@ -23,13 +23,24 @@ public class main {
      */
     public static void main(String[] args) throws IOException {
         
+        // On vérifie si le fichier bateaux existe sinon on le crée
         if(!new File(Persistance.getPathBateau()).exists())
 	{
             new File(Persistance.getPathBateau()).createNewFile();
             System.out.println ("Création du fichier bateaux.bat");
         }else
 	{
-            System.out.println ("Ce fichier existe déjà");
+            System.out.println ("Le fichier bateaux.bat existe déjà");
+	}
+        
+        // On vérifie si le fichier des logs existe sinon on le crée
+        if(!new File(Persistance.getPathLog()).exists())
+	{
+            new File(Persistance.getPathLog()).createNewFile();
+            System.out.println ("Création du fichier log.txt");
+        }else
+	{
+            System.out.println ("Le fichier log.txt existe déjà");
 	}
         
         LoginWindow LW;

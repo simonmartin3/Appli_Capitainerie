@@ -248,7 +248,7 @@ public class DateWindow extends javax.swing.JDialog {
             {
                while(true)
                {
-                   Label_CurrentDate.setText(CW.getCurrentDate());
+                   Label_CurrentDate.setText(CW.getCurrentDate(CW.getFormatDate(), CW.getFormatHeure(), CW.getFormatLocale()));
                    try 
                    {
                        sleep(1000);

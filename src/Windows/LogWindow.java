@@ -5,6 +5,8 @@
  */
 package Windows;
 
+import Classes.Persistance;
+
 /**
  *
  * @author Simon
@@ -19,6 +21,10 @@ public class LogWindow extends javax.swing.JDialog {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setResizable(false);
+        
+        String log = Persistance.ReadLog(Persistance.getPathLog());
+        
+        jTextArea1.setText(log);
     }
 
     /**

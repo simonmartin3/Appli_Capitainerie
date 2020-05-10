@@ -6,14 +6,16 @@
 package Windows;
 
 import Classes.Persistance;
-import static Classes.Persistance.getPathLogin;
+import static Classes.Persistance.*;
 import Exception.LoginException;
 import Exception.SailorWithoutIdentificationException;
 import Exception.ShipWithoutIdentificationException;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -197,6 +199,7 @@ public class LoginWindow extends javax.swing.JFrame {
             CapitainerieWindow CW;
             CW = new CapitainerieWindow(this, hmap);
             CW.setVisible(true);
+            Persistance.WriteLog(CW.getCurrentDate(DateFormat.SHORT, DateFormat.MEDIUM, Locale.FRANCE) + " - Connexion de l'utilisateur : " + user, getPathLog());
             this.dispose(); // Fermeture de la fenetre de connexion
         }
         else throw new LoginException("Connexion échoué (Erreur mot de passe) !");        

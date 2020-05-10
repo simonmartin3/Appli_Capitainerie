@@ -16,26 +16,32 @@ public class Persistance {
     
     public static String getPathLogin()
     {
-        String nomFichier = System.getProperty("user.dir") + System.getProperty("file.separator") + "src" + System.getProperty("file.separator") + "Config" + System.getProperty("file.separator") + "login.properties";
-        return nomFichier;
+        String filePath = System.getProperty("user.dir") + System.getProperty("file.separator") + "src" + System.getProperty("file.separator") + "Config" + System.getProperty("file.separator") + "login.properties";
+        return filePath;
     }
     
     public static String getPathBateau()
     {
-        String nomFichier = System.getProperty("user.dir") + System.getProperty("file.separator") + "src" + System.getProperty("file.separator") + "Config" + System.getProperty("file.separator") + "bateaux.dat";
-        return nomFichier;
+        String filePath = System.getProperty("user.dir") + System.getProperty("file.separator") + "src" + System.getProperty("file.separator") + "Config" + System.getProperty("file.separator") + "bateaux.dat";
+        return filePath;
     }
     
-    public static String getPathQuai()
-    {
-        String nomFichier = System.getProperty("user.dir") + System.getProperty("file.separator") + "src" + System.getProperty("file.separator") + "Config" + System.getProperty("file.separator") + "quai.dat";
-        return nomFichier;
-    }
+//    public static String getPathQuai()
+//    {
+//        String filePath = System.getProperty("user.dir") + System.getProperty("file.separator") + "src" + System.getProperty("file.separator") + "Config" + System.getProperty("file.separator") + "quai.dat";
+//        return filePath;
+//    }
+//    
+//    public static String getPathPonton()
+//    {
+//        String filePath = System.getProperty("user.dir") + System.getProperty("file.separator") + "src" + System.getProperty("file.separator") + "Config" + System.getProperty("file.separator") + "ponton.dat";
+//        return filePath;
+//    }
     
-    public static String getPathPonton()
+    public static String getPathLog()
     {
-        String nomFichier = System.getProperty("user.dir") + System.getProperty("file.separator") + "src" + System.getProperty("file.separator") + "Config" + System.getProperty("file.separator") + "ponton.dat";
-        return nomFichier;
+        String filePath = System.getProperty("user.dir") + System.getProperty("file.separator") + "src" + System.getProperty("file.separator") + "Config" + System.getProperty("file.separator") + "log.txt";
+        return filePath;
     }
     
     // Charger le fichier properties
@@ -106,7 +112,45 @@ public class Persistance {
         catch(IOException e) {
             System.out.println("Error chargement objet : " + e.getMessage());}
         finally {return obj;}
-    } 
+    }
+    
+    public static void WriteLog(String tmp,String filePath)
+    {
+        try 
+        {
+            FileWriter fw = new FileWriter(filePath,true);
+            fw.write(tmp + ".\n");
+            fw.close();
+        } 
+        catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    
+    public static String ReadLog(String filePath)
+    {
+        FileReader flux;
+        BufferedReader input;
+        String line;
+        String tmp = new String();
+        
+        try
+        { 
+            flux = new FileReader (filePath);
+            input = new BufferedReader(flux);
+            
+            // Lis ligne par ligne jusqu'à la fin et ajoute les lignes lu dans le text area
+            while((line = input.readLine()) != null){
+                tmp = tmp + '\n' + line;
+            }
+            input.close();
+            flux.close();
+        }
+        catch (IOException e) {
+            System.out.println(e.getMessage());
+        }  
+        return tmp;
+    }
     
     public static void displayProperties(Properties p)
     {
