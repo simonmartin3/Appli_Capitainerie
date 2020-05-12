@@ -1,9 +1,0 @@
-10/05/20 13:05:01 - Chargement du fichier bateaux.bat.
-10/05/20 13:05:01 - Connexion de l'utilisateur : root.
-10/05/20 13:05:06 - Déconnexion de l'utilisateur.
-10/05/20 13:05:12 - Chargement du fichier bateaux.bat.
-10/05/20 13:05:12 - Connexion de l'utilisateur : root.
-10/05/20 13:05:29 - Déconnexion de l'utilisateur.
-11/05/20 00:08:28 - Chargement du fichier bateaux.bat.
-11/05/20 00:08:29 - Connexion de l'utilisateur : root.
-11/05/20 00:08:39 - Déconnexion de l'utilisateur.
