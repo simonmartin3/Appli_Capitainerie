@@ -1,0 +1,15 @@
+12/05/20 17:10:53 - Chargement du fichier bateaux.bat.
+12/05/20 17:10:55 - Connexion de l'utilisateur : root.
+12/05/20 17:11:12 - Démarrage du serveur.
+12/05/20 17:11:41 - Lecture d'un message serveur.
+12/05/20 17:12:39 - Lecture d'un message serveur.
+12/05/20 17:12:40 - Insertion d'un nouveau bateau Luna.
+12/05/20 17:12:40 - Chargement du fichier bateaux.bat.
+12/05/20 17:12:47 - Déconnexion de l'utilisateur.
+12/05/20 17:14:48 - Chargement du fichier bateaux.bat.
+12/05/20 17:14:48 - Connexion de l'utilisateur : root.
+12/05/20 17:14:49 - Démarrage du serveur.
+12/05/20 17:14:57 - Lecture d'un message serveur.
+12/05/20 17:15:32 - Insertion d'un nouveau bateau Luna.
+12/05/20 17:15:32 - Chargement du fichier bateaux.bat.
+12/05/20 17:15:41 - Déconnexion de l'utilisateur.

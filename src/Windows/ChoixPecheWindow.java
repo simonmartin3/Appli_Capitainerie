@@ -133,6 +133,12 @@ public class ChoixPecheWindow extends javax.swing.JDialog {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable1MouseClicked(evt);
             }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jTable1MousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jTable1MouseReleased(evt);
+            }
         });
         jScrollPane1.setViewportView(jTable1);
 
@@ -210,8 +216,38 @@ public class ChoixPecheWindow extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_Button_ValiderActionPerformed
 
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+    private void jTable1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MousePressed
         // TODO add your handling code here:
+        int i = jTable1.getSelectedRow();
+        int j;
+        
+        if(jTable1.getValueAt(i, 1) != null)
+        {
+            for(j = i; jTable1.getValueAt(j, 0).toString().equals("") && j >= 0; j--);
+
+            String ponton = jTable1.getValueAt(j, 0).toString();
+            String emplacement = jTable1.getValueAt(i, 1).toString();
+
+            Label_Emplacement.setText(ponton + "*" + emplacement);
+        }
+    }//GEN-LAST:event_jTable1MousePressed
+
+    private void jTable1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseReleased
+        int i = jTable1.getSelectedRow();
+        int j;
+        
+        if(jTable1.getValueAt(i, 1) != null)
+        {
+            for(j = i; jTable1.getValueAt(j, 0).toString().equals("") && j >= 0; j--);
+
+            String ponton = jTable1.getValueAt(j, 0).toString();
+            String emplacement = jTable1.getValueAt(i, 1).toString();
+
+            Label_Emplacement.setText(ponton + "*" + emplacement);
+        }
+    }//GEN-LAST:event_jTable1MouseReleased
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         int i = jTable1.getSelectedRow();
         int j;
         
