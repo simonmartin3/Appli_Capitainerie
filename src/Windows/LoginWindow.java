@@ -191,7 +191,8 @@ public class LoginWindow extends javax.swing.JFrame {
     {
         String users = propertiesLogin.getProperty(user);
         
-        if(users.isEmpty()) throw new LoginException("Connexion échoué (Utilisateur inconnu) !");
+        if(isNullOrEmpty(users)) 
+            throw new LoginException("Connexion échoué (Utilisateur inconnu) !");
         
         if(users.equals(pass))
         {
@@ -199,7 +200,7 @@ public class LoginWindow extends javax.swing.JFrame {
             CapitainerieWindow CW;
             CW = new CapitainerieWindow(this, hmap);
             CW.setVisible(true);
-            Persistance.WriteLog(CW.getCurrentDate(DateFormat.SHORT, DateFormat.MEDIUM, Locale.FRANCE) + " - Connexion de l'utilisateur : " + user, getPath("logPath"));
+            Persistance.WriteLog(CW.date.getLogDate()+ " - Connexion de l'utilisateur : " + user, getPath("logPath"));
             this.dispose(); // Fermeture de la fenetre de connexion
         }
         else throw new LoginException("Connexion échoué (Erreur mot de passe) !");        

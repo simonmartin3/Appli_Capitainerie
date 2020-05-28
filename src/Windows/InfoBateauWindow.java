@@ -282,7 +282,7 @@ public class InfoBateauWindow extends javax.swing.JFrame {
                     
                     CW.saveandload();
 
-                    Persistance.WriteLog(CW.getCurrentDate(DateFormat.SHORT, DateFormat.MEDIUM, Locale.FRANCE) + " - Modification du bateau " + tmpBateau.getNom(), getPath("logPath"));
+                    Persistance.WriteLog(CW.date.getCurrentDate() + " - Modification du bateau " + tmpBateau.getNom(), getPath("logPath"));
                     
                     this.dispose();
                 }

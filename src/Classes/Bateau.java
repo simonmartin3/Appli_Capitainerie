@@ -12,7 +12,7 @@ import java.io.Serializable;
  *
  * @author Simon
  */
-public class Bateau extends MoyenDeTransportSurEau implements AUnIdentifiant
+public class Bateau extends MoyenDeTransportSurEau implements AUnIdentifiant, Comparable<Bateau>
 {
     private String nom;
     private String portAttache;
@@ -121,5 +121,9 @@ public class Bateau extends MoyenDeTransportSurEau implements AUnIdentifiant
     public Equipage getEquipage()
     {
         return equipage;
+    }
+    
+    public int compareTo(Bateau tmp) {
+        return this.getNom().compareTo(tmp.getNom());
     }
 }

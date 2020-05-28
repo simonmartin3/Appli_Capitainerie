@@ -6,6 +6,7 @@
 package Windows;
 
 import Classes.Bateau;
+import java.util.Collections;
 import java.util.Vector;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
@@ -34,7 +35,9 @@ public class ListBateauWindow extends javax.swing.JDialog {
         this.setLocation(CW.getX() - this.getWidth(), CW.getY());
         this.setResizable(false);
         this.setTitle("Capitainerie - Informations sur bateau");
-                
+        
+        Collections.sort(vBateauAmarré);
+        
         DefaultListModel model = new DefaultListModel();
         
         for(int i = 0; i < tmpVector.size(); i++)

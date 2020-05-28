@@ -16,7 +16,7 @@ public class Persistance {
     
     public static String getPathConfig()
     {
-        String filePath = System.getProperty("user.dir") + System.getProperty("file.separator") + "src" + System.getProperty("file.separator") + "Config" + System.getProperty("file.separator") + "config.properties";
+        String filePath = System.getProperty("user.home") + System.getProperty("file.separator") + "Config" + System.getProperty("file.separator") + "config.properties";
         return filePath;
     }
     

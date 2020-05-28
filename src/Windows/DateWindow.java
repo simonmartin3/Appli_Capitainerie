@@ -5,8 +5,12 @@
  */
 package Windows;
 
+import Classes.currentDate;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -17,6 +21,15 @@ public class DateWindow extends javax.swing.JDialog {
     /**
      * Creates new form DateWindow
      */
+    
+    // Format current date
+        private static int formatDate;
+        private static int formatHeure;
+        private static Locale formatPays;
+
+        public static void setFormatDate(int tmp){formatDate = tmp;}
+        public static void setFormatHeure(int tmp){formatHeure = tmp;}   
+        public static void setFormatLocale(Locale tmp){formatPays = tmp;}
     
     CapitainerieWindow CW;
     
@@ -40,11 +53,7 @@ public class DateWindow extends javax.swing.JDialog {
         
         // Display current date ------------------------------------------------
         
-        CW.setFormatDate(DateFormat.SHORT);
-        CW.setFormatHeure(DateFormat.SHORT);
-        CW.setFormatLocale(Locale.FRANCE);
-        
-        displayDate();
+        Label_CurrentDate.setText(CW.date.getCurrentDate());
         
         // ---------------------------------------------------------------------
     }
@@ -176,34 +185,41 @@ public class DateWindow extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Button_OkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_OkActionPerformed
-        // TODO add your handling code here:
-        
-        String formatpays = (String) ComboBox_Pays.getSelectedItem();
-        switch(formatpays)
-        {
-            case "FRANCE" : CW.setFormatLocale(Locale.FRENCH);break;
-            case "ROYAUME-UNIS" : CW.setFormatLocale(Locale.UK);break; 
-            case "ITALIE" : CW.setFormatLocale(Locale.ITALY);break;
-            case "AMERIQUE" : CW.setFormatLocale(Locale.US);break;
+        try {
+            // TODO add your handling code here:
+                
+            String formatpays = (String) ComboBox_Pays.getSelectedItem();
+                
+            switch(formatpays)
+            {
+                case "FRANCE" : setFormatLocale(Locale.FRENCH);break;
+                case "ROYAUME-UNIS" : setFormatLocale(Locale.UK);break;
+                case "ITALIE" : setFormatLocale(Locale.ITALY);break;
+                case "AMERIQUE" : setFormatLocale(Locale.US);break;
+            }
+                
+            String formatheure = (String) ComboBox_Heure.getSelectedItem();
+            switch(formatheure)
+            {
+                case "SHORT": setFormatHeure(DateFormat.SHORT);break;
+                case "MEDIUM": setFormatHeure(DateFormat.MEDIUM);break;
+                case "FULL": setFormatHeure(DateFormat.FULL);break;
+            }
+                
+            String formatdate = (String) ComboBox_Date.getSelectedItem();
+            switch(formatdate)
+            {
+                case "SHORT": setFormatDate(DateFormat.SHORT);break;
+                case "MEDIUM": setFormatDate(DateFormat.MEDIUM);break;
+                case "FULL": setFormatDate(DateFormat.FULL);break;
+            }
+            currentDate newDate = new currentDate(formatHeure, formatDate, formatPays);
+            CW.changeDate(newDate);
+            this.dispose();
+                
+        } catch (IOException ex) {
+            System.err.println(ex.getMessage());
         }
-        
-        String formatheure = (String) ComboBox_Heure.getSelectedItem();
-        switch(formatheure)
-        {
-            case "SHORT": CW.setFormatHeure(DateFormat.SHORT);break;
-            case "MEDIUM": CW.setFormatHeure(DateFormat.MEDIUM);break;
-            case "FULL": CW.setFormatHeure(DateFormat.FULL);break;
-        }
-        
-        String formatdate = (String) ComboBox_Date.getSelectedItem();
-        switch(formatdate)
-        {
-            case "SHORT": CW.setFormatDate(DateFormat.SHORT);break;
-            case "MEDIUM": CW.setFormatDate(DateFormat.MEDIUM);break;
-            case "FULL": CW.setFormatDate(DateFormat.FULL);break;
-        }
-        
-        this.dispose();
     }//GEN-LAST:event_Button_OkActionPerformed
 
     private void Button_AppliquerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_AppliquerActionPerformed
@@ -212,57 +228,38 @@ public class DateWindow extends javax.swing.JDialog {
         String formatpays = (String) ComboBox_Pays.getSelectedItem();
         switch(formatpays)
         {
-            case "FRANCE" : CW.setFormatLocale(Locale.FRENCH);break;
-            case "ROYAUME-UNIS" : CW.setFormatLocale(Locale.UK);break; 
-            case "ITALIE" : CW.setFormatLocale(Locale.ITALY);break;
-            case "AMERIQUE" : CW.setFormatLocale(Locale.US);break;
+            case "FRANCE" : setFormatLocale(Locale.FRENCH);break;
+            case "ROYAUME-UNIS" : setFormatLocale(Locale.UK);break; 
+            case "ITALIE" : setFormatLocale(Locale.ITALY);break;
+            case "AMERIQUE" : setFormatLocale(Locale.US);break;
         }
         
         String formatheure = (String) ComboBox_Heure.getSelectedItem();
         switch(formatheure)
         {
-            case "SHORT": CW.setFormatHeure(DateFormat.SHORT);break;
-            case "MEDIUM": CW.setFormatHeure(DateFormat.MEDIUM);break;
-            case "FULL": CW.setFormatHeure(DateFormat.FULL);break;
+            case "SHORT": setFormatHeure(DateFormat.SHORT);break;
+            case "MEDIUM": setFormatHeure(DateFormat.MEDIUM);break;
+            case "FULL": setFormatHeure(DateFormat.FULL);break;
         }
         
         String formatdate = (String) ComboBox_Date.getSelectedItem();
         switch(formatdate)
         {
-            case "SHORT": CW.setFormatDate(DateFormat.SHORT);break;
-            case "MEDIUM": CW.setFormatDate(DateFormat.MEDIUM);break;
-            case "FULL": CW.setFormatDate(DateFormat.FULL);break;
+            case "SHORT": setFormatDate(DateFormat.SHORT);break;
+            case "MEDIUM": setFormatDate(DateFormat.MEDIUM);break;
+            case "FULL": setFormatDate(DateFormat.FULL);break;
         }
+        
+        currentDate newDate = new currentDate(formatHeure, formatDate, formatPays);
+        
+        Label_CurrentDate.setText(newDate.getCurrentDate());
     }//GEN-LAST:event_Button_AppliquerActionPerformed
 
     private void Button_AnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Button_AnnulerActionPerformed
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_Button_AnnulerActionPerformed
-
-    private void displayDate()
-    {
-        Thread thread = new Thread()
-        {
-            public void run()
-            {
-               while(true)
-               {
-                   Label_CurrentDate.setText(CW.getCurrentDate(CW.getFormatDate(), CW.getFormatHeure(), CW.getFormatLocale()));
-                   try 
-                   {
-                       sleep(1000);
-                   } 
-                   catch (InterruptedException ex) 
-                   {
-                       ex.getMessage();
-                   }
-               }     
-            }
-        };
-        thread.start();
-    }
-    
+   
     /**
      * @param args the command line arguments
      */

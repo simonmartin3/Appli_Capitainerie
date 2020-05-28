@@ -44,21 +44,10 @@ public class CapitainerieWindow extends javax.swing.JFrame {
     Vector <Ponton> vPonton = new Vector<>();
     Bateau tmp;
     Properties propertiesConfig;
+    currentDate date;
     
-    private NetworkBasicServer nbs;    
     
-    // Format current date
-    private static int formatDate;
-    private static int formatHeure;
-    private static Locale formatPays;
-    
-    public static void setFormatDate(int tmp){formatDate = tmp;}
-    public static void setFormatHeure(int tmp){formatHeure = tmp;}   
-    public static void setFormatLocale(Locale tmp){formatPays = tmp;}
-    
-    public static int getFormatDate(){return formatDate;}
-    public static int getFormatHeure(){return formatHeure;}   
-    public static Locale getFormatLocale(){return formatPays;}
+    private NetworkBasicServer nbs; 
     
     public CapitainerieWindow(java.awt.Frame parent, Hashtable tmp) throws ShipWithoutIdentificationException, SailorWithoutIdentificationException, IOException {
         
@@ -79,6 +68,9 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         
         // On charge le fichier config
         propertiesConfig = Persistance.LoadProperties(getPathConfig());
+        
+        //Date
+        date = new currentDate();
         
         // ---------------------------------------------------------------------
         
@@ -110,7 +102,7 @@ public class CapitainerieWindow extends javax.swing.JFrame {
                 System.err.println("Fichier rempli");
                 vBateauAmarré = (Vector < Bateau >)Persistance.LoadObject(Persistance.getPath("bateauPath"));
                 
-                Persistance.WriteLog(getCurrentDate(DateFormat.SHORT, DateFormat.MEDIUM, Locale.FRANCE) + " - Chargement du fichier bateaux.bat", getPath("logPath"));   
+                Persistance.WriteLog(date.getLogDate()+ " - Chargement du fichier bateaux.bat", getPath("logPath"));   
             }
             
         }
@@ -179,16 +171,12 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         //----------------------------------------------------------------------
         
         // Display current date ------------------------------------------------
+        Label_CurrentDate.setText(date.getLogDate());
         
-        setFormatDate(DateFormat.SHORT);
-        setFormatHeure(DateFormat.SHORT);
-        setFormatLocale(Locale.FRANCE);
-        displayDate();
         
         // ---------------------------------------------------------------------
         
         // Insertion vector dans JList -----------------------------------------
-        
         insertListBateau();
         
         // ---------------------------------------------------------------------
@@ -559,7 +547,7 @@ public class CapitainerieWindow extends javax.swing.JFrame {
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         try {
-            Persistance.WriteLog(getCurrentDate(DateFormat.SHORT, DateFormat.MEDIUM, Locale.FRANCE) + " - Déconnexion de l'utilisateur", getPath("logPath"));
+            Persistance.WriteLog(date.getLogDate()+ " - Deconnexion de l'utilisateur", getPath("logPath"));
         } catch (IOException ex) {
             System.err.println(ex.getMessage());;
         }
@@ -577,7 +565,7 @@ public class CapitainerieWindow extends javax.swing.JFrame {
     private void MenuItem_LoginActionPerformed(java.awt.event.ActionEvent evt) {
         LW.setVisible(true);
         try {
-            Persistance.WriteLog(getCurrentDate(DateFormat.SHORT, DateFormat.MEDIUM, Locale.FRANCE) + " - Déconnexion de l'utilisateur", getPath("logPath"));
+            Persistance.WriteLog(date.getLogDate()+ " - Deconnexion de l'utilisateur", getPath("logPath"));
         } catch (IOException ex) {
             System.err.println(ex.getMessage());
         }
@@ -689,7 +677,7 @@ public class CapitainerieWindow extends javax.swing.JFrame {
     private void Button_ServeurOnActionPerformed(java.awt.event.ActionEvent evt) {                                                 
         nbs = new NetworkBasicServer(Integer.parseInt(propertiesConfig.get("portServer").toString()), CheckBox_RequeteAttente);
         try {
-            Persistance.WriteLog(getCurrentDate(DateFormat.SHORT, DateFormat.MEDIUM, Locale.FRANCE) + " - Démarrage du serveur", getPath("logPath"));
+            Persistance.WriteLog(date.getLogDate()+ " - Démarrage du serveur", getPath("logPath"));
         } catch (IOException ex) {
             System.err.println(ex.getMessage());
         }
@@ -787,7 +775,7 @@ public class CapitainerieWindow extends javax.swing.JFrame {
             TextField_Requete.setText(req);
         }
         try {
-            Persistance.WriteLog(getCurrentDate(DateFormat.SHORT, DateFormat.MEDIUM, Locale.FRANCE) + " - Lecture d'un message serveur" , getPath("logPath"));
+            Persistance.WriteLog(date.getLogDate() + " - Lecture d'un message serveur" , getPath("logPath"));
         } catch (IOException ex) {
             System.err.println(ex.getMessage());
         }
@@ -850,7 +838,7 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         insertListBateau();
         
         try {
-            Persistance.WriteLog(getCurrentDate(DateFormat.SHORT, DateFormat.MEDIUM, Locale.FRANCE) + " - Insertion d'un nouveau bateau " + tmp.getNom() , getPath("logPath"));
+            Persistance.WriteLog(date.getLogDate()+ " - Insertion d'un nouveau bateau " + tmp.getNom() , getPath("logPath"));
         } catch (IOException ex) {
             System.err.println(ex.getMessage());
         }
@@ -903,36 +891,6 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         Image2.setEnabled(tmp);
         Label_AmarragePossible.setEnabled(tmp);
         Label_BateauxEnEntree.setEnabled(tmp);
-    }
-    
-    public String getCurrentDate(int fDate, int fHeure, Locale pays)
-    {
-        Date date = new Date();
-        String currentDate = DateFormat.getDateTimeInstance(fDate,fHeure,pays).format(date);
-        return currentDate;
-    }
-    
-    private void displayDate()
-    {
-        Thread thread = new Thread()
-        {
-            public void run()
-            {
-               while(true)
-               {
-                   Label_CurrentDate.setText(getCurrentDate(formatDate, formatHeure, formatPays));
-                   try 
-                   {
-                       sleep(1000);
-                   } 
-                   catch (InterruptedException ex) 
-                   {
-                       ex.getMessage();
-                   }
-               }     
-            }
-        };
-        thread.start();
     }
     
     public void insertListBateau()
@@ -988,7 +946,20 @@ public class CapitainerieWindow extends javax.swing.JFrame {
         // Chargement des bateaux dans le Vector
         vBateauAmarré = (Vector < Bateau >)Persistance.LoadObject(Persistance.getPath("bateauPath"));
         
-        Persistance.WriteLog(getCurrentDate(DateFormat.SHORT, DateFormat.MEDIUM, Locale.FRANCE) + " - Chargement du fichier bateaux.bat" , getPath("logPath"));
+        Persistance.WriteLog(date.getLogDate()+ " - Chargement du fichier bateaux.bat" , getPath("logPath"));
+    }
+    
+    public void changeDate(currentDate newDate) throws IOException
+    {
+        date = newDate;
+        
+        Label_CurrentDate.setText(date.getCurrentDate());
+        
+        String formatDate = Integer.toString(date.getDate()) + "/" + Integer.toString(date.getHeure()) + "/" + date.getPays().getLanguage();
+        
+        propertiesConfig.replace("formatDate", formatDate);
+        
+        Persistance.SaveProperties(propertiesConfig,getPathConfig());
     }
     
     /**
