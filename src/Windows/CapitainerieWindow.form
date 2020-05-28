@@ -125,6 +125,14 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuItem_LogActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="MenuItem_PortServeur">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Port Serveur"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MenuItem_PortServeurActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JCheckBoxMenuItem" name="CheckBoxMenuItem_AffichageDate">
               <Properties>
                 <Property name="selected" type="boolean" value="true"/>

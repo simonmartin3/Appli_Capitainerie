@@ -6,7 +6,7 @@
 package Windows;
 
 import Classes.Persistance;
-import static Classes.Persistance.getPathLogin;
+import static Classes.Persistance.*;
 import Exception.LoginException;
 import java.io.IOException;
 import java.util.Enumeration;
@@ -37,7 +37,7 @@ public class NewLoginWindow extends javax.swing.JDialog {
         this.setResizable(false);
         
         // Chargement du fichier properties des logins
-        propertiesLogin = Persistance.LoadProperties(getPathLogin());
+        propertiesLogin = Persistance.LoadProperties(getPath("loginPath"));
     }
 
     /**
@@ -172,7 +172,7 @@ public class NewLoginWindow extends javax.swing.JDialog {
                 propertiesLogin.setProperty(user, pass); 
            
                 //On ajoute les utilisateur
-                Persistance.SaveProperties(propertiesLogin,getPathLogin());
+                Persistance.SaveProperties(propertiesLogin,getPath("loginPath"));
                 this.dispose();
                 
             }

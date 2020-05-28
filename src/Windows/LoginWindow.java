@@ -37,7 +37,7 @@ public class LoginWindow extends javax.swing.JFrame {
     
     public LoginWindow() throws IOException {
         // Chargement du fichier properties des logins
-        propertiesLogin = Persistance.LoadProperties(getPathLogin()); 
+        propertiesLogin = Persistance.LoadProperties(getPath("loginPath")); 
              
         //Le fichier properties des logins n'existe pas, on le crée
         if(propertiesLogin.isEmpty())        
@@ -46,10 +46,10 @@ public class LoginWindow extends javax.swing.JFrame {
             propertiesLogin.setProperty("root","root"); 
            
             //On ajoute les utilisateur
-            Persistance.SaveProperties(propertiesLogin,getPathLogin());
+            Persistance.SaveProperties(propertiesLogin,getPath("loginPath"));
             
             // On charge le fichier qu'on vient de créer
-            propertiesLogin = Persistance.LoadProperties(getPathLogin());
+            propertiesLogin = Persistance.LoadProperties(getPath("loginPath"));
         }
         
         initComponents();
@@ -199,7 +199,7 @@ public class LoginWindow extends javax.swing.JFrame {
             CapitainerieWindow CW;
             CW = new CapitainerieWindow(this, hmap);
             CW.setVisible(true);
-            Persistance.WriteLog(CW.getCurrentDate(DateFormat.SHORT, DateFormat.MEDIUM, Locale.FRANCE) + " - Connexion de l'utilisateur : " + user, getPathLog());
+            Persistance.WriteLog(CW.getCurrentDate(DateFormat.SHORT, DateFormat.MEDIUM, Locale.FRANCE) + " - Connexion de l'utilisateur : " + user, getPath("logPath"));
             this.dispose(); // Fermeture de la fenetre de connexion
         }
         else throw new LoginException("Connexion échoué (Erreur mot de passe) !");        

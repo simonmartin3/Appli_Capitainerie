@@ -1,8 +1,10 @@
 package Windows;
 
 import Classes.Persistance;
+import static Classes.Persistance.*;
 import java.io.File;
 import java.io.IOException;
+import java.util.Properties;
 
 
 /*
@@ -23,10 +25,26 @@ public class main {
      */
     public static void main(String[] args) throws IOException {
         
+        // Chargement du fichier properties des config
+        Properties propertiesConfig = Persistance.LoadProperties(getPathConfig());
+             
+        //Le fichier properties des logins n'existe pas, on le crée
+        if(propertiesConfig.isEmpty())        
+        { 
+            propertiesConfig.setProperty("loginPath", System.getProperty("user.dir") + System.getProperty("file.separator") + "src" + System.getProperty("file.separator") + "Config" + System.getProperty("file.separator") + "login.properties"); 
+            propertiesConfig.setProperty("bateauPath",System.getProperty("user.dir") + System.getProperty("file.separator") + "src" + System.getProperty("file.separator") + "Config" + System.getProperty("file.separator") + "bateaux.dat");
+            propertiesConfig.setProperty("logPath",System.getProperty("user.dir") + System.getProperty("file.separator") + "src" + System.getProperty("file.separator") + "Config" + System.getProperty("file.separator") + "log.txt");
+            propertiesConfig.setProperty("portServer","50000");
+           
+            //On ajoute les properties
+            Persistance.SaveProperties(propertiesConfig,getPathConfig());
+        }
+        
+        
         // On vérifie si le fichier bateaux existe sinon on le crée
-        if(!new File(Persistance.getPathBateau()).exists())
+        if(!new File(Persistance.getPath("bateauPath")).exists())
 	{
-            new File(Persistance.getPathBateau()).createNewFile();
+            new File(Persistance.getPath("bateauPath")).createNewFile();
             System.out.println ("Création du fichier bateaux.bat");
         }else
 	{
@@ -34,9 +52,9 @@ public class main {
 	}
         
         // On vérifie si le fichier des logs existe sinon on le crée
-        if(!new File(Persistance.getPathLog()).exists())
+        if(!new File(Persistance.getPath("logPath")).exists())
 	{
-            new File(Persistance.getPathLog()).createNewFile();
+            new File(Persistance.getPath("logPath")).createNewFile();
             System.out.println ("Création du fichier log.txt");
         }else
 	{

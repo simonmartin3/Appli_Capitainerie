@@ -7,7 +7,7 @@ package Windows;
 
 import Classes.Bateau;
 import Classes.Persistance;
-import static Classes.Persistance.getPathLog;
+import static Classes.Persistance.*;
 import Exception.NumberFormatException;
 import static Windows.LoginWindow.isNullOrEmpty;
 import java.io.IOException;
@@ -282,7 +282,7 @@ public class InfoBateauWindow extends javax.swing.JFrame {
                     
                     CW.saveandload();
 
-                    Persistance.WriteLog(CW.getCurrentDate(DateFormat.SHORT, DateFormat.MEDIUM, Locale.FRANCE) + " - Modification du bateau " + tmpBateau.getNom(), getPathLog());
+                    Persistance.WriteLog(CW.getCurrentDate(DateFormat.SHORT, DateFormat.MEDIUM, Locale.FRANCE) + " - Modification du bateau " + tmpBateau.getNom(), getPath("logPath"));
                     
                     this.dispose();
                 }

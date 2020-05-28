@@ -1,15 +1,27 @@
-12/05/20 17:10:53 - Chargement du fichier bateaux.bat.
-12/05/20 17:10:55 - Connexion de l'utilisateur : root.
-12/05/20 17:11:12 - Démarrage du serveur.
-12/05/20 17:11:41 - Lecture d'un message serveur.
-12/05/20 17:12:39 - Lecture d'un message serveur.
-12/05/20 17:12:40 - Insertion d'un nouveau bateau Luna.
-12/05/20 17:12:40 - Chargement du fichier bateaux.bat.
-12/05/20 17:12:47 - Déconnexion de l'utilisateur.
-12/05/20 17:14:48 - Chargement du fichier bateaux.bat.
-12/05/20 17:14:48 - Connexion de l'utilisateur : root.
-12/05/20 17:14:49 - Démarrage du serveur.
-12/05/20 17:14:57 - Lecture d'un message serveur.
-12/05/20 17:15:32 - Insertion d'un nouveau bateau Luna.
-12/05/20 17:15:32 - Chargement du fichier bateaux.bat.
-12/05/20 17:15:41 - Déconnexion de l'utilisateur.
+28/05/20 12:56:29 - Chargement du fichier bateaux.bat.
+28/05/20 12:56:29 - Connexion de l'utilisateur : root.
+28/05/20 12:56:38 - Déconnexion de l'utilisateur.
+28/05/20 13:04:39 - Chargement du fichier bateaux.bat.
+28/05/20 13:04:40 - Connexion de l'utilisateur : root.
+28/05/20 13:04:43 - Démarrage du serveur.
+28/05/20 13:04:52 - Déconnexion de l'utilisateur.
+28/05/20 13:05:05 - Chargement du fichier bateaux.bat.
+28/05/20 13:05:05 - Connexion de l'utilisateur : root.
+28/05/20 13:05:08 - Démarrage du serveur.
+28/05/20 13:05:12 - Déconnexion de l'utilisateur.
+28/05/20 13:09:42 - Chargement du fichier bateaux.bat.
+28/05/20 13:09:42 - Connexion de l'utilisateur : root.
+28/05/20 13:09:45 - Démarrage du serveur.
+28/05/20 13:10:51 - Chargement du fichier bateaux.bat.
+28/05/20 13:10:51 - Connexion de l'utilisateur : root.
+28/05/20 13:10:52 - Démarrage du serveur.
+28/05/20 13:10:58 - Démarrage du serveur.
+28/05/20 13:11:07 - Déconnexion de l'utilisateur.
+28/05/20 13:12:11 - Chargement du fichier bateaux.bat.
+28/05/20 13:12:11 - Connexion de l'utilisateur : root.
+28/05/20 13:12:14 - Déconnexion de l'utilisateur.
+28/05/20 13:15:29 - Chargement du fichier bateaux.bat.
+28/05/20 13:15:30 - Connexion de l'utilisateur : root.
+28/05/20 13:15:32 - Démarrage du serveur.
+28/05/20 13:15:35 - Déconnexion de l'utilisateur.
+28/05/20 13:15:49 - Déconnexion de l'utilisateur.
